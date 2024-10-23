@@ -1,0 +1,7 @@
+POST    /api/users/login
+POST    /api/users/register
+POST    /api/users/logout
+GET     /api/users/profile
+PUT     /api/users/profile
+DELETE  /api/users/profile
+
