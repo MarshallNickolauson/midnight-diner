@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { setCredentials } from '../features/auth/authSlice';
-import { useUpdateMutation } from '../features/auth/usersApiSlice';
+import { useLogoutMutation, useUpdateMutation } from '../features/auth/usersApiSlice';
 
 const MyAccountPage = () => {
   const location = useLocation();
@@ -19,6 +19,7 @@ const MyAccountPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateMutation();
+  const [logoutApiCall] = useLogoutMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -48,7 +49,19 @@ const MyAccountPage = () => {
         console.log(err?.data?.message || err.error);
       }
     }
-  };
+  }
+
+  const handleLogout = async () => {
+    console.log('here1');
+    try {
+      console.log('here1');
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="flex justify-center items-start pt-10 min-h-screen bg-mainDarkGray">
@@ -114,13 +127,26 @@ const MyAccountPage = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="bg-mainBlack w-full mt-3 hover:bg-mainYellow hover:border-mainYellow hover:text-mainYellow cursor-pointer border-2 border-mainYellow transition-all duration-300 ease-in-out group py-3"
+              className="bg-mainYellow w-full mt-3 hover:bg-mainBlack cursor-pointer border-2 border-mainYellow transition-all duration-300 ease-in-out group py-3"
             >
-              <h1 className="text-mainYellow text-lg transition-all duration-100 ease-in-out group-hover:text-mainBlack">
+              <h1 className="text-mainBlack text-lg transition-all duration-100 ease-in-out group-hover:text-mainYellow">
                 Update Profile
               </h1>
             </button>
           </div>
+
+          <div className="flex justify-center">
+            <button
+              onClick={handleLogout}
+              type='button'
+              className="bg-mainBlack w-full hover:bg-mainYellow hover:border-mainYellow hover:text-mainYellow cursor-pointer border-2 border-mainYellow transition-all duration-300 ease-in-out group py-3"
+            >
+              <h1 className="text-mainYellow text-lg transition-all duration-100 ease-in-out group-hover:text-mainBlack">
+                Logout
+              </h1>
+            </button>
+          </div>
+
         </form>
       </div>
     </div>
