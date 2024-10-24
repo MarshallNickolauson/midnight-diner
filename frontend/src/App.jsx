@@ -2,6 +2,7 @@ import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } 
 import MainLayout from './layouts/MainLayout'
 import NotFoundPage from './pages/NotFoundPage';
 import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
 
@@ -10,6 +11,7 @@ function App() {
       <Route path='/' element={<MainLayout />} >
         <Route index element={<HomePage />} />
         <Route path='*' element={<NotFoundPage />} />
+        <Route path='/login' element={<LoginPage />} />
       </Route>
     )
   );
