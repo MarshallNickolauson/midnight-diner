@@ -17,6 +17,7 @@ export default {
         roboto: ['Roboto', 'sans-serif'],
         ropa: ['Ropa Sans', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
+        oswald: ['Oswald', 'sans-serif'],
       },
     },
   },
