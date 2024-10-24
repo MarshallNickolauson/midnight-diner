@@ -7,10 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        mainBlack: '#151501',
-        mainDarkGray: '#202020',
-        mainYellow: '#E1D816',
-        mainWhite: '#F4F4F4'
+        mainBlack: '#1E1B1A',
+        mainDarkGray: '#353332',
+        mainYellow: '#FFD241',
+        mainWhite: '#E8E6E5'
       },
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],
