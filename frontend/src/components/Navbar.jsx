@@ -1,5 +1,5 @@
 import logo from '../assets/img/midnight-diner-logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import YellowButtonFilled from './YellowButtonFilled';
 import YellowButtonHollow from './YellowButtonHollow';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +8,10 @@ import { logout } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
+  const location = useLocation();
+
+  const isMyAccountPage = location.pathname === '/my-account';
+
   const { userInfo } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
@@ -15,7 +19,9 @@ function Navbar() {
   const [logoutApiCall] = useLogoutMutation();
 
   const handleLogout = async () => {
+    console.log('here1');
     try {
+      console.log('here1');
       await logoutApiCall().unwrap();
       dispatch(logout());
       navigate('/');
@@ -37,8 +43,18 @@ function Navbar() {
           </div>
         </div>
         <div className="flex space-x-4">
-          <YellowButtonFilled text='Order Now' navigateTo='/welcome'/>
-          {userInfo ? (<div><YellowButtonHollow text='My Account' navigateTo='/my-account'/></div>) : (<YellowButtonHollow text='Login' navigateTo='login'/>)}
+          <YellowButtonFilled text='Order Now' navigateTo='/welcome' />
+          {userInfo ? (
+            isMyAccountPage ? (
+              <div onClick={handleLogout}>
+                <YellowButtonHollow text='Logout' />
+              </div>
+            ) : (
+              <YellowButtonHollow text='My Account' navigateTo='/my-account' />
+            )
+          ) : (
+            <YellowButtonHollow text='Login' navigateTo='/login' />
+          )}
         </div>
       </div>
     </nav>
