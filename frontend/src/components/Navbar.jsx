@@ -32,14 +32,13 @@ function Navbar() {
           <div className='space-x-6 text-white text-lg'>
             <Link className='hover:underline' to='/'>Home</Link>
             <Link className='hover:underline' to='/menu'>Menu</Link>
-            <Link className='hover:underline' to='/reservations'>Reservations</Link>
-            <Link className='hover:underline' to='/takeout'>Takeout</Link>
             <Link className='hover:underline' to='/about'>About Us</Link>
+            <Link className='hover:underline' to='/reservations'>Reservations</Link>
           </div>
         </div>
         <div className="flex space-x-4">
           <YellowButtonFilled text='Order Now' navigateTo='/welcome'/>
-          {userInfo ? (<div onClick={handleLogout}><YellowButtonHollow text='Logout'/></div>) : (<YellowButtonHollow text='Login' navigateTo='login'/>)}
+          {userInfo ? (<div><YellowButtonHollow text='My Account' navigateTo='/my-account'/></div>) : (<YellowButtonHollow text='Login' navigateTo='login'/>)}
         </div>
       </div>
     </nav>

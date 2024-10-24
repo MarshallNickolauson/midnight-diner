@@ -15,7 +15,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             query: (data) => ({
                 url: `${USERS_URL}/logout`,
                 method: 'POST',
-                credentials: 'include'
+                credentials: 'include',
+            })
+        }),
+        register: builder.mutation({
+            query: (data) => ({
+                url: `${USERS_URL}/register`,
+                method: 'POST',
+                body: data,
+                credentials: 'include',
             })
         })
     })
@@ -24,4 +32,5 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 export const {
     useLoginMutation, // GET will be "useLoginQuery" for something like the profile (delete me)
     useLogoutMutation,
+    useRegisterMutation,
 } = usersApiSlice;

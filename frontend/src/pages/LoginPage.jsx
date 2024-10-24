@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { setCredentials } from '../features/auth/authSlice';
 import { useLoginMutation } from '../features/auth/usersApiSlice';
 
 const LoginPage = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [location]);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -33,11 +39,11 @@ const LoginPage = () => {
 
     return (
         <div className="flex justify-center items-start pt-12 min-h-screen bg-mainDarkGray">
-            <div className="bg-mainBlack p-10 shadow-lg border-2 border-mainWhite w-[350px]">
-                <h1 className="text-mainWhite font-bold text-2xl mb-6 text-center">Login</h1>
+            <div className="bg-mainBlack p-10 shadow-lg border-2 mb-10 border-mainWhite w-[350px]">
+                <h1 className="text-mainWhite text-2xl mb-5 text-center">Login</h1>
                 <form onSubmit={handleLogin} className="space-y-6">
                     <div className="space-y-2">
-                        <label htmlFor="email" className="block text-mainWhite font-bold">
+                        <label htmlFor="email" className="block text-mainWhite">
                             Email
                         </label>
                         <input
@@ -47,10 +53,11 @@ const LoginPage = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-3 py-2 border border-mainWhite focus:outline-none focus:ring-1 focus:ring-mainWhite transition-all duration-100 ease-in-out bg-mainDarkGray text-mainWhite"
                             required
+                            placeholder='Your email'
                         />
                     </div>
                     <div className="space-y-2">
-                        <label htmlFor="password" className="block text-mainWhite font-bold">
+                        <label htmlFor="password" className="block text-mainWhite">
                             Password
                         </label>
                         <input
@@ -60,14 +67,21 @@ const LoginPage = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full px-3 py-2 border border-mainWhite focus:outline-none focus:ring-1 focus:ring-mainWhite transition-all duration-100 ease-in-out bg-mainDarkGray text-mainWhite"
                             required
+                            placeholder='Your password'
                         />
                     </div>
+
+                    <div onClick={() => navigate('/register')} className='text-blue-400 text-sm space-y-1 inline-block hover:text-mainWhite hover:cursor-pointer transition-all duration-100'>
+                        <p className='text-md'>Need an account?</p>
+                        <p className='text-xs'>You can order faster!</p>
+                    </div>
+
                     <div className="flex justify-center">
                         <button
                             type="submit"
                             className="bg-mainBlack w-full hover:bg-mainYellow hover:border-mainYellow hover:text-mainYellow cursor-pointer border-2 border-mainYellow transition-all duration-300 ease-in-out group py-3"
                         >
-                            <h1 className="text-mainYellow font-bold text-lg transition-all duration-100 ease-in-out group-hover:text-mainBlack">
+                            <h1 className="text-mainYellow text-lg transition-all duration-100 ease-in-out group-hover:text-mainBlack">
                                 Log In
                             </h1>
                         </button>
