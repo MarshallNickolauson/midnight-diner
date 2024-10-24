@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { setCredentials } from '../features/auth/authSlice';
+import { logout, setCredentials } from '../features/auth/authSlice';
 import { useLogoutMutation, useUpdateMutation } from '../features/auth/usersApiSlice';
 
 const MyAccountPage = () => {
@@ -44,7 +44,6 @@ const MyAccountPage = () => {
         dispatch(setCredentials({ ...res }));
         setPassword('');
         setConfirmPassword('');
-        console.log('Updated!');
       } catch (err) {
         console.log(err?.data?.message || err.error);
       }
@@ -52,12 +51,12 @@ const MyAccountPage = () => {
   }
 
   const handleLogout = async () => {
-    console.log('here1');
     try {
-      console.log('here1');
       await logoutApiCall().unwrap();
       dispatch(logout());
-      navigate('/');
+      setTimeout(() => {
+        navigate('/');
+      }, 1);
     } catch (error) {
       console.log(error);
     }
