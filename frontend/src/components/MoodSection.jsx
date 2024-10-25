@@ -4,8 +4,8 @@ import YellowButtonFilled from './YellowButtonFilled'
 
 const MoodSection = () => {
     return (
-        <section className='bg-mainBlack pb-10'>
-            <div className='flex justify-center text-center pt-5 pb-5'>
+        <section className='bg-mainBlack pb-16'>
+            <div className='flex justify-center text-center pt-5 pb-12'>
                 <div className='flex flex-row text-[3rem] font-bold'>
                     <h1 className='text-mainWhite font-bold mr-3'>WHAT'S YOUR</h1>
                     <h1 className='text-mainYellow'>MOOD?</h1>

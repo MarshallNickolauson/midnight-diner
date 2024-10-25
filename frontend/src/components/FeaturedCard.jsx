@@ -8,7 +8,7 @@ const FeaturedCard = ({ image, title, description, navigateTo = '/' }) => {
     }
     
     return (
-        <div onClick={handleNavigate} className="bg-gray-50 rounded-lg overflow-hidden shadow-lg w-80 transition-transform transform hover:scale-105 duration-200 ease-in-out hover:cursor-pointer">
+        <div onClick={handleNavigate} className="bg-gray-50 rounded-lg overflow-hidden shadow-lg w-80 transition-transform transform hover:scale-[1.02] duration-200 ease-in-out hover:cursor-pointer">
             <img className="w-full h-80 object-cover" src={image} alt={title} />
             <div className="p-4">
                 <h1 className="text-xl font-bold text-mainBlack mb-2">{title}</h1>
