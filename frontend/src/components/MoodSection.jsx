@@ -5,14 +5,14 @@ import YellowButtonFilled from './YellowButtonFilled';
 const MoodSection = () => {
     return (
         <section className='bg-mainBlack pb-16'>
-            <div className='flex justify-center text-center pt-5 pb-12'>
+            <div className='flex justify-center text-center pt-5 pb-10'>
                 <div className='flex flex-row text-[3rem] font-bold'>
                     <h1 className='text-mainWhite font-bold mr-3'>WHAT'S YOUR</h1>
                     <h1 className='text-mainYellow'>MOOD?</h1>
                 </div>
             </div>
             <div className='flex flex-row justify-center space-x-4 text-mainWhite'>
-                {/* Left Block: Dine-In */}
+
                 <div className='flex flex-row items-center space-x-6 p-4 text-right'>
                     <img className="w-64 h-64 object-cover rounded-lg" src={peopleEating} alt="Dine-In Image" />
                     <div className='flex flex-col items-end text-mainWhite space-y-8'>
@@ -24,7 +24,6 @@ const MoodSection = () => {
 
                 <div className='border-r-2 border-mainWhite'></div>
 
-                {/* Right Block: Takeout */}
                 <div className='flex flex-row items-center space-x-6 p-4 text-left'>
                     <div className='flex flex-col items-start text-mainWhite space-y-8'>
                         <h1 className='font-bold tracking-wider text-3xl'>Takeout</h1>

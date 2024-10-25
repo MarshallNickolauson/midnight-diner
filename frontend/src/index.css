@@ -14,3 +14,7 @@ html {
 .white-shadow:hover {
     box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
 }
+
+.bg-mainYellowGradient {
+    background: linear-gradient(90deg, #ffe876 0%, #f6d73e 35%, #ffc400ec 100%);
+}

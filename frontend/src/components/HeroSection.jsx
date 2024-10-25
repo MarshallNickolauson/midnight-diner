@@ -3,8 +3,8 @@ import YellowButtonFilled from '../components/YellowButtonFilled'
 
 const HeroSection = () => {
     return (
-        <section className='bg-mainBlack mb-10'>
-            <div className="flex flex-row justify-center pt-10 pb-1 text-[4rem] font-bold">
+        <section className='bg-mainBlack py-12'>
+            <div className="flex flex-row justify-center pb-1 text-[4rem] font-bold">
                 <h1 className='text-mainWhite mr-3'>WELCOME TO</h1>
                 <h1 className='text-mainYellow'>MIDNIGHT DINER</h1>
             </div>

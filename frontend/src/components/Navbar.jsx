@@ -16,7 +16,8 @@ function Navbar() {
             <Link className='hover:underline' to='/'>Home</Link>
             <Link className='hover:underline' to='/menu'>Menu</Link>
             <Link className='hover:underline' to='/about'>About Us</Link>
-            <Link className='hover:underline' to='/reservations'>Reservations</Link>
+            <Link className='hover:underline' to='/locations'>Locations</Link>
+            <Link className='hover:underline' to='/booking'>Reservations</Link>
           </div>
         </div>
 
@@ -30,7 +31,7 @@ function Navbar() {
             </div>
           )}
           <YellowButtonFilled text='Order Now' navigateTo='/order' />
-          <YellowButtonHollow text='View Menu' navigateTo='/menu' />
+          <YellowButtonHollow text='Rewards' navigateTo='/rewards' />
         </div>
       </div>
     </nav>
