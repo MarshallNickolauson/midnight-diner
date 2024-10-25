@@ -7,7 +7,7 @@ const FeaturedSection = () => {
 
 
     return (
-        <div className='bg-mainWhite'>
+        <section className='bg-mainWhite'>
             <div className='flex justify-center text-center pt-5'>
                 <div className='flex flex-col'>
                     <h1 className='text-[3rem] text-mainBlack font-bold'>FEATURED FAVORITES</h1>
@@ -34,7 +34,7 @@ const FeaturedSection = () => {
                     navigateTo='/menu'
                 />
             </div>
-        </div>
+        </section>
     )
 }
 
