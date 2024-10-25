@@ -10,8 +10,8 @@ const FeaturedSection = () => {
         <section className='bg-mainWhite'>
             <div className='flex justify-center text-center pt-5'>
                 <div className='flex flex-col'>
-                    <h1 className='text-[3rem] text-mainBlack font-bold'>FEATURED FAVORITES</h1>
-                    <h1 className='text-[1.5rem]'>Taste our chef's top picks.</h1>
+                    <h1 className='text-[3rem] text-mainBlack font-bold'>MOST <span className='text-mainRed'>POPULAR</span> ITEMS</h1>
+                    <h1 className='text-[1.5rem]'>Our customers' top picks.</h1>
                 </div>
             </div>
             <div className='pb-10 pt-10 flex flex-wrap justify-center gap-6 pl-6 pr-6'>
