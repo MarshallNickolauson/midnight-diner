@@ -8,6 +8,7 @@ dotenv.config();
 const port = process.env.BACKEND_PORT || 5000;
 
 import userRoutes from './routes/userRoutes.js';
+import menuRoutes from './routes/menuItemRoute.js';
 
 connectDB();
 
@@ -15,8 +16,8 @@ const app = express();
 
 if (process.env.NODE_ENV === 'development') {
     app.use(cors({
-        origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Allow your frontend URL
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Specify allowed methods
+        origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         credentials: true,  
     }));
 }
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/api/users', userRoutes);
+app.use('/api/menu', menuRoutes);
 
 app.use(errorHandler);
 
