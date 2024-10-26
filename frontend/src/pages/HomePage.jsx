@@ -1,4 +1,5 @@
 import AboutSection from "../components/AboutSection"
+import ContactSection from "../components/ContactSection"
 import CTASection from "../components/CTASection"
 import FeaturedSection from "../components/FeaturedSection"
 import HeroSection from "../components/HeroSection"
@@ -14,6 +15,7 @@ const HomePage = () => {
       <TestimonialsSection />
       <AboutSection />
       <CTASection />
+      <ContactSection />
     </>
   )
 }

@@ -4,9 +4,9 @@ import BlackButtonHollow from './BlackButtonHollow'
 const CTASection = () => {
     return (
         <div className='bg-mainYellowGradient py-12'>
-            <div className="w-8/12 mx-auto text-mainBlack space-y-6">
-                <div>
-                    <h1 className='font-bold text-[3rem] text-left pb-1'>READY TO EAT?</h1>
+            <div className="flex flex-col justify-center items-center text-mainBlack space-y-6">
+                <div className='text-center'>
+                    <h1 className='font-bold text-[3.5rem] pb-2'>READY TO EAT?</h1>
                     <p>Join us for a night of delicious flavors and good company.</p>
                     <p>Or, build your own order for carry-out.</p>
                 </div>
