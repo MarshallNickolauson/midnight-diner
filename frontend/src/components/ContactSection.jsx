@@ -16,7 +16,11 @@ const ContactSection = () => {
 
         setError('');
 
-        console.log({ name, email, message })
+        console.log({ name, email, message });
+
+        setName('');
+        setEmail('');
+        setMessage('');
     }
 
     return (
