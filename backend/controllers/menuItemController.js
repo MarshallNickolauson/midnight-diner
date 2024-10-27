@@ -96,9 +96,9 @@ export const updateMenuItem = expressAsyncHandler(async (req, res) => {
         menuItem.category = req.body.category || menuItem.category;
         menuItem.ingredients = req.body.ingredients || menuItem.ingredients;
         menuItem.imageUrl = req.body.imageUrl || menuItem.imageUrl;
-        menuItem.availability = req.body.availability || menuItem.availability;
         menuItem.prepTime = req.body.prepTime || menuItem.prepTime;
-        menuItem.featured = req.body.featured || menuItem.featured;
+        menuItem.availability = req.body.availability !== undefined ? req.body.availability : menuItem.availability;
+        menuItem.featured = req.body.featured !== undefined ? req.body.featured : menuItem.featured;
 
         const updatedMenuItem = await menuItem.save();
 

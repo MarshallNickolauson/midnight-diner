@@ -49,6 +49,8 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
                 featured,
             };
 
+            console.log('Submitting form data:', formData);
+
             try {
                 if (!item) {
                     await addMenuItem(formData).unwrap();
