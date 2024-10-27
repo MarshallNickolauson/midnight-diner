@@ -32,6 +32,12 @@ const menuSlice = createSlice({
                     }
                 }
             )
+            .addMatcher(
+                menuApiSlice.endpoints.deleteMenuItem.matchFulfilled,
+                (state, action) => {
+                    state.menuItems = state.menuItems.filter(item => item.id !== action.payload._id);
+                }
+            )
     }
 });
 
