@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useAddMenuItemMutation, useDeleteMenuItemMutation, useUpdateMenuItemMutation } from "../features/menu/menuApiSlice";
 
 const ItemFormModal = ({ isOpen, onClose, item = null }) => {
-    const dispatch = useDispatch();
     const [addMenuItem] = useAddMenuItemMutation();
     const [updateMenuItem] = useUpdateMenuItemMutation();
     const [deleteMenuItem] = useDeleteMenuItemMutation();

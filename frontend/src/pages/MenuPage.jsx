@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useGetMenuItemsQuery } from '../features/menu/menuApiSlice';
 
 import MenuItemCarousel from '../components/MenuItemCarousel';
@@ -7,7 +7,6 @@ import ItemFormModal from '../components/ItemFormModal';
 import MenuItemCardModal from '../components/MenuItemCardModal';
 
 const MenuPage = () => {
-    const dispatch = useDispatch();
     useGetMenuItemsQuery();
     const [isItemFormModalOpen, setItemFormModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
