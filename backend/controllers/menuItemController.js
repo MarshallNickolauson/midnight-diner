@@ -20,11 +20,13 @@ export const getSingleMenuItem = expressAsyncHandler(async (req, res) => {
             name: menuItem.name,
             description: menuItem.description,
             price: menuItem.price,
+            salePrice: menuItem.salePrice,
             category: menuItem.category,
             ingredients: menuItem.ingredients,
             imageUrl: menuItem.imageUrl,
             availability: menuItem.availability,
-            prepTime: menuItem.prepTime
+            prepTime: menuItem.prepTime,
+            featured: menuItem.featured
         });
     } else {
         res.status(404);
@@ -40,22 +42,26 @@ export const createMenuItem = expressAsyncHandler(async (req, res) => {
         name,
         description,
         price,
+        salePrice,
         category,
         ingredients,
         imageUrl,
         availability,
-        prepTime
+        prepTime,
+        featured
     } = req.body;
 
     const menuItem = await MenuItem.create({
         name,
         description,
         price,
+        salePrice,
         category,
         ingredients,
         imageUrl,
         availability,
-        prepTime
+        prepTime,
+        featured
     });
     if (menuItem) {
         res.status(201).json({
@@ -63,11 +69,13 @@ export const createMenuItem = expressAsyncHandler(async (req, res) => {
             name: menuItem.name,
             description: menuItem.description,
             price: menuItem.price,
+            salePrice: menuItem.salePrice,
             category: menuItem.category,
             ingredients: menuItem.ingredients,
             imageUrl: menuItem.imageUrl,
             availability: menuItem.availability,
-            prepTime: menuItem.prepTime
+            prepTime: menuItem.prepTime,
+            featured: menuItem.featured
         });
     } else {
         res.status(400);
@@ -84,11 +92,13 @@ export const updateMenuItem = expressAsyncHandler(async (req, res) => {
         menuItem.name = req.body.name || menuItem.name;
         menuItem.description = req.body.description || menuItem.description;
         menuItem.price = req.body.price || menuItem.price;
+        menuItem.salePrice = req.body.salePrice || menuItem.salePrice;
         menuItem.category = req.body.category || menuItem.category;
         menuItem.ingredients = req.body.ingredients || menuItem.ingredients;
         menuItem.imageUrl = req.body.imageUrl || menuItem.imageUrl;
         menuItem.availability = req.body.availability || menuItem.availability;
         menuItem.prepTime = req.body.prepTime || menuItem.prepTime;
+        menuItem.featured = req.body.featured || menuItem.featured;
 
         const updatedMenuItem = await menuItem.save();
 
@@ -97,11 +107,13 @@ export const updateMenuItem = expressAsyncHandler(async (req, res) => {
             name: updatedMenuItem.name,
             description: updatedMenuItem.description,
             price: updatedMenuItem.price,
+            salePrice: updatedMenuItem.salePrice,
             category: updatedMenuItem.category,
             ingredients: updatedMenuItem.ingredients,
             imageUrl: updatedMenuItem.imageUrl,
             availability: updatedMenuItem.availability,
-            prepTime: updatedMenuItem.prepTime
+            prepTime: updatedMenuItem.prepTime,
+            featured: updatedMenuItem.featured
         });
     } else {
         res.status(404);

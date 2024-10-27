@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import MyAccountPage from './pages/MyAccountPage';
 import PrivateRoute from './components/PrivateRoute';
+import MenuPage from './pages/MenuPage';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path='*' element={<NotFoundPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
+        <Route path='/menu' element={<MenuPage />} />
         <Route path='' element={<PrivateRoute />}>
           <Route path='/my-account' element={<MyAccountPage />} />
         </Route>
