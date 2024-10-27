@@ -39,23 +39,6 @@ const MenuPage = () => {
                 <h1 className='text-[1.5rem]'>Wholesome flavors that feel like home.</h1>
             </div>
             <div className='flex flex-col px-8 space-y-2'>
-
-                {/* {groupedItems.map((group, index) => (
-                    <div key={index}>
-                        <h1>Category: {group.category}</h1>
-                        <ul>
-                            {group.items.map((item, itemIndex) => (
-                                <li key={itemIndex}>
-                                    <h2>{item.name}</h2>
-                                    <p>{item.description}</p>
-                                    <p>Price: ${item.price}</p>
-                                    {item.salePrice && <p>Sale Price: ${item.salePrice}</p>}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                ))} */}
-
                 {groupedItems.map((group, index) => (
                     <MenuItemCarousel key={index} category={group.category} items={group.items} />
                 ))}
