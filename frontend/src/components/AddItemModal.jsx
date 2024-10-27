@@ -42,11 +42,19 @@ const AddItemModal = ({ isOpen, onClose }) => {
         };
     }, [onClose]);
 
+    const handleOutsideClick = (e) => {
+        if (e.target.classList.contains('modal-overlay')) {
+            onClose();
+        }
+    }
+
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
-            <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 space-y-6">
+        <div
+            onClick={handleOutsideClick}
+            className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 modal-overlay">
+            <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 space-y-6 max-h-[85vh] overflow-y-auto">
                 <h2 className="text-2xl font-bold text-center text-mainBlack">Add New Menu Item</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
 
