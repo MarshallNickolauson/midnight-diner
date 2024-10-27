@@ -31,7 +31,7 @@ const MenuItemCard = ({ menuItem, onReadMore, onEdit }) => {
                     <div className="p-2">
                         <h1 className="text-md font-bold text-mainBlack">{name}</h1>
                         <div className='text-sm space-y-1 py-1'>
-                            <p className="text-mainDarkGray line-clamp-2">{description}</p>
+                            <p className="text-mainDarkGray line-clamp-2 min-h-[6vh]">{description}</p>
                             <div className='flex justify-between'>
                                 <p onClick={() => onReadMore(menuItem)} className='inline-block text-blue-500 cursor-pointer hover:underline'>Read More</p>
                                 <p onClick={() => onEdit(menuItem)} className='inline-block text-blue-500 cursor-pointer hover:underline'>Edit</p>
