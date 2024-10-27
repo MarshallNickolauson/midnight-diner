@@ -16,7 +16,7 @@ const MenuItemCard = ({ menuItem }) => {
         imageUrl,
     } = menuItem;
 
-    const fullImageUrl = `http://localhost:5000/assets/${imageUrl}`; //
+    const fullImageUrl = `http://localhost:5000/assets/${imageUrl}`;
 
     const navigate = useNavigate();
 
