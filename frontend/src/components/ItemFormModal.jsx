@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useAddMenuItemMutation, useUpdateMenuItemMutation } from "../features/menu/menuApiSlice";
 
 const ItemFormModal = ({ isOpen, onClose, item = null }) => {
     const dispatch = useDispatch();
+    const [addMenuItem] = useAddMenuItemMutation();
+    const [updateMenuItem] = useUpdateMenuItemMutation();
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -30,23 +33,58 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
         }
     }, [item]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const formData = {
-            name,
-            description,
-            price,
-            salePrice,
-            category,
-            ingredients,
-            imageUrl,
-            availability,
-            prepTime,
-            featured,
-        };
-        console.log('Added item', formData);
-        onClose();
+
+        if (!item) {
+            const formData = {
+                name,
+                description,
+                price,
+                salePrice,
+                category,
+                ingredients,
+                imageUrl,
+                availability,
+                prepTime,
+                featured,
+            };
+            try {
+                // TODO: Add a loader - Update UI somehow
+                await addMenuItem(formData).unwrap();
+                onClose();
+            } catch (error) {
+                console.log(error);
+                onClose();
+            }
+        } else {
+            const formData = {
+                _id: item._id,
+                name,
+                description,
+                price,
+                salePrice,
+                category,
+                ingredients,
+                imageUrl,
+                availability,
+                prepTime,
+                featured,
+            };
+            try {
+                // TODO: Add a loader - update UI somehow
+                await updateMenuItem(formData).unwrap();
+                onClose();
+            } catch (error) {
+                console.log(error);
+                onClose();
+            }
+        }
     };
+
+    const handleDelete = () => {
+        console.log('Delete Menu Item')
+    }
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -220,15 +258,24 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+                            className="px-4 py-2 bg-gray-300 text-mainBlack rounded hover:bg-gray-400 w-24"
                         >
                             Cancel
                         </button>
+                        {item && (
+                            <button
+                                type="button"
+                                onClick={handleDelete}
+                                className="px-4 py-2 bg-red-500 text-mainBlack rounded hover:bg-red-600 w-24"
+                            >
+                                Delete
+                            </button>
+                        )}
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-mainYellow text-mainBlack rounded hover:bg-yellow-500"
+                            className="px-4 py-2 bg-mainYellow text-mainBlack rounded hover:bg-yellow-500 w-24"
                         >
-                            Submit
+                            {item ? 'Save' : 'Submit'}
                         </button>
                     </div>
                 </form>

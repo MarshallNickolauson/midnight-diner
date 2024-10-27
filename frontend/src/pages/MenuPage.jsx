@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetMenuItemsQuery } from '../features/menu/menuApiSlice';
-import { setMenuItems } from '../features/menu/menuSlice';
 
 import MenuItemCarousel from '../components/MenuItemCarousel';
 import ItemFormModal from '../components/ItemFormModal';
@@ -9,16 +8,12 @@ import MenuItemCardModal from '../components/MenuItemCardModal';
 
 const MenuPage = () => {
     const dispatch = useDispatch();
-    const { data: menuItems = [] } = useGetMenuItemsQuery();
+    useGetMenuItemsQuery();
     const [isItemFormModalOpen, setItemFormModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [editItem, setEditItem] = useState(null);
 
-    useEffect(() => {
-        if (menuItems.length) {
-            dispatch(setMenuItems(menuItems));
-        }
-    }, [menuItems, dispatch]);
+    const { menuItems } = useSelector((state) => state.menu);
 
     const categories = Array.from(new Set(menuItems.map(item => item.category)));
 

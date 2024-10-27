@@ -9,9 +9,25 @@ export const menuApiSlice = apiSlice.injectEndpoints({
                 method: 'GET',
             }),
         }),
+        addMenuItem: builder.mutation({
+            query: (data) => ({
+                url: `${MENU_URL}`,
+                method: 'POST',
+                body: data
+            }),
+        }),
+        updateMenuItem: builder.mutation({
+            query: (data) => ({
+                url: `${MENU_URL}/${data._id}`,
+                method: 'PUT',
+                body: data
+            }),
+        }),
     }),
 });
 
 export const {
     useGetMenuItemsQuery,
+    useAddMenuItemMutation,
+    useUpdateMenuItemMutation,
 } = menuApiSlice;
