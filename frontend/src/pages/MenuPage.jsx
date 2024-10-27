@@ -7,12 +7,11 @@ import ItemFormModal from '../components/ItemFormModal';
 import MenuItemCardModal from '../components/MenuItemCardModal';
 
 const MenuPage = () => {
-    useGetMenuItemsQuery();
     const [isItemFormModalOpen, setItemFormModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [editItem, setEditItem] = useState(null);
 
-    const { menuItems } = useSelector((state) => state.menu);
+    const { data: menuItems = [], isLoading, isError } = useGetMenuItemsQuery();
 
     const categories = Array.from(new Set(menuItems.map(item => item.category)));
 
@@ -33,6 +32,12 @@ const MenuPage = () => {
     const handleEdit = (item) => {
         setEditItem(item);
     }
+
+    const handleCloseModal = () => {
+        setItemFormModalOpen(false);
+        setEditItem(null);
+        setSelectedItem(null);
+    };
 
     return (
         <div className='bg-mainWhite py-3'>
@@ -68,7 +73,7 @@ const MenuPage = () => {
                 <MenuItemCardModal
                     item={selectedItem}
                     isOpen={!!selectedItem}
-                    onClose={() => setSelectedItem(null)}
+                    onClose={handleCloseModal}
                 />
             )}
 
@@ -76,7 +81,7 @@ const MenuPage = () => {
                 <ItemFormModal
                     item={editItem}
                     isOpen={!!editItem}
-                    onClose={() => setEditItem(null)}
+                    onClose={handleCloseModal}
                 />
             )}
 

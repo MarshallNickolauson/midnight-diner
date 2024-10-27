@@ -32,10 +32,10 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
         }
     }, [item]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit
+        = async (e) => {
+            e.preventDefault();
 
-        if (!item) {
             const formData = {
                 name,
                 description,
@@ -48,38 +48,19 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
                 prepTime,
                 featured,
             };
+
             try {
-                // TODO: Add a loader - Update UI somehow
-                await addMenuItem(formData).unwrap();
-                onClose();
+                if (!item) {
+                    await addMenuItem(formData).unwrap();
+                } else {
+                    await updateMenuItem({ _id: item._id, ...formData }).unwrap();
+                }
+                onClose(); // Close the modal only after the item has been added/updated successfully
             } catch (error) {
-                console.log(error);
-                onClose();
+                console.error(error);
+                // Optionally handle error state (e.g., show a notification)
             }
-        } else {
-            const formData = {
-                _id: item._id,
-                name,
-                description,
-                price,
-                salePrice,
-                category,
-                ingredients,
-                imageUrl,
-                availability,
-                prepTime,
-                featured,
-            };
-            try {
-                // TODO: Add a loader - update UI somehow
-                await updateMenuItem(formData).unwrap();
-                onClose();
-            } catch (error) {
-                console.log(error);
-                onClose();
-            }
-        }
-    };
+        };
 
     const handleDelete = async () => {
         try {
