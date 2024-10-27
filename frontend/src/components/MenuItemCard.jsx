@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const MenuItemCard = ({ menuItem, onReadMore }) => {
+const MenuItemCard = ({ menuItem, onReadMore, onEdit }) => {
 
     if (!menuItem) return null;
 
@@ -32,7 +32,10 @@ const MenuItemCard = ({ menuItem, onReadMore }) => {
                         <h1 className="text-md font-bold text-mainBlack">{name}</h1>
                         <div className='text-sm space-y-1 py-1'>
                             <p className="text-mainDarkGray line-clamp-2">{description}</p>
-                            <p onClick={() => onReadMore(menuItem)} className='inline-block text-blue-500 cursor-pointer hover:underline'>Read More</p>
+                            <div className='flex justify-between'>
+                                <p onClick={() => onReadMore(menuItem)} className='inline-block text-blue-500 cursor-pointer hover:underline'>Read More</p>
+                                <p onClick={() => onEdit(menuItem)} className='inline-block text-blue-500 cursor-pointer hover:underline'>Edit</p>
+                            </div>
                             <div className='flex flex-row justify-between'>
                                 {salePrice > 0 ? (
                                     <div className='flex flex-row space-x-1'>
@@ -49,7 +52,7 @@ const MenuItemCard = ({ menuItem, onReadMore }) => {
                 </div>
                 {availability ? (
                     <div onClick={addToOrder} className='flex justify-center p-2 group hover:cursor-pointer bg-mainYellow hover:bg-yellow-500'>
-                        <p 
+                        <p
                             className='text-center cursor-pointer font-bold tracking-wider transition-all duration-300 text-mainBlack'
                         >Add to Cart</p>
                     </div>

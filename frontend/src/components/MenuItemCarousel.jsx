@@ -4,7 +4,7 @@ import 'swiper/css';
 import { Mousewheel } from 'swiper/modules';
 import MenuItemCard from './MenuItemCard';
 
-const MenuItemCarousel = ({ category, items, onReadMore }) => {
+const MenuItemCarousel = ({ category, items, onReadMore, onEdit }) => {
     if (items.length === 0) return null;
 
     return (
@@ -22,7 +22,7 @@ const MenuItemCarousel = ({ category, items, onReadMore }) => {
             >
                 {items.map(item => (
                     <SwiperSlide key={item._id} style={{ width: 'auto' }} className='pb-6'>
-                        <MenuItemCard menuItem={item} onReadMore={onReadMore} />
+                        <MenuItemCard menuItem={item} onReadMore={onReadMore} onEdit={onEdit} />
                     </SwiperSlide>
                 ))}
             </Swiper>
