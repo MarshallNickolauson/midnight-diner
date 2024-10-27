@@ -77,7 +77,7 @@ const MenuPage = () => {
                 <ItemFormModal
                     item={editItem}
                     isOpen={!!editItem}
-                    onClose={() => setEditItem(false)}
+                    onClose={() => setEditItem(null)}
                 />
             )}
 

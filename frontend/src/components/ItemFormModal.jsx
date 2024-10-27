@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useAddMenuItemMutation, useUpdateMenuItemMutation } from "../features/menu/menuApiSlice";
+import { useAddMenuItemMutation, useDeleteMenuItemMutation, useUpdateMenuItemMutation } from "../features/menu/menuApiSlice";
 
 const ItemFormModal = ({ isOpen, onClose, item = null }) => {
     const dispatch = useDispatch();
     const [addMenuItem] = useAddMenuItemMutation();
     const [updateMenuItem] = useUpdateMenuItemMutation();
+    const [deleteMenuItem] = useDeleteMenuItemMutation();
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -82,8 +83,14 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
         }
     };
 
-    const handleDelete = () => {
-        console.log('Delete Menu Item')
+    const handleDelete = async () => {
+        try {
+            await deleteMenuItem({ _id: item._id }).unwrap();
+            onClose();
+        } catch (error) {
+            console.log(error);
+            onClose();
+        }
     }
 
     useEffect(() => {

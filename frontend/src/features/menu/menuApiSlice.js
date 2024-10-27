@@ -23,6 +23,13 @@ export const menuApiSlice = apiSlice.injectEndpoints({
                 body: data
             }),
         }),
+        deleteMenuItem: builder.mutation({
+            query: (data) => ({
+                url: `${MENU_URL}/${data._id}`,
+                method: 'DELETE',
+                body: data
+            }),
+        }),
     }),
 });
 
@@ -30,4 +37,5 @@ export const {
     useGetMenuItemsQuery,
     useAddMenuItemMutation,
     useUpdateMenuItemMutation,
+    useDeleteMenuItemMutation,
 } = menuApiSlice;
