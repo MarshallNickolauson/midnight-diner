@@ -55,10 +55,9 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
                 } else {
                     await updateMenuItem({ _id: item._id, ...formData }).unwrap();
                 }
-                onClose(); // Close the modal only after the item has been added/updated successfully
+                onClose();
             } catch (error) {
                 console.error(error);
-                // Optionally handle error state (e.g., show a notification)
             }
         };
 
