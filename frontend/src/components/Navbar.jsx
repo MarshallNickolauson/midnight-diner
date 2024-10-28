@@ -1,37 +1,45 @@
 import logo from '../assets/img/midnight-diner-logo.png';
 import { Link } from 'react-router-dom';
 import YellowButtonFilled from './YellowButtonFilled';
-import YellowButtonHollow from './YellowButtonHollow';
 import { useSelector } from 'react-redux';
+import { IoBagOutline } from "react-icons/io5";
 
 function Navbar() {
   const { userInfo } = useSelector((state) => state.auth);
 
+  const navItemUnderline = `border-b-2 pb-1 border-b-transparent hover:border-b-mainWhite transition-all duration-100`;
+
+  const navigateToBag = () => {
+    console.log('open bag');
+  }
+
   return (
-    <nav className='relative mx-auto p-1 pr-5 bg-mainBlack text-lg'>
-      <div className="flex items-center justify-between">
+    <nav className='fixed top-0 w-full z-50 bg-mainBlack text-lg shadow-lg'>
+      <div className="flex items-center justify-between mx-auto p-1 pr-5">
         <div className="flex items-center space-x-10">
           <img src={logo} className='h-[90px]' alt="Midnight Diner Logo" />
           <div className='space-x-6 text-mainWhite'>
-            <Link className='hover:underline' to='/'>Home</Link>
-            <Link className='hover:underline' to='/menu'>Menu</Link>
-            <Link className='hover:underline' to='/about'>About Us</Link>
-            <Link className='hover:underline' to='/locations'>Locations</Link>
-            <Link className='hover:underline' to='/booking'>Reservations</Link>
+            <Link className={navItemUnderline} to='/'>Home</Link>
+            <Link className={navItemUnderline} to='/menu'>Menu</Link>
+            <Link className={navItemUnderline} to='/about'>About Us</Link>
+            <Link className={navItemUnderline} to='/locations'>Locations</Link>
+            <Link className={navItemUnderline} to='/booking'>Reservations</Link>
           </div>
         </div>
 
         <div className="flex items-center space-x-4 text-mainWhite">
+          <div
+            onClick={navigateToBag}
+            className={`flex flex-row items-center space-x-1 ${navItemUnderline} hover:cursor-pointer`}>
+            <IoBagOutline size={23} className='mb-1' />
+            <Link to='/mybag'>Your Bag</Link>
+          </div>
           {!userInfo ? (
-            <Link className='hover:underline mr-4' to='/login'>Sign in</Link>
+            <Link className={`mr-4 ${navItemUnderline}`} to='/login'>Sign in</Link>
           ) : (
-            <div className='inline-block mr-4 space-x-4'>
-              <Link className='hover:underline' to='/cart'>Cart</Link>
-              <Link className='hover:underline' to='/my-account'>My Account</Link>
-            </div>
+            <Link className={`mr-4 ${navItemUnderline}`} to='/account'>Hi, {userInfo.name}</Link>
           )}
           <YellowButtonFilled text='Order Now' navigateTo='/order' />
-          <YellowButtonHollow text='Rewards' navigateTo='/rewards' />
         </div>
       </div>
     </nav>
