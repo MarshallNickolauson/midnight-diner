@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useGetMenuItemsQuery } from '../features/menu/menuApiSlice';
 
 import MenuItemCarousel from '../components/MenuItemCarousel';
