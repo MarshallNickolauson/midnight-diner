@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAddMenuItemMutation, useDeleteMenuItemMutation, useUpdateMenuItemMutation } from "../features/menu/menuApiSlice";
+import { ClipLoader } from 'react-spinners';
 
 const ItemFormModal = ({ isOpen, onClose, item = null }) => {
-    const [addMenuItem] = useAddMenuItemMutation();
-    const [updateMenuItem] = useUpdateMenuItemMutation();
-    const [deleteMenuItem] = useDeleteMenuItemMutation();
+    const [addMenuItem, { isLoading: isAdding, isSuccess: isAddSuccess }] = useAddMenuItemMutation();
+    const [updateMenuItem, { isLoading: isUpdating, isSuccess: isUpdateSuccess }] = useUpdateMenuItemMutation();
+    const [deleteMenuItem, { isLoading: isDeleting, isSuccess: isDeleteSuccess }] = useDeleteMenuItemMutation();
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -32,6 +33,10 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
         }
     }, [item]);
 
+    useEffect(() => {
+        if (isAddSuccess || isUpdateSuccess || isDeleteSuccess) onClose();
+    }, [isAddSuccess, isUpdateSuccess, isDeleteSuccess, onClose]);
+
     const handleSubmit
         = async (e) => {
             e.preventDefault();
@@ -55,7 +60,6 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
                 } else {
                     await updateMenuItem({ _id: item._id, ...formData }).unwrap();
                 }
-                onClose();
             } catch (error) {
                 console.error(error);
             }
@@ -64,10 +68,8 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
     const handleDelete = async () => {
         try {
             await deleteMenuItem({ _id: item._id }).unwrap();
-            onClose();
         } catch (error) {
             console.log(error);
-            onClose();
         }
     }
 
@@ -99,6 +101,7 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
                 <h2 className="text-2xl font-bold text-center text-mainBlack">
                     {item ? 'Edit Menu Item' : 'Add New Menu Item'}
                 </h2>
+
                 <form onSubmit={handleSubmit} className="space-y-4">
 
                     {/* Name Field */}
@@ -240,6 +243,11 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
                     </div>
 
                     <div className="flex justify-end space-x-2">
+
+                        {(isAdding || isUpdating || isDeleting) && (
+                            <ClipLoader color="#36d7b7" loading={isAdding || isUpdating || isDeleting} size={40} />
+                        )}
+
                         <button
                             type="button"
                             onClick={onClose}
