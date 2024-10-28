@@ -19,7 +19,7 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/menu' element={<MenuPage />} />
         <Route path='' element={<PrivateRoute />}>
-          <Route path='/my-account' element={<MyAccountPage />} />
+          <Route path='/account' element={<MyAccountPage />} />
         </Route>
       </Route>
     )
