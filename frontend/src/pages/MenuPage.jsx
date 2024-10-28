@@ -26,11 +26,12 @@ const MenuPage = () => {
 
     const handleReadMore = (item) => {
         setSelectedItem(item);
-    }
+    };
 
     const handleEdit = (item) => {
         setEditItem(item);
-    }
+        setItemFormModalOpen(true);
+    };
 
     const handleCloseModal = () => {
         setItemFormModalOpen(false);
@@ -40,7 +41,8 @@ const MenuPage = () => {
 
     return (
         <div className='bg-mainWhite py-3'>
-            <div className={`flex flex-col justify-center text-center ${isItemFormModalOpen ? 'pointer-events-none' : ''}`}>                <h1 className='text-[3rem] text-mainBlack font-bold'>COMFORT FOOD YOU <span className='text-mainRed'>LOVE</span></h1>
+            <div className={`flex flex-col justify-center text-center ${isItemFormModalOpen ? 'pointer-events-none' : ''}`}>                
+                <h1 className='text-[3rem] text-mainBlack font-bold'>COMFORT FOOD YOU <span className='text-mainRed'>LOVE</span></h1>
                 <h1 className='text-[1.5rem]'>Wholesome flavors that feel like home.</h1>
 
                 <button
@@ -52,8 +54,8 @@ const MenuPage = () => {
                         Add Item
                     </h1>
                 </button>
-
             </div>
+            
             <div className='flex flex-col space-y-2'>
                 {isLoading ? (
                     <div className="flex items-center justify-center h-screen">
@@ -70,9 +72,14 @@ const MenuPage = () => {
                         />
                     ))
                 )}
-
             </div>
-            <ItemFormModal isOpen={isItemFormModalOpen} onClose={() => setItemFormModalOpen(false)} />
+
+            <ItemFormModal 
+                isOpen={isItemFormModalOpen} 
+                onClose={handleCloseModal} 
+                key={editItem ? editItem._id : 'new'} 
+                item={editItem} 
+            />
 
             {selectedItem && (
                 <MenuItemCardModal
@@ -81,17 +88,8 @@ const MenuPage = () => {
                     onClose={handleCloseModal}
                 />
             )}
-
-            {editItem && (
-                <ItemFormModal
-                    item={editItem}
-                    isOpen={!!editItem}
-                    onClose={handleCloseModal}
-                />
-            )}
-
         </div >
-    )
-}
+    );
+};
 
-export default MenuPage
+export default MenuPage;

@@ -30,15 +30,21 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
             setAvailability(item.availability || false);
             setPrepTime(item.prepTime || '');
             setFeatured(item.featured || false);
+        } else {
+            setName('');
+            setDescription('');
+            setPrice('');
+            setSalePrice('');
+            setCategory('');
+            setIngredients('');
+            setImageUrl('');
+            setAvailability(true);
+            setPrepTime('');
+            setFeatured(false);
         }
-    }, [item]);
+    }, [item, isOpen]);
 
-    useEffect(() => {
-        if (isAddSuccess || isUpdateSuccess || isDeleteSuccess) onClose();
-    }, [isAddSuccess, isUpdateSuccess, isDeleteSuccess, onClose]);
-
-    const handleSubmit
-        = async (e) => {
+    const handleSubmit = async (e) => {
             e.preventDefault();
 
             const formData = {
@@ -63,6 +69,8 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
             } catch (error) {
                 console.error(error);
             }
+
+            onClose();
         };
 
     const handleDelete = async () => {
@@ -71,6 +79,7 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
         } catch (error) {
             console.log(error);
         }
+        onClose();
     }
 
     useEffect(() => {
