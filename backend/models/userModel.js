@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     phone: { type: String },
-    // cart: { tpye: mongoose.Schema.Types.ObjectId, ref: 'Cart'},
+    cart: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart'},
 }, {
     timestamps: true
 });

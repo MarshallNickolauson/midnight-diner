@@ -1,6 +1,7 @@
 import expressAsyncHandler from "express-async-handler";
 import generateToken from '../utils/generateToken.js';
 import User from "../models/userModel.js";
+import Cart from '../models/cartModel.js';
 
 // @desc    Login user + set token in cookie
 // @route   POST api/users/login
@@ -35,15 +36,29 @@ export const registerUser = expressAsyncHandler(async (req, res) => {
         throw new Error('User with that email already exists');
     }
 
-    const user = await User.create({ name, email, password, phone });
-    if (user) {
-        generateToken(res, user._id);
-        res.status(201).json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
+    const newUser = await User.create({ name, email, password, phone });
+    if (newUser) {
+
+        const newCart = await Cart.create({
+            userId: newUser._id,
+            items: [],
+            totalPrice: 0,
+            status: 'active',
         });
+
+        newUser.cart = newCart._id;
+        newUser.save()
+
+        generateToken(res, newUser._id);
+        res.status(201).json({
+            _id: newUser._id,
+            name: newUser.name,
+            email: newUser.email,
+            phone: newUser.phone,
+            cart: newUser.cart,
+        });
+
+
     } else {
         res.status(400);
         throw new Error('Invalid user data');
