@@ -48,9 +48,9 @@ const MenuPage = () => {
                 <button
                     type="button"
                     onClick={() => setItemFormModalOpen(true)}
-                    className="bg-mainBlack w-32 hover:bg-mainYellow hover:border-mainYellow hover:text-mainYellow cursor-pointer border-2 border-mainYellow transition-all duration-300 ease-in-out group py-3"
+                    className="absolute right-5 top-[110px] bg-mainYellow w-32 hover:bg-yellow-500 hover:text-mainYellow cursor-pointer border-2 border-mainYellow transition-all duration-300 ease-in-out group py-3"
                 >
-                    <h1 className="text-mainYellow text-lg transition-all duration-100 ease-in-out group-hover:text-mainBlack">
+                    <h1 className="text-mainBlack text-lg">
                         Add Item
                     </h1>
                 </button>
