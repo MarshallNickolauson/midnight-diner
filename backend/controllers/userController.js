@@ -17,6 +17,8 @@ export const loginUser = expressAsyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            phone: user.phone,
+            cart: user.cart,
         });
     } else {
         res.status(401);
@@ -40,7 +42,7 @@ export const registerUser = expressAsyncHandler(async (req, res) => {
     if (newUser) {
 
         const newCart = await Cart.create({
-            userId: newUser._id,
+            user: newUser._id,
             items: [],
             totalPrice: 0,
             status: 'active',

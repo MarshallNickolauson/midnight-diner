@@ -11,7 +11,8 @@ dotenv.config();
 const port = process.env.BACKEND_PORT || 5000;
 
 import userRoutes from './routes/userRoutes.js';
-import menuRoutes from './routes/menuItemRoute.js';
+import menuRoutes from './routes/menuItemRoutes.js';
+import cartRoutes from './routes/cartRoutes.js';
 
 connectDB();
 
@@ -36,6 +37,7 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.use('/api/users', userRoutes);
 app.use('/api/menu', menuRoutes);
+app.use('/api/cart', cartRoutes);
 
 app.use(errorHandler);
 
