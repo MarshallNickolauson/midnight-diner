@@ -1,6 +1,5 @@
 import React from 'react';
 import personEating from '../assets/img/person-eating.jpg';
-import personEating2 from '../assets/img/person-eating-2.jpg';
 
 const AboutSection = () => {
     return (
@@ -9,7 +8,7 @@ const AboutSection = () => {
                 <div className='flex flex-col font-bold text-mainBlack text-left w-full md:w-1/2'>
                     <h1 className='text-[3rem]'>COMFORT FOOD</h1>
                     <h1 className='text-[3.8rem] transform -translate-y-6'>DONE <span className='text-mainRed'>RIGHT.</span></h1>
-                    <p className='text-mainDarkGray font-normal'>
+                    <p className='text-mainDarkGray font-normal text-center md:text-left'>
                         At Midnight Diner, we believe comfort food should be an experience. From savory burgers to rich desserts, every plate is crafted to satisfy your cravings and warm your heart. We have a long-standing history of making people happy when they leave. You won't regret choosing our food for a meal that feels like home.
                     </p>
                 </div>
