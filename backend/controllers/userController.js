@@ -12,10 +12,10 @@ export const loginUser = expressAsyncHandler(async (req, res) => {
 
     if (user && (await user.matchPasswords(password))) {
         generateToken(res, user._id);
-        res.status(201).json({
+        res.status(200).json({
             _id: user._id,
             name: user.name,
-            email: user.email
+            email: user.email,
         });
     } else {
         res.status(401);
@@ -27,7 +27,7 @@ export const loginUser = expressAsyncHandler(async (req, res) => {
 // @route   POST api/users/register
 // @access  Public
 export const registerUser = expressAsyncHandler(async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, phone } = req.body;
 
     const userExists = await User.findOne({ email });
     if (userExists) {
@@ -35,13 +35,14 @@ export const registerUser = expressAsyncHandler(async (req, res) => {
         throw new Error('User with that email already exists');
     }
 
-    const user = await User.create({ name, email, password });
+    const user = await User.create({ name, email, password, phone });
     if (user) {
         generateToken(res, user._id);
         res.status(201).json({
             _id: user._id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            phone: user.phone,
         });
     } else {
         res.status(400);
@@ -68,6 +69,7 @@ export const getUserProfile = expressAsyncHandler(async (req, res) => {
         _id: req.user._id,
         name: req.user.name,
         email: req.user.email,
+        phone: req.user.phone,
     }
     res.status(200).json(user);
 });
@@ -81,6 +83,7 @@ export const updateUserProfile = expressAsyncHandler(async (req, res) => {
     if (user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
+        user.phone = req.body.phone || user.phone;
 
         if (req.body.password) user.password = req.body.password;
 
@@ -89,7 +92,8 @@ export const updateUserProfile = expressAsyncHandler(async (req, res) => {
         res.status(200).json({
             _id: updatedUser._id,
             name: updatedUser.name,
-            email: updatedUser.email
+            email: updatedUser.email,
+            phone: updatedUser.phone,
         });
     } else {
         res.status(404);
@@ -108,7 +112,8 @@ export const deleteUser = expressAsyncHandler(async (req, res) => {
             message: 'Deleted User',
             _id: user._id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            phone: user.phone,
         });
     } else {
         res.status(404);

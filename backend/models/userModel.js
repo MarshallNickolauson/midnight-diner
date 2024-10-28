@@ -5,11 +5,13 @@ const userSchema = mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    phone: { type: String },
+    // cart: { tpye: mongoose.Schema.Types.ObjectId, ref: 'Cart'},
 }, {
     timestamps: true
 });
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
     try {
         this.password = await bcrypt.hash(this.password, await bcrypt.genSalt(10));
@@ -19,7 +21,7 @@ userSchema.pre('save', async function(next) {
     }
 });
 
-userSchema.methods.matchPasswords = async function(enteredPassword) {
+userSchema.methods.matchPasswords = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 }
 
