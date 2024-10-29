@@ -6,9 +6,15 @@ import MenuItem from '../models/menuItemModel.js';
 // @route   GET /api/cart
 // @access  Private
 export const getCart = expressAsyncHandler(async (req, res) => {
+    console.log(`User ID: ${req.user._id}`); // Log the user ID to check if the middleware is working
     const cart = await Cart.findOne({ user: req.user._id });
+    
+    if (!cart) {
+        return res.status(404).json({ message: 'Cart not found' });
+    }
+    
     res.status(200).json(cart);
-})
+});
 
 // @desc    Update cart (add/remove items)
 // @route   PUT /api/cart
