@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import BlackButtonHollow from '../components/BlackButtonHollow'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FaTrashAlt } from "react-icons/fa";
 import { FaPlus, FaMinus } from "react-icons/fa6";
+import { addItemToCart, clearSpecificItemFromCart, removeItemFromCart } from '../features/cart/cartSlice';
 
 const CartPage = () => {
     const navigate = useNavigate();
@@ -22,16 +23,16 @@ const CartPage = () => {
         console.log("Order placed!");
     };
 
-    const addItem = () => {
-        console.log('Add 1 item');
+    const addItem = (item) => {
+        dispatch(addItemToCart(item));
     }
 
-    const removeItem = () => {
-        console.log('Remove 1 item');
+    const removeItem = (item) => {
+        dispatch(removeItemFromCart(item));
     }
 
-    const deleteMenuItem = () => {
-        console.log("Remove menu item");
+    const deleteMenuItem = (item) => {
+        dispatch(clearSpecificItemFromCart(item));
     }
 
     return (
@@ -59,7 +60,7 @@ const CartPage = () => {
                                     <div className='flex flex-col justify-between h-full text-left'>
                                         <div className='flex flex-row justify-between'>
                                             <h2 className="text-xl font-bold text-mainBlack tracking-wide">{item.name}</h2>
-                                            <FaTrashAlt size={18} className='cursor-pointer' color='#DA4569' onClick={deleteMenuItem} />
+                                            <FaTrashAlt size={18} className='cursor-pointer' color='#DA4569' onClick={() => deleteMenuItem(item)} />
                                         </div>
                                         <p className="text-gray-600 line-clamp-1 text-left">{item.description}</p>
                                         <div>
@@ -69,17 +70,21 @@ const CartPage = () => {
                                             <span className="text-lg font-semibold">
                                                 {item.salePrice > 0 ? (
                                                     <>
-                                                        <span className="text-mainRed">${item.salePrice.toFixed(2)}</span>
-                                                        <span className="line-through text-gray-500 pl-2">${item.price.toFixed(2)}</span>
+                                                        <span className="text-mainRed">${item.salePrice.toFixed(2) * item.quantity}</span>
+                                                        <span className="line-through text-gray-500 pl-2">${item.price.toFixed(2) * item.quantity}</span>
                                                     </>
                                                 ) : (
-                                                    <span className="text-mainRed">${item.price.toFixed(2)}</span>
+                                                    <span className="text-mainRed">${item.price.toFixed(2) * item.quantity}</span>
                                                 )}
                                             </span>
                                             <div className='flex flex-row space-x-3'>
-                                                <FaMinus size={18} className='mt-[6px] cursor-pointer' onClick={removeItem} />
+                                                <div className='inline-block' onClick={() => removeItem(item)}>
+                                                    <FaMinus size={18} className='mt-[6px] cursor-pointer' />
+                                                </div>
                                                 <p className="text-mainDarkGray text-lg">Qty: {item.quantity}</p>
-                                                <FaPlus size={18} className='mt-[6px] cursor-pointer' onClick={addItem}/>
+                                                <div className='inline-block' onClick={() => addItem(item)}>
+                                                    <FaPlus size={18} className='mt-[6px] cursor-pointer' />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

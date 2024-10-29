@@ -13,7 +13,7 @@ const cartSlice = createSlice({
             const existingItem = state.menuItems.find(item => item._id === menuItem._id);
 
             if (existingItem) {
-                existingItem.quantity += 1;
+                existingItem.quantity++;
             } else {
                 state.menuItems.push({ ...menuItem, quantity: 1 });
             }
@@ -21,16 +21,22 @@ const cartSlice = createSlice({
             localStorage.setItem('midnightDinerCustomerCart', JSON.stringify(state.menuItems));
         },
         removeItemFromCart: (state, action) => {
-            const menuItemId = action.payload;
-            const existingItem = state.menuItems.find(item => item._id === menuItemId);
+            const menuItem = action.payload;
+            const existingItem = state.menuItems.find(item => item._id === menuItem._id);
 
             if (existingItem) {
                 if (existingItem.quantity > 1) {
-                    existingItem.quantity -= 1;
+                    existingItem.quantity--;
                 } else {
                     state.menuItems = state.menuItems.filter(item => item._id !== menuItemId);
                 }
             }
+
+            localStorage.setItem('midnightDinerCustomerCart', JSON.stringify(state.menuItems));
+        },
+        clearSpecificItemFromCart: (state, action) => {
+            const menuItem = action.payload;
+            state.menuItems = state.menuItems.filter(item => item._id !== menuItem._id);
 
             localStorage.setItem('midnightDinerCustomerCart', JSON.stringify(state.menuItems));
         },
@@ -45,5 +51,5 @@ const cartSlice = createSlice({
     }
 });
 
-export const { addItemToCart, removeItemFromCart, clearCart, setCartItems } = cartSlice.actions;
+export const { addItemToCart, removeItemFromCart, clearSpecificItemFromCart, clearCart, setCartItems } = cartSlice.actions;
 export default cartSlice.reducer;
