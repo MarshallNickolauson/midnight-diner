@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const BookingPage = () => {
     const [name, setName] = useState('');
@@ -9,6 +10,16 @@ const BookingPage = () => {
     const [partySize, setPartySize] = useState('');
     const [specialRequests, setSpecialRequests] = useState('');
     const [timeOptions, setTimeOptions] = useState([]);
+
+    const { userInfo } = useSelector((state) => state.auth);
+
+    useEffect(() => {
+        if (userInfo) {
+            setName(userInfo.name);
+            setEmail(userInfo.email);
+            setPhone(userInfo.phone);
+        }
+    }, [userInfo]);
 
     const handleBookingSubmit = (e) => {
         e.preventDefault();
