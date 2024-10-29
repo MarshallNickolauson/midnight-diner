@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const BookingPage = () => {
     const [name, setName] = useState('');
@@ -10,6 +11,8 @@ const BookingPage = () => {
     const [partySize, setPartySize] = useState('');
     const [specialRequests, setSpecialRequests] = useState('');
     const [timeOptions, setTimeOptions] = useState([]);
+
+    const navigate = useNavigate();
 
     const { userInfo } = useSelector((state) => state.auth);
 
@@ -83,6 +86,13 @@ const BookingPage = () => {
             <div className="bg-mainBlack p-8 shadow-lg border-2 border-mainWhite w-[360px] rounded-lg">
                 <h1 className="text-mainWhite text-3xl mb-6 text-center font-semibold">Book a Reservation</h1>
                 <form onSubmit={handleBookingSubmit} className="space-y-6">
+                    
+                    <div className="justify-center text-center">
+                        <p
+                            onClick={() => navigate('/booking/search')}
+                            className="inline-block text-mainYellow text-sm cursor-pointer hover:underline"
+                        >Have a Reservation?</p>
+                    </div>
 
                     {/* Name Field */}
                     <div className="space-y-3">
