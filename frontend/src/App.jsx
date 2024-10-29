@@ -9,6 +9,7 @@ import PrivateRoute from './components/PrivateRoute';
 import MenuPage from './pages/MenuPage';
 import CartPage from './pages/CartPage';
 import AboutPage from './pages/AboutPage';
+import BookingPage from './pages/BookingPage';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route path='/menu' element={<MenuPage />} />
         <Route path='/myBag' element={<CartPage />} />
         <Route path='/about' element={<AboutPage />} />
+        <Route path='/booking' element={<BookingPage />} />
         <Route path='' element={<PrivateRoute />}>
           <Route path='/account' element={<MyAccountPage />} />
         </Route>
