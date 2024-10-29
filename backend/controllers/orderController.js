@@ -11,8 +11,13 @@ const checkOwnership = (order, userId) => {
 // @route   GET /api/orders
 // @access  Private
 export const getOrders = expressAsyncHandler(async (req, res) => {
-    const orders = await Order.find({ user: req.user.id });
-    res.status(200).json(orders);
+    if (req.user) {
+        const orders = await Order.find({ email: req.user.email });
+        res.status(200).json(orders);
+    } else {
+        const orders = await Order.find({ email: req.body.email });
+        res.status(200).json(orders);
+    }
 });
 
 // @desc    Get single order
@@ -81,11 +86,6 @@ const createOrderWithoutUser = async (req, res) => {
 // @route   POST /api/orders
 // @access  Private
 export const createOrder = expressAsyncHandler(async (req, res) => {
-
-    // So basically, if there is a req.user, use that to fill in the order information (get user cart too), else, use
-    // {name, email, phone, items, totalPrice} = req.body;
-    // Unprotect route, look for user here
-
     if (req.user) {
         createOrderFromUser(req, res);
     } else {
