@@ -3,15 +3,12 @@ import { Link } from 'react-router-dom';
 import YellowButtonFilled from './YellowButtonFilled';
 import { useSelector } from 'react-redux';
 import { IoBagOutline } from "react-icons/io5";
+import { PiSignIn } from "react-icons/pi";
 
 function Navbar() {
   const { userInfo } = useSelector((state) => state.auth);
 
   const navItemUnderline = `border-b-2 pb-1 border-b-transparent hover:border-b-mainWhite transition-all duration-100`;
-
-  const navigateToBag = () => {
-    console.log('open bag');
-  }
 
   return (
     <nav className='fixed top-0 w-full z-50 bg-mainBlack text-lg shadow-lg'>
@@ -29,13 +26,16 @@ function Navbar() {
 
         <div className="flex items-center space-x-4 text-mainWhite">
           <div
-            onClick={navigateToBag}
+            onClick={() => navigate('/mybag')}
             className={`flex flex-row items-center space-x-1 ${navItemUnderline} hover:cursor-pointer`}>
             <IoBagOutline size={23} className='mb-1' />
             <Link to='/mybag'>Your Bag</Link>
           </div>
           {!userInfo ? (
-            <Link className={`mr-4 ${navItemUnderline}`} to='/login'>Sign in</Link>
+            <div className={`flex items-center space-x-1 ${navItemUnderline}`}>
+              <PiSignIn size={25} className='' />
+              <Link className={`mr-4`} to='/login'>Sign in</Link>
+            </div>
           ) : (
             <Link className={`mr-4 ${navItemUnderline}`} to='/account'>Hi, {userInfo.name}</Link>
           )}
