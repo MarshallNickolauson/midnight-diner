@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { setCredentials } from '../features/auth/authSlice';
 import { useLoginMutation } from '../features/auth/usersApiSlice';
-import { useGetUserCartQuery } from '../features/cart/cartApiSlice';
-import { setCartItems } from '../features/cart/cartSlice';
+import { getUserCart } from '../features/cart/cartSlice';
 
 const LoginPage = () => {
     const location = useLocation();
@@ -18,6 +17,7 @@ const LoginPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const [login, { isLoading }] = useLoginMutation();
 
     const { userInfo } = useSelector((state) => state.auth);
@@ -33,7 +33,13 @@ const LoginPage = () => {
             const res = await login({ email, password }).unwrap();
             dispatch(setCredentials({ ...res }));
 
+            dispatch(getUserCart());
+
             // When logging in, it doesn't yet fetch the cart pertaining to the user and repopulate the state and local storage
+
+            // const { data, error } = useGetUserCartQuery();
+            // console.log(data);
+            // console.log(error);
 
             navigate('/');
         } catch (err) {

@@ -66,7 +66,7 @@ const MyAccountPage = () => {
   }
 
   return (
-    <div className="flex justify-center items-start pt-10 min-h-screen bg-mainDarkGray">
+    <div className="flex justify-center items-start py-10 min-h-screen bg-mainDarkGray">
       <div className="bg-mainBlack p-8 shadow-lg border-2 border-mainWhite w-[360px] rounded-lg">
         <h1 className="text-mainWhite text-3xl mb-6 text-center font-semibold">My Account</h1>
         <form onSubmit={handleUpdateUser} className="space-y-6">

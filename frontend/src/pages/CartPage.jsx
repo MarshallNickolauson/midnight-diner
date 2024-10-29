@@ -14,6 +14,8 @@ const CartPage = () => {
     const { userInfo } = useSelector((state) => state.auth);
     const menuItems = useSelector((state) => state.cart.menuItems);
 
+    console.log(menuItems);
+
     const [placeOrder, { isLoading }] = useCreateOrderMutation();
 
     const fullImageUrl = `http://localhost:5000/assets/`;

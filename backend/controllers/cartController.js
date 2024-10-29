@@ -6,53 +6,70 @@ import MenuItem from '../models/menuItemModel.js';
 // @route   GET /api/cart
 // @access  Private
 export const getCart = expressAsyncHandler(async (req, res) => {
-    console.log(`User ID: ${req.user._id}`); // Log the user ID to check if the middleware is working
-    const cart = await Cart.findOne({ user: req.user._id });
-    
+    console.log(`User ID: ${req.user._id}`);
+
+    let cart = await Cart.findOne({ user: req.user._id });
+
     if (!cart) {
-        return res.status(404).json({ message: 'Cart not found' });
+        cart = await Cart.create({ user: req.user._id, items: [] });
+        return res.status(201).json(cart);
     }
-    
+
     res.status(200).json(cart);
 });
 
-// @desc    Update cart (add/remove items)
+// @desc    Update cart
 // @route   PUT /api/cart
 // @access  Private
 export const updateCart = expressAsyncHandler(async (req, res) => {
     const { menuItemId, action } = req.body;
 
-    if (!menuItemId || !action) return res.status(400).json({ message: 'Menu item ID and action is required' });
+    if (!menuItemId || !action) {
+        return res.status(400).json({ message: 'Menu item ID and action are required' });
+    }
 
-    const cart = await Cart.findOne({ user: req.user._id });
-    if (!cart) return res.status(500).json({ message: `Cart not found for user '${req.user._id}'` });
+    let cart = await Cart.findOne({ user: req.user._id });
+    if (!cart) {
+        cart = await Cart.create({ user: req.user._id, items: [] });
+    }
 
-    const menuItems = await MenuItem.find({ _id: { $in: cart.items.map(item => item.menuItemId) } });
-    const priceMap = {};
-    menuItems.forEach(item => {
-        priceMap[item._id] = item.salePrice > 0 ? item.salePrice : item.price;
-    });
+    const menuItem = await MenuItem.findById(menuItemId);
+    if (!menuItem) {
+        return res.status(404).json({ message: 'Menu item not found' });
+    }
 
     if (action === 'add') {
-        
-        const existingItemIndex = cart.items.findIndex(item => item.menuItemId.toString() === menuItemId);
+        const existingItemIndex = cart.items.findIndex(item => item.menuItem._id.toString() === menuItemId);
 
         if (existingItemIndex > -1) {
             cart.items[existingItemIndex].quantity++;
         } else {
-            const newItem = await MenuItem.findById(menuItemId);
-            if (!newItem) return res.status(404).json({ message: 'Menu item not found' });
-            cart.items.push({ menuItemId, quantity: 1 });
-            priceMap[newItem._id] = newItem.salePrice > 0 ? newItem.salePrice : newItem.price;
+            cart.items.push({
+                menuItem: {
+                    _id: menuItem._id,
+                    name: menuItem.name,
+                    description: menuItem.description,
+                    price: menuItem.price,
+                    salePrice: menuItem.salePrice,
+                    category: menuItem.category,
+                    ingredients: menuItem.ingredients,
+                    imageUrl: menuItem.imageUrl,
+                    availability: menuItem.availability,
+                    prepTime: menuItem.prepTime,
+                    featured: menuItem.featured
+                },
+                quantity: 1
+            });
         }
 
     } else if (action === 'remove') {
-        
-        const existingItemIndex = cart.items.findIndex(item => item.menuItemId.toString() === menuItemId);
-        
+        const existingItemIndex = cart.items.findIndex(item => item.menuItem._id.toString() === menuItemId);
+
         if (existingItemIndex > -1) {
             cart.items[existingItemIndex].quantity--;
-            if (cart.items[existingItemIndex].quantity === 0) cart.items.splice(existingItemIndex, 1);
+            if (cart.items[existingItemIndex].quantity === 0) {
+                cart.items.splice(existingItemIndex, 1);
+            }
         } else {
             return res.status(404).json({ message: 'Item not found in cart' });
         }
@@ -62,10 +79,10 @@ export const updateCart = expressAsyncHandler(async (req, res) => {
     }
 
     cart.totalPrice = cart.items.reduce((total, item) => {
-        const price = priceMap[item.menuItemId];
-        return total + (price ? price * item.quantity : 0);
+        const price = item.menuItem.salePrice > 0 ? item.menuItem.salePrice : item.menuItem.price;
+        return total + price * item.quantity;
     }, 0);
 
     await cart.save();
     res.status(200).json(cart);
-})
+});
