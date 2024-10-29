@@ -39,7 +39,7 @@ function Navbar() {
           ) : (
             <Link className={`mr-4 ${navItemUnderline}`} to='/account'>Hi, {userInfo.name}</Link>
           )}
-          <YellowButtonFilled text='Order Now' navigateTo='/order' />
+          <YellowButtonFilled text='Order Now' navigateTo='/menu' />
         </div>
       </div>
     </nav>

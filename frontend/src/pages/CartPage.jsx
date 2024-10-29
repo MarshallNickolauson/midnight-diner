@@ -10,7 +10,7 @@ const CartPage = () => {
     const { userInfo } = useSelector((state) => state.auth);
 
     return (
-        <div className='bg-mainWhite py-3'>
+        <div className='bg-mainWhite py-3 min-h-screen'>
             <div className='text-center'>
                 <h1 className='text-[3rem] text-mainBlack font-bold'>YOUR <span className='text-mainRed'>BAG</span></h1>
                 <h1 className='text-[1.2rem]'>Here you'll see what you've added to your takeout bag.</h1>
