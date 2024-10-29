@@ -2,11 +2,6 @@ import expressAsyncHandler from 'express-async-handler';
 import Cart from '../models/cartModel.js';
 import MenuItem from '../models/menuItemModel.js';
 
-const checkOwnership = (cart, userId) => {
-    if (!req.user) throw new Error('User not found');
-    if (cart.user.toString() !== userId) throw new Error('User not authorized');
-}
-
 // @desc    GET cart
 // @route   GET /api/cart
 // @access  Private

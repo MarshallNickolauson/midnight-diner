@@ -4,8 +4,8 @@ import { errorHandler } from './middleware/errorMiddleware.js';
 import { connectDB } from './config/db.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { fileURLToPath } from 'url'; // New import
-import path, { dirname } from 'path'; // New import
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
 
 dotenv.config();
 const port = process.env.BACKEND_PORT || 5000;
@@ -13,6 +13,7 @@ const port = process.env.BACKEND_PORT || 5000;
 import userRoutes from './routes/userRoutes.js';
 import menuRoutes from './routes/menuItemRoutes.js';
 import cartRoutes from './routes/cartRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 
 connectDB();
 
@@ -38,6 +39,7 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/api/users', userRoutes);
 app.use('/api/menu', menuRoutes);
 app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
 
 app.use(errorHandler);
 

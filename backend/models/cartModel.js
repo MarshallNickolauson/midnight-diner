@@ -7,11 +7,8 @@ const cartSchema = Schema({
         menuItemId: { type: Schema.Types.ObjectId, ref: 'MenuItem' },
         quantity: { type: Number, required: true }
     }],
-    totalPrice: { type: Number, default: 0 },
-    status: { type: String, default: 'active' }, // active, submitted, abandoned
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
-});
+    totalPrice: { type: Number, default: 0 }
+}, { timestamps: true });
 
 const Cart = mongoose.model('Cart', cartSchema);
 
