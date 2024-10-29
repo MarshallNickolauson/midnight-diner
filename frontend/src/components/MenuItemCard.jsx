@@ -1,7 +1,14 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { addItemToCart } from '../features/cart/cartSlice';
+import { useUpdateCartMutation } from '../features/cart/cartApiSlice';
 
 const MenuItemCard = ({ menuItem, onReadMore, onEdit }) => {
+    const dispatch = useDispatch();
+
+    const { userInfo } = useSelector((state) => state.auth);
+    const [updateCart, { isLoading }] = useUpdateCartMutation();
 
     if (!menuItem) return null;
 
@@ -19,8 +26,10 @@ const MenuItemCard = ({ menuItem, onReadMore, onEdit }) => {
     const fullImageUrl = `http://localhost:5000/assets/${imageUrl}`;
 
     const addToOrder = () => {
-        console.log(`Update state to add ${name} to order`);
-        console.log('If logged in, also send it to the database, else, just the app state and maybe a local storage variable');
+        dispatch(addItemToCart(menuItem));
+        if (userInfo) {
+            updateCart({ menuItemId: _id, action: 'add' });
+        }
     }
 
     return (
