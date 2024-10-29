@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage';
 import MyAccountPage from './pages/MyAccountPage';
 import PrivateRoute from './components/PrivateRoute';
 import MenuPage from './pages/MenuPage';
+import CartPage from './pages/CartPage';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/menu' element={<MenuPage />} />
+        <Route path='/myBag' element={<CartPage />} />
         <Route path='' element={<PrivateRoute />}>
           <Route path='/account' element={<MyAccountPage />} />
         </Route>

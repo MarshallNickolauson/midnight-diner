@@ -12,8 +12,8 @@ const HeroSection = () => {
                 WHERE LATE-NIGHT CRAVINGS MEET IRRESISTIBLE COMFORT FOOD.
             </p>
             <div className='flex flex-row space-x-4 justify-center mt-10 md:mt-20'>
-                <YellowButtonHollow text='View Our Menu' navigateTo='/drinks' width='180' />
-                <YellowButtonFilled text='Order Online' navigateTo='/menu' width='180' />
+                <YellowButtonHollow text='View Our Menu' navigateTo='/menu' width='180' />
+                <YellowButtonFilled text='Order Online' navigateTo='/mybag' width='180' />
             </div>
         </section>
     )
