@@ -2,14 +2,9 @@ import expressAsyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
 import Cart from '../models/cartModel.js';
 
-const checkOwnership = (order, userId) => {
-    if (!req.user) throw new Error('User not found');
-    if (order.user.toString() !== userId) throw new Error('User not authorized');
-}
-
 // @desc    Get orders
 // @route   GET /api/orders
-// @access  Private
+// @access  Public/Private
 export const getOrders = expressAsyncHandler(async (req, res) => {
     if (req.user) {
         const orders = await Order.find({ email: req.user.email });
@@ -18,13 +13,6 @@ export const getOrders = expressAsyncHandler(async (req, res) => {
         const orders = await Order.find({ email: req.body.email });
         res.status(200).json(orders);
     }
-});
-
-// @desc    Get single order
-// @route   GET /api/orders/:id
-// @access  Private
-export const getSingleOrder = expressAsyncHandler(async (req, res) => {
-    res.status(200).json({ message: 'Get order by req.params.id' });
 });
 
 const createOrderFromUser = async (req, res) => {
@@ -97,6 +85,9 @@ export const createOrder = expressAsyncHandler(async (req, res) => {
 // @route   DELETE /api/orders/:id
 // @access  Private
 export const deleteOrder = expressAsyncHandler(async (req, res) => {
+
+    // ONLY AVAILABLE TO EXPLOYEES OR ADMINS
+
     const order = await Order.findById(req.params.id);
     if (order) {
         await order.deleteOne();
