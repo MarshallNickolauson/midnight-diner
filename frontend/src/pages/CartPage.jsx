@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FaTrashAlt } from "react-icons/fa";
 import { FaPlus, FaMinus } from "react-icons/fa6";
-import { addItemToCart, clearSpecificItemFromCart, removeItemFromCart } from '../features/cart/cartSlice';
+import { addItemToCart, clearCart, clearSpecificItemFromCart, removeItemFromCart } from '../features/cart/cartSlice';
+import { useCreateOrderMutation } from '../features/order/orderApiSlice';
 
 const CartPage = () => {
     const navigate = useNavigate();
@@ -13,15 +14,14 @@ const CartPage = () => {
     const { userInfo } = useSelector((state) => state.auth);
     const menuItems = useSelector((state) => state.cart.menuItems);
 
+    const [placeOrder, { isLoading }] = useCreateOrderMutation();
+
     const fullImageUrl = `http://localhost:5000/assets/`;
 
     const totalPrice = menuItems.reduce((total, item) => {
         return total + (item.salePrice > 0 ? item.salePrice : item.price) * item.quantity;
     }, 0).toFixed(2);
 
-    const handlePlaceOrder = () => {
-        console.log("Order placed!");
-    };
 
     const addItem = (item) => {
         dispatch(addItemToCart(item));
@@ -34,6 +34,32 @@ const CartPage = () => {
     const deleteMenuItem = (item) => {
         dispatch(clearSpecificItemFromCart(item));
     }
+
+    const handlePlaceOrder = async () => {
+        const items = menuItems.map(item => ({
+            menuItemId: item._id,
+            quantity: item.quantity,
+        }));
+
+        try {
+            await placeOrder({
+                name: 'John',
+                email: 'John@gmail.com',
+                phone: '1234567890',
+                items,
+                totalPrice
+            }).unwrap();
+
+            dispatch(clearCart());
+
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 10);
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <div className='bg-mainWhite py-3 min-h-screen pb-8'>
