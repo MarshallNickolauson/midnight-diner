@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import logo from '../assets/img/midnight-diner-logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import YellowButtonFilled from './YellowButtonFilled';
 import { useSelector } from 'react-redux';
 import { IoBagOutline } from "react-icons/io5";
@@ -11,6 +11,7 @@ import { IoClose } from "react-icons/io5"; // Icon for closing menu
 function Navbar() {
   const { userInfo } = useSelector((state) => state.auth);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navItemUnderline = `border-b-2 pb-1 border-b-transparent hover:border-b-mainWhite transition-all duration-100`;
 
