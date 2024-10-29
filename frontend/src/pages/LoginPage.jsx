@@ -43,12 +43,12 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="flex justify-center items-start pt-12 min-h-screen bg-mainDarkGray">
-            <div className="bg-mainBlack p-10 shadow-lg border-2 mb-10 border-mainWhite w-[350px]">
-                <h1 className="text-mainWhite text-2xl mb-5 text-center">Login</h1>
+        <div className="flex justify-center items-center min-h-screen bg-mainDarkGray -mt-24">
+            <div className="bg-mainBlack p-8 shadow-lg border-2 border-mainWhite w-[360px] rounded-lg">
+                <h1 className="text-mainWhite text-3xl mb-6 text-center font-semibold">Login</h1>
                 <form onSubmit={handleLogin} className="space-y-6">
-                    <div className="space-y-2">
-                        <label htmlFor="email" className="block text-mainWhite">
+                    <div className="space-y-3">
+                        <label htmlFor="email" className="block text-mainWhite text-sm">
                             Email
                         </label>
                         <input
@@ -56,13 +56,13 @@ const LoginPage = () => {
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-3 py-2 border border-mainWhite focus:outline-none focus:ring-1 focus:ring-mainWhite transition-all duration-100 ease-in-out bg-mainDarkGray text-mainWhite"
+                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
                             required
-                            placeholder='Your email'
+                            placeholder="Enter your email"
                         />
                     </div>
-                    <div className="space-y-2">
-                        <label htmlFor="password" className="block text-mainWhite">
+                    <div className="space-y-3">
+                        <label htmlFor="password" className="block text-mainWhite text-sm">
                             Password
                         </label>
                         <input
@@ -70,25 +70,20 @@ const LoginPage = () => {
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-3 py-2 border border-mainWhite focus:outline-none focus:ring-1 focus:ring-mainWhite transition-all duration-100 ease-in-out bg-mainDarkGray text-mainWhite"
+                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
                             required
-                            placeholder='Your password'
+                            placeholder="Enter your password"
                         />
                     </div>
-
-                    <div onClick={() => navigate('/register')} className='text-blue-400 text-sm space-y-1 inline-block hover:text-mainWhite hover:cursor-pointer transition-all duration-100'>
-                        <p className='text-md'>Need an account?</p>
-                        <p className='text-xs'>You can order faster!</p>
+                    <div onClick={() => navigate('/register')} className="text-mainYellow text-sm cursor-pointer text-center hover:underline">
+                        <p>Need an account? Sign up to order faster!</p>
                     </div>
-
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mt-6">
                         <button
                             type="submit"
-                            className="bg-mainBlack w-full hover:bg-mainYellow hover:border-mainYellow hover:text-mainYellow cursor-pointer border-2 border-mainYellow transition-all duration-300 ease-in-out group py-3"
+                            className="bg-mainYellow w-full border-2 border-transparent hover:border-mainWhite text-mainBlack font-semibold py-2 rounded transition duration-200 hover:bg-mainBlack hover:text-mainYellow"
                         >
-                            <h1 className="text-mainYellow text-lg transition-all duration-100 ease-in-out group-hover:text-mainBlack">
-                                Log In
-                            </h1>
+                            Log In
                         </button>
                     </div>
                 </form>

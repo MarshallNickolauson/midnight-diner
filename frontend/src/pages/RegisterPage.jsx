@@ -44,25 +44,27 @@ const RegisterPage = () => {
 
     return (
         <div className="flex justify-center items-start pt-10 min-h-screen bg-mainDarkGray">
-            <div className="bg-mainBlack p-10 shadow-lg border-2 mb-10 border-mainWhite w-[350px]">
-                <h1 className="text-mainWhite text-2xl mb-5 text-center">Make an Account</h1>
+            <div className="bg-mainBlack p-8 shadow-lg border-2 border-mainWhite w-[360px] rounded-lg">
+                <h1 className="text-mainWhite text-3xl mb-6 text-center font-semibold">Make an Account</h1>
                 <form onSubmit={handleRegister} className="space-y-6">
-                    <div className="space-y-2">
-                        <label htmlFor="name" className="block text-mainWhite">
+
+                    <div className="space-y-3">
+                        <label htmlFor="name" className="block text-mainWhite text-sm">
                             Name
                         </label>
                         <input
-                            type="name"
+                            type="text"
                             id="name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="w-full px-3 py-2 border border-mainWhite focus:outline-none focus:ring-1 focus:ring-mainWhite transition-all duration-100 ease-in-out bg-mainDarkGray text-mainWhite"
+                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
                             required
-                            placeholder='Your name for orders'
+                            placeholder="Your name for orders"
                         />
                     </div>
-                    <div className="space-y-2">
-                        <label htmlFor="email" className="block text-mainWhite">
+
+                    <div className="space-y-3">
+                        <label htmlFor="email" className="block text-mainWhite text-sm">
                             Email
                         </label>
                         <input
@@ -70,13 +72,14 @@ const RegisterPage = () => {
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-3 py-2 border border-mainWhite focus:outline-none focus:ring-1 focus:ring-mainWhite transition-all duration-100 ease-in-out bg-mainDarkGray text-mainWhite"
+                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
                             required
-                            placeholder='Your email'
+                            placeholder="Your email"
                         />
                     </div>
-                    <div className="space-y-2">
-                        <label htmlFor="password" className="block text-mainWhite">
+
+                    <div className="space-y-3">
+                        <label htmlFor="password" className="block text-mainWhite text-sm">
                             Password
                         </label>
                         <input
@@ -84,14 +87,14 @@ const RegisterPage = () => {
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-3 py-2 border border-mainWhite focus:outline-none focus:ring-1 focus:ring-mainWhite transition-all duration-100 ease-in-out bg-mainDarkGray text-mainWhite"
+                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
                             required
-                            placeholder='Your password'
+                            placeholder="Your password"
                         />
                     </div>
 
-                    <div className="space-y-2">
-                        <label htmlFor="confirmPassword" className="block text-mainWhite">
+                    <div className="space-y-3">
+                        <label htmlFor="confirmPassword" className="block text-mainWhite text-sm">
                             Confirm Password
                         </label>
                         <input
@@ -99,24 +102,22 @@ const RegisterPage = () => {
                             id="confirmPassword"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
-                            className="w-full px-3 py-2 border border-mainWhite focus:outline-none focus:ring-1 focus:ring-mainWhite transition-all duration-100 ease-in-out bg-mainDarkGray text-mainWhite"
+                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
                             required
-                            placeholder='Your password again'
+                            placeholder="Your password again"
                         />
                     </div>
 
-                    <div onClick={() => navigate('/login')} className='text-blue-400 text-sm space-y-1 inline-block hover:text-mainWhite hover:cursor-pointer transition-all duration-100'>
-                        <p className='text-md'>Returning customer?</p>
+                    <div onClick={() => navigate('/login')} className="text-mainYellow text-sm cursor-pointer text-center hover:underline">
+                        <p>Returning customer?</p>
                     </div>
 
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mt-6">
                         <button
                             type="submit"
-                            className="bg-mainBlack w-full hover:bg-mainYellow hover:border-mainYellow hover:text-mainYellow cursor-pointer border-2 border-mainYellow transition-all duration-300 ease-in-out group py-3"
+                            className="bg-mainYellow w-full border-2 border-transparent hover:border-mainWhite text-mainBlack font-semibold py-2 rounded transition duration-200 hover:bg-mainBlack hover:text-mainYellow"
                         >
-                            <h1 className="text-mainYellow text-lg transition-all duration-100 ease-in-out group-hover:text-mainBlack">
-                                Register
-                            </h1>
+                            Register
                         </button>
                     </div>
                 </form>
