@@ -14,6 +14,7 @@ import userRoutes from './routes/userRoutes.js';
 import menuRoutes from './routes/menuItemRoutes.js';
 import cartRoutes from './routes/cartRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import reviewRoutes from './routes/reviewRoutes.js';
 
 connectDB();
 
@@ -40,6 +41,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/menu', menuRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 app.use(errorHandler);
 
