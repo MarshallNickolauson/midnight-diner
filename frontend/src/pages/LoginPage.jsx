@@ -43,7 +43,7 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-mainDarkGray -mt-24">
+        <div className="flex justify-center items-center bg-mainDarkGray py-20">
             <div className="bg-mainBlack p-8 shadow-lg border-2 border-mainWhite w-[360px] rounded-lg">
                 <h1 className="text-mainWhite text-3xl mb-6 text-center font-semibold">Login</h1>
                 <form onSubmit={handleLogin} className="space-y-6">

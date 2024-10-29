@@ -13,6 +13,7 @@ const MyAccountPage = () => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -26,7 +27,8 @@ const MyAccountPage = () => {
   useEffect(() => {
     setName(userInfo.name);
     setEmail(userInfo.email);
-  }, [userInfo.setName, userInfo.setEmail]);
+    setPhone(userInfo.phone);
+  }, [userInfo]);
 
   const handleUpdateUser = async (e) => {
     e.preventDefault();
@@ -39,6 +41,7 @@ const MyAccountPage = () => {
           _id: userInfo._id,
           name,
           email,
+          phone,
           password
         }).unwrap();
         dispatch(setCredentials({ ...res }));
@@ -94,6 +97,21 @@ const MyAccountPage = () => {
               className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
               required
               placeholder="Your email"
+            />
+          </div>
+
+          <div className="space-y-3">
+            <label htmlFor="phone" className="block text-mainWhite text-sm">
+              Phone
+            </label>
+            <input
+              type="phone"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
+              required
+              placeholder="Your phone #"
             />
           </div>
 

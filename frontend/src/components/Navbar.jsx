@@ -27,7 +27,7 @@ function Navbar() {
             <Link className={navItemUnderline} to='/'>Home</Link>
             <Link className={navItemUnderline} to='/menu'>Menu</Link>
             <Link className={navItemUnderline} to='/about'>About Us</Link>
-            <Link className={navItemUnderline} to='/locations'>Locations</Link>
+            <Link className={navItemUnderline} to='/reviews'>Reviews</Link>
             <Link className={navItemUnderline} to='/booking'>Reservations</Link>
           </div>
         </div>

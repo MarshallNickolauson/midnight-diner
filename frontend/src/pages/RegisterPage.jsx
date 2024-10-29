@@ -13,6 +13,7 @@ const RegisterPage = () => {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -33,7 +34,7 @@ const RegisterPage = () => {
             console.log('Passwords dont match');
         } else {
             try {
-                const res = await register({ name, email, password }).unwrap();
+                const res = await register({ name, email, phone, password }).unwrap();
                 dispatch(setCredentials({ ...res }));
                 navigate('/');
             } catch (err) {
@@ -43,7 +44,7 @@ const RegisterPage = () => {
     };
 
     return (
-        <div className="flex justify-center items-start pt-10 min-h-screen bg-mainDarkGray">
+        <div className="flex justify-center items-start py-10 bg-mainDarkGray">
             <div className="bg-mainBlack p-8 shadow-lg border-2 border-mainWhite w-[360px] rounded-lg">
                 <h1 className="text-mainWhite text-3xl mb-6 text-center font-semibold">Make an Account</h1>
                 <form onSubmit={handleRegister} className="space-y-6">
@@ -75,6 +76,21 @@ const RegisterPage = () => {
                             className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
                             required
                             placeholder="Your email"
+                        />
+                    </div>
+
+                    <div className="space-y-3">
+                        <label htmlFor="phone" className="block text-mainWhite text-sm">
+                            Phone
+                        </label>
+                        <input
+                            type="phone"
+                            id="phone"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
+                            required
+                            placeholder="Your phone #"
                         />
                     </div>
 

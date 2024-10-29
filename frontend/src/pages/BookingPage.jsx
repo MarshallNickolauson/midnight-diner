@@ -79,7 +79,7 @@ const BookingPage = () => {
     }, [date]);
 
     return (
-        <div className="flex justify-center items-start pt-10 min-h-screen bg-mainDarkGray">
+        <div className="flex justify-center items-start py-10 min-h-screen bg-mainDarkGray">
             <div className="bg-mainBlack p-8 shadow-lg border-2 border-mainWhite w-[360px] rounded-lg">
                 <h1 className="text-mainWhite text-3xl mb-6 text-center font-semibold">Book a Reservation</h1>
                 <form onSubmit={handleBookingSubmit} className="space-y-6">
@@ -195,13 +195,13 @@ const BookingPage = () => {
                             id="specialRequests"
                             value={specialRequests}
                             onChange={(e) => setSpecialRequests(e.target.value)}
-                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
+                            className="w-full h-32 resize-none px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
                             placeholder="Any additional requests"
                         />
                     </div>
 
                     {/* Submit Button */}
-                    <div className="flex justify-center mt-6">
+                    <div className="flex justify-center mt-8">
                         <button
                             type="submit"
                             className="bg-mainYellow w-full border-2 border-transparent hover:border-mainWhite text-mainBlack font-semibold py-2 rounded transition duration-200 hover:bg-mainBlack hover:text-mainYellow"
