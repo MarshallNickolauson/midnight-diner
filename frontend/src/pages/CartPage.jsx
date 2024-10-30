@@ -72,9 +72,7 @@ const CartPage = () => {
 
             dispatch(clearCart());
 
-            setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 10);
+            navigate('/order/success');
 
         } catch (error) {
             console.log(error);

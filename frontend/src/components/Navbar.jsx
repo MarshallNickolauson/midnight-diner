@@ -20,12 +20,22 @@ function Navbar() {
         setIsOpen(false);
       }
     };
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown); // Add this line
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown); // Clean up the keydown listener
     };
   }, []);
+
   const navigate = useNavigate();
 
   const navItemUnderline = `border-b-2 pb-1 border-b-transparent hover:border-b-mainWhite transition-all duration-100`;
@@ -80,7 +90,7 @@ function Navbar() {
         <div className="flex flex-col items-end px-5 pb-6 space-y-6 text-xl">
           <div className="flex items-center space-x-1 hover:underline" onClick={() => navigate('/mybag')}>
             <IoBagOutline size={23} />
-            <Link to='/mybag'>Your Bag</Link>
+            <Link to='/mybag' onClick={toggleMenu}>Your Bag</Link>
           </div>
           {!userInfo ? (
             <div className="flex items-center space-x-1 hover:underline">
