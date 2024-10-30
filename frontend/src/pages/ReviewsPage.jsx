@@ -14,8 +14,6 @@ const ReviewsPage = () => {
 
     const { data: reviews = [], isLoading, isError } = useGetReviewsQuery();
     
-    console.log(reviews);
-    
     const handleOpenReviewModal = () => {
         if (userInfo) {
             setReviewModalOpen(true);
