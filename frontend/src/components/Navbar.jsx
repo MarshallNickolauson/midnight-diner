@@ -94,7 +94,7 @@ function Navbar() {
           <Link className='hover:underline' to='/' onClick={toggleMenu}>Home</Link>
           <Link className='hover:underline' to='/menu' onClick={toggleMenu}>Menu</Link>
           <Link className='hover:underline' to='/about' onClick={toggleMenu}>About Us</Link>
-          <Link className='hover:underline' to='/reviews' onClick={toggleMenu}>Revews</Link>
+          <Link className='hover:underline' to='/reviews' onClick={toggleMenu}>Reviews</Link>
           <Link className='hover:underline' to='/booking' onClick={toggleMenu}>Reservations</Link>
         </div>
       </div>

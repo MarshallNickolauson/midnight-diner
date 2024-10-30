@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useCreateReviewMutation } from '../features/review/reviewApiSlice';
 
 const ReviewFormModal = ({ isOpen, onClose }) => {
     const [rating, setRating] = useState(1);
     const [comment, setComment] = useState('');
-    
+
+    const [createReview, { isLoading }] = useCreateReviewMutation();
+
     useEffect(() => {
         if (!isOpen) {
             setRating(1);
@@ -11,12 +14,25 @@ const ReviewFormModal = ({ isOpen, onClose }) => {
         }
     }, [isOpen]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // Handle submission logic here, e.g., API call to save the review
         console.log({ rating, comment });
 
+        try {
+            const res = await createReview({ rating, comment }).unwrap();
+            console.log(res);
+            setRating(1);
+            setComment('');
+        } catch (error) {
+            console.log(error);
+        }
+
         onClose();
+
+        // setTimeout(() => {
+        //     onClose();
+        // }, 10);
     };
 
     const handleOutsideClick = (e) => {
