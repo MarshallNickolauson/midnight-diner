@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import logo from '../assets/img/midnight-diner-logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import YellowButtonFilled from './YellowButtonFilled';
@@ -11,6 +11,21 @@ import { IoClose } from "react-icons/io5"; // Icon for closing menu
 function Navbar() {
   const { userInfo } = useSelector((state) => state.auth);
   const [isOpen, setIsOpen] = useState(false);
+
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   const navigate = useNavigate();
 
   const navItemUnderline = `border-b-2 pb-1 border-b-transparent hover:border-b-mainWhite transition-all duration-100`;
@@ -61,26 +76,26 @@ function Navbar() {
       </div>
 
       {/* Dropdown Menu for Small Screens */}
-      <div className={`overflow-hidden lg:hidden transition-[max-height] duration-300 ease-in-out bg-mainBlack text-mainWhite ${isOpen ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="flex flex-col items-start p-5 space-y-3">
-          <Link className={navItemUnderline} to='/' onClick={toggleMenu}>Home</Link>
-          <Link className={navItemUnderline} to='/menu' onClick={toggleMenu}>Menu</Link>
-          <Link className={navItemUnderline} to='/about' onClick={toggleMenu}>About Us</Link>
-          <Link className={navItemUnderline} to='/locations' onClick={toggleMenu}>Locations</Link>
-          <Link className={navItemUnderline} to='/booking' onClick={toggleMenu}>Reservations</Link>
-          <div className="flex items-center space-x-1" onClick={() => navigate('/mybag')}>
+      <div ref={menuRef} className={`overflow-hidden lg:hidden transition-[max-height] duration-300 ease-in-out bg-mainBlack text-mainWhite ${isOpen ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="flex flex-col items-end px-5 pb-6 space-y-6 text-xl">
+          <div className="flex items-center space-x-1 hover:underline" onClick={() => navigate('/mybag')}>
             <IoBagOutline size={23} />
             <Link to='/mybag'>Your Bag</Link>
           </div>
           {!userInfo ? (
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center space-x-1 hover:underline">
               <PiSignIn size={25} />
               <Link to='/login' onClick={toggleMenu}>Sign in</Link>
             </div>
           ) : (
-            <Link to='/account' onClick={toggleMenu}>Hi, {userInfo.name}</Link>
+            <Link to='/account' className='hover:underline' onClick={toggleMenu}>Hi, {userInfo.name}</Link>
           )}
-          <YellowButtonFilled text='Order Now' navigateTo='/order' />
+          <hr className='border-b border-gray-400 w-full' />
+          <Link className='hover:underline' to='/' onClick={toggleMenu}>Home</Link>
+          <Link className='hover:underline' to='/menu' onClick={toggleMenu}>Menu</Link>
+          <Link className='hover:underline' to='/about' onClick={toggleMenu}>About Us</Link>
+          <Link className='hover:underline' to='/reviews' onClick={toggleMenu}>Revews</Link>
+          <Link className='hover:underline' to='/booking' onClick={toggleMenu}>Reservations</Link>
         </div>
       </div>
     </nav>
