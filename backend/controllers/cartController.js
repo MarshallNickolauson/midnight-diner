@@ -64,20 +64,20 @@ export const updateCart = expressAsyncHandler(async (req, res) => {
             });
         }
 
-    } else if (action === 'remove') {
+    }
+
+    if (action === 'remove') {
         const existingItemIndex = cart.items.findIndex(item => item.menuItem._id.toString() === menuItemId);
 
         if (existingItemIndex > -1) {
-            cart.items[existingItemIndex].quantity--;
-            if (cart.items[existingItemIndex].quantity === 0) {
+            if (cart.items[existingItemIndex].quantity === 1) {
                 cart.items.splice(existingItemIndex, 1);
+            } else {
+                cart.items[existingItemIndex].quantity--;
             }
         } else {
             return res.status(404).json({ message: 'Item not found in cart' });
         }
-
-    } else {
-        return res.status(400).json({ message: 'Invalid action. Use "add" or "remove".' });
     }
 
     cart.totalPrice = cart.items.reduce((total, item) => {

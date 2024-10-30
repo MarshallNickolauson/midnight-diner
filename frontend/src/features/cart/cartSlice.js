@@ -32,13 +32,13 @@ const cartSlice = createSlice({
         },
         removeItemFromCart: (state, action) => {
             const menuItem = action.payload;
-            const existingItem = state.menuItems.find(item => item._id === menuItem._id);
-
-            if (existingItem) {
-                if (existingItem.quantity > 1) {
-                    existingItem.quantity--;
+            const existingItemIndex = state.menuItems.findIndex(item => item._id === menuItem._id);
+            
+            if (existingItemIndex > -1) {
+                if (state.menuItems[existingItemIndex].quantity > 1) {
+                    state.menuItems[existingItemIndex].quantity--;
                 } else {
-                    state.menuItems = state.menuItems.filter(item => item._id !== menuItemId);
+                    state.menuItems.splice(existingItemIndex, 1);
                 }
             }
 
