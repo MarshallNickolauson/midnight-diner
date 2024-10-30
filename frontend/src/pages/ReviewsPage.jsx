@@ -1,12 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReviewFormModal from '../components/ReviewFormModal';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useGetReviewsQuery } from '../features/review/reviewApiSlice';
 
 const ReviewsPage = () => {
     const [isReviewModalOpen, setReviewModalOpen] = useState(false);
+    
     const { userInfo } = useSelector((state) => state.auth);
+    
     const navigate = useNavigate();
+
+    const { data: reviews = [], isLoading } = useGetReviewsQuery();
+
+    useEffect(() => {
+        if (reviews.length > 0) {
+            
+        }
+    }, [reviews]);
 
     const handleOpenReviewModal = () => {
         if (userInfo) {

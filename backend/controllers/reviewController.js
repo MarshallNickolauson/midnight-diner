@@ -29,6 +29,7 @@ export const createReview = expressAsyncHandler(async (req, res) => {
     const { rating, comment } = req.body;
     const review = new Review({
         user: req.user._id,
+        name: req.user.name,
         rating,
         comment,
     });

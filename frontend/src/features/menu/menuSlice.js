@@ -41,5 +41,5 @@ const menuSlice = createSlice({
     }
 });
 
-export const { setMenuItems } = menuSlice.actions;
+export const {  } = menuSlice.actions;
 export default menuSlice.reducer;

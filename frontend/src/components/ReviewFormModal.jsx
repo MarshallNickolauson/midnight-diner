@@ -21,7 +21,9 @@ const ReviewFormModal = ({ isOpen, onClose }) => {
 
         try {
             const res = await createReview({ rating, comment }).unwrap();
-            console.log(res);
+
+            // for res add it to a state list of reviews.
+
             setRating(1);
             setComment('');
         } catch (error) {
