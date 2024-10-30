@@ -110,11 +110,11 @@ const CartPage = () => {
                                             <span className="text-lg font-semibold">
                                                 {item.salePrice > 0 ? (
                                                     <>
-                                                        <span className="text-mainRed">${item.salePrice.toFixed(2) * item.quantity}</span>
-                                                        <span className="line-through text-gray-500 pl-2">${item.price.toFixed(2) * item.quantity}</span>
+                                                        <span className="text-mainRed">${(item.salePrice * item.quantity).toFixed(2)}</span>
+                                                        <span className="line-through text-gray-500 pl-2">${(item.price * item.quantity).toFixed(2)}</span>
                                                     </>
                                                 ) : (
-                                                    <span className="text-mainRed">${item.price.toFixed(2) * item.quantity}</span>
+                                                    <span className="text-mainRed">${(item.price * item.quantity).toFixed(2)}</span>
                                                 )}
                                             </span>
                                             <div className='flex flex-row space-x-3'>
