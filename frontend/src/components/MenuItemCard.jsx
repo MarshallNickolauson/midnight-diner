@@ -38,7 +38,7 @@ const MenuItemCard = ({ menuItem, onReadMore, onEdit }) => {
 
     return (
         <div
-            className={`bg-gray-50 rounded-lg overflow-hidden shadow-gray-400 shadow-lg w-60 transition-transform duration-300 ${isScaling ? 'scale-[1.03]' : 'scale-100'
+            className={`bg-gray-50 rounded-lg overflow-hidden shadow-gray-400 shadow-lg w-60 transition-transform duration-200 ${isScaling ? 'scale-[1.03]' : 'scale-100'
                 }`}
         >
             <div>

@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react'
-import BlackButtonHollow from '../components/BlackButtonHollow'
+import React, { useState } from 'react';
+import BlackButtonHollow from '../components/BlackButtonHollow';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FaTrashAlt } from "react-icons/fa";
@@ -11,13 +11,24 @@ import { useDeleteCartItemMutation, useUpdateCartMutation } from '../features/ca
 const CartPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
     const { userInfo } = useSelector((state) => state.auth);
     const menuItems = useSelector((state) => state.cart.menuItems);
 
     const [updateCart] = useUpdateCartMutation();
     const [deleteCartItem] = useDeleteCartItemMutation();
     const [placeOrder, { isLoading }] = useCreateOrderMutation();
+    const [showOrderForm, setShowOrderForm] = useState(false);  // State to control form visibility
+
+    const [orderDetails, setOrderDetails] = useState({
+        name: userInfo?.name || '',
+        email: userInfo?.email || '',
+        phone: userInfo?.phone || '',
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setOrderDetails((prev) => ({ ...prev, [name]: value }));
+    };
 
     const fullImageUrl = `http://localhost:5000/assets/`;
 
@@ -25,27 +36,26 @@ const CartPage = () => {
         return total + (item.salePrice > 0 ? item.salePrice : item.price) * item.quantity;
     }, 0).toFixed(2);
 
-
     const addItem = (item) => {
         dispatch(addItemToCart(item));
         if (userInfo) {
             updateCart({ menuItemId: item._id, action: 'add' });
         }
-    }
+    };
 
     const removeItem = (item) => {
         dispatch(removeItemFromCart(item));
         if (userInfo) {
             updateCart({ menuItemId: item._id, action: 'remove' });
         }
-    }
+    };
 
     const deleteMenuItem = (item) => {
         dispatch(clearSpecificItemFromCart(item));
         if (userInfo) {
             deleteCartItem({ menuItemId: item._id });
-        }        
-    }
+        }
+    };
 
     const handlePlaceOrder = async () => {
         const items = menuItems.map(item => ({
@@ -54,14 +64,10 @@ const CartPage = () => {
         }));
 
         try {
-            // Make api call for user
-
             await placeOrder({
-                name: 'John',
-                email: 'John@gmail.com',
-                phone: '1234567890',
+                ...orderDetails,
                 items,
-                totalPrice
+                totalPrice,
             }).unwrap();
 
             dispatch(clearCart());
@@ -80,13 +86,13 @@ const CartPage = () => {
             <div className='text-center'>
                 <h1 className='text-[3rem] text-mainBlack font-bold'>YOUR <span className='text-mainRed'>BAG</span></h1>
                 <h1 className='text-[1.2rem]'>Here you'll see what you've added to your takeout bag.</h1>
-                {!userInfo &&
+                {!userInfo && (
                     <h1
                         onClick={() => navigate('/login')}
                         className='text-[1rem] mt-5 cursor-pointer inline-block text-blue-500 hover:underline'>
                         For the best experience, please sign in.
                     </h1>
-                }
+                )}
                 <div className='flex justify-center mt-5'>
                     <BlackButtonHollow title='View Menu' navigateTo='/menu' width='160' />
                 </div>
@@ -96,7 +102,6 @@ const CartPage = () => {
                             <div key={item.id} className="flex flex-col md:flex-row bg-white shadow-gray-400 shadow-md rounded-lg p-4 m-2 w-3/4">
                                 <img src={`${fullImageUrl}${item.imageUrl}`} alt={item.name} className="w-[145px] h-[145px] object-cover rounded-md md:mr-4 shadow-mainBlack shadow-md" />
                                 <div className="flex flex-col justify-between space-y-3 w-full">
-
                                     <div className='flex flex-col justify-between h-full text-left'>
                                         <div className='flex flex-row justify-between'>
                                             <h2 className="text-xl font-bold text-mainBlack tracking-wide">{item.name}</h2>
@@ -128,7 +133,6 @@ const CartPage = () => {
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         ))
@@ -139,17 +143,62 @@ const CartPage = () => {
                 {menuItems.length > 0 && (
                     <div className="flex flex-col items-center mt-5">
                         <h2 className="text-2xl font-bold text-mainBlack">Total: ${totalPrice}</h2>
-                        <button
-                            onClick={handlePlaceOrder}
-                            className="bg-mainRed text-white font-semibold py-2 px-4 rounded mt-4 hover:bg-red-600 transition duration-200"
-                        >
-                            Place Order
-                        </button>
+                        <div className="flex space-x-4 mt-4">
+                            {showOrderForm ? (
+                                <div className="space-y-4 w-1/3 mx-auto">
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={orderDetails.name}
+                                        onChange={handleInputChange}
+                                        placeholder="Name"
+                                        className="w-full p-2 border border-gray-300 rounded"
+                                    />
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={orderDetails.email}
+                                        onChange={handleInputChange}
+                                        placeholder="Email"
+                                        className="w-full p-2 border border-gray-300 rounded"
+                                    />
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={orderDetails.phone}
+                                        onChange={handleInputChange}
+                                        placeholder="Phone"
+                                        className="w-full p-2 border border-gray-300 rounded"
+                                    />
+                                    <button
+                                        onClick={handlePlaceOrder}
+                                        className="bg-mainRed text-white font-semibold py-2 px-4 rounded mt-4 hover:bg-red-600 transition duration-200"
+                                    >
+                                        Place Order
+                                    </button>
+                                </div>
+                            ) : (
+                                <>
+                                    <button
+                                        onClick={() => navigate('/menu')}
+                                        className="bg-mainBlack text-white font-semibold py-2 px-4 rounded hover:bg-gray-700 transition duration-200"
+                                    >
+                                        Double Check Menu
+                                    </button>
+                                    <button
+                                        onClick={() => setShowOrderForm(true)}
+                                        className="bg-mainRed text-white font-semibold py-2 px-4 rounded hover:bg-red-600 transition duration-200"
+                                    >
+                                        Looks Good!
+                                    </button>
+                                </>
+                            )}
+                        </div>
                     </div>
                 )}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default CartPage
+export default CartPage;
