@@ -11,6 +11,7 @@ import CartPage from './pages/CartPage';
 import AboutPage from './pages/AboutPage';
 import BookingPage from './pages/BookingPage';
 import BookingSearchPage from './pages/BookingSearchPage';
+import ReviewsPage from './pages/ReviewsPage';
 
 function App() {
 
@@ -26,6 +27,8 @@ function App() {
         <Route path='/about' element={<AboutPage />} />
         <Route path='/booking' element={<BookingPage />} />
         <Route path='/booking/search' element={<BookingSearchPage />} />
+        <Route path='/booking/search' element={<BookingSearchPage />} />
+        <Route path='/reviews' element={<ReviewsPage />} />
         <Route path='' element={<PrivateRoute />}>
           <Route path='/account' element={<MyAccountPage />} />
         </Route>
