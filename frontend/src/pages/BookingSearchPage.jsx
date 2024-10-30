@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 const BookingSearchPage = () => {
     const [email, setEmail] = useState('');
+    const [searched, setSearched] = useState(false);
+    const [bookings, setBookings] = useState([]);
+
     const navigate = useNavigate();
 
     const [getBookings, { isLoading }] = useGetBookingsMutation();
@@ -12,7 +15,8 @@ const BookingSearchPage = () => {
         e.preventDefault();
         try {
             const res = await getBookings({ email: email }).unwrap();
-            console.log(res);
+            setBookings(res);
+            setSearched(true);
         } catch (error) {
             console.log(error);
         }
@@ -56,14 +60,23 @@ const BookingSearchPage = () => {
                     </div>
                 </form>
 
-                {/* Hard-Coded Example Booking Information */}
+                {/* Render Booking Cards */}
                 <div className="mt-8 text-mainWhite">
-                    <h2 className="text-lg font-semibold">Example Booking</h2>
-                    <p className="mt-2"><strong>Name:</strong> John Doe</p>
-                    <p><strong>Party Size:</strong> 4</p>
-                    <p><strong>Date:</strong> 2024-10-30</p>
-                    <p><strong>Time:</strong> 7:00 PM</p>
-                    <p><strong>Special Requests:</strong> Window seat</p>
+                    {bookings.length > 0 && (
+                        bookings.map((booking) => (
+                            <div key={booking._id} className="border border-mainWhite p-4 rounded mb-4">
+                                <h2 className="text-lg"><strong>Name:</strong> {booking.name}</h2>
+                                <p><strong>Party Size:</strong> {booking.partySize}</p>
+                                <p><strong>Date:</strong> {new Date(booking.dateTime).toLocaleDateString()}</p>
+                                <p><strong>Time:</strong> {new Date(booking.dateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                <p><strong>Special Requests:</strong> {booking.specialRequests}</p>
+                                <p><strong>Status:</strong> {booking.status}</p>
+                            </div>
+                        ))
+                    )}
+                    {(bookings.length === 0 && searched) && (
+                        <p>No bookings found.</p>
+                    )}
                 </div>
             </div>
         </div>
