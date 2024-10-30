@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { logout, setCredentials } from '../features/auth/authSlice';
 import { useLogoutMutation, useUpdateMutation } from '../features/auth/usersApiSlice';
+import { clearCart } from '../features/cart/cartSlice';
 
 const MyAccountPage = () => {
   const location = useLocation();
@@ -57,6 +58,7 @@ const MyAccountPage = () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
+      dispatch(clearCart());
       setTimeout(() => {
         navigate('/');
       }, 1);
