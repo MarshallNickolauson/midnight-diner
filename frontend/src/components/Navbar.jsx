@@ -5,28 +5,26 @@ import YellowButtonFilled from './YellowButtonFilled';
 import { useSelector } from 'react-redux';
 import { IoBagOutline } from "react-icons/io5";
 import { PiSignIn } from "react-icons/pi";
-import { GiHamburgerMenu } from "react-icons/gi"; // Icon for hamburger menu
-import { IoClose } from "react-icons/io5"; // Icon for closing menu
+import { GiHamburgerMenu } from "react-icons/gi";
+import { IoClose } from "react-icons/io5";
 
 function Navbar() {
   const { userInfo } = useSelector((state) => state.auth);
   const { menuItems } = useSelector((state) => state.cart);
   const [isOpen, setIsOpen] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(0); // State to hold total price
+  const [totalPrice, setTotalPrice] = useState(0);
   const menuRef = useRef(null);
 
   useEffect(() => {
-    // Calculate total price whenever menuItems changes
     const calculateTotalPrice = () => {
       const total = menuItems.reduce((acc, item) => {
-        return acc + (item.price * item.quantity); // Adjust according to your price logic
+        const priceToUse = item.salePrice > 0 ? item.salePrice : item.price;
+        return acc + (priceToUse * item.quantity);
       }, 0);
-      setTotalPrice(total.toFixed(2)); // Format total to 2 decimal places
+      setTotalPrice(total.toFixed(2));
     };
 
-    calculateTotalPrice(); // Call the function to calculate total price
-
-    // Optional: Listen for changes in menuItems and recalculate total price
+    calculateTotalPrice();
   }, [menuItems]);
 
   useEffect(() => {
