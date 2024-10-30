@@ -20,11 +20,15 @@ const reviewSlice = createSlice({
             .addMatcher(
                 reviewApiSlice.endpoints.createReview.matchFulfilled,
                 (state, action) => {
+                    if (state.reviews.length >= 15) {
+                        state.reviews.shift();
+                    }
+
                     state.reviews.push(action.payload);
                 }
             )
     },
 });
 
-export const {  } = reviewSlice.actions;
+export const { } = reviewSlice.actions;
 export default reviewSlice.reducer;

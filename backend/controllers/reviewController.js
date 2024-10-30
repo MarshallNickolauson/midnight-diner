@@ -5,8 +5,15 @@ import Review from '../models/reviewModel.js';
 // @route   GET api/reviews
 // @access  Public
 export const getAllReviews = expressAsyncHandler(async (req, res) => {
-    const reviews = await Review.find({});
-    res.json(reviews);
+    try {
+        const reviews = await Review.find({})
+            .sort({ updatedAt: -1 })
+            .limit(15);
+
+        res.status(200).json(reviews);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error retrieving reviews', error });
+    }
 });
 
 // @desc    Get single review

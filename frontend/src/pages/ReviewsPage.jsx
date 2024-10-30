@@ -12,14 +12,10 @@ const ReviewsPage = () => {
 
     const navigate = useNavigate();
 
-    const { data: reviews = [], isLoading } = useGetReviewsQuery();
-
-    useEffect(() => {
-        if (reviews.length > 0) {
-            console.log(reviews);
-        }
-    }, [reviews]);
-
+    const { data: reviews = [], isLoading, isError } = useGetReviewsQuery();
+    
+    console.log(reviews);
+    
     const handleOpenReviewModal = () => {
         if (userInfo) {
             setReviewModalOpen(true);
@@ -49,18 +45,18 @@ const ReviewsPage = () => {
             </div>
 
             <div className="review-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-8 px-10">
-                {isLoading ? (
-                    <p>Loading reviews...</p>
-                ) : (
+                {reviews.length > 0 ? (
                     reviews.map((review) => (
                         <ReviewCard
-                            key={review.id}
+                            key={review._id}
                             name={review.name}
                             rating={review.rating}
                             comment={review.comment}
                             updatedAt={review.updatedAt}
                         />
                     ))
+                ) : (
+                    <p>No reviews yet. Be the first!</p>
                 )}
             </div>
 

@@ -10,7 +10,7 @@ export const getAllBookings = expressAsyncHandler(async (req, res) => {
     res.status(200).json(bookings);
 });
 
-// // @desc    Get single reservation - UNNEEDED
+// // @desc    Get single reservation
 // // @route   GET api/booking/:id
 // // @access  Public
 // export const getBookingById = expressAsyncHandler(async (req, res) => {
