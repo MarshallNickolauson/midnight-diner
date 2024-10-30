@@ -66,7 +66,7 @@ const MenuItemCard = ({ menuItem, onReadMore, onEdit }) => {
                 </div>
             </div>
             {availability ? (
-                <div onClick={addToOrder} className='flex justify-center p-2 group hover:cursor-pointer bg-mainYellow hover:bg-yellow-500'>
+                <div onClick={addToOrder} className='flex justify-center p-2 group hover:cursor-pointer bg-mainYellow hover:bg-yellow-500 transition-all duration-150'>
                     <p
                         className='text-center cursor-pointer font-bold tracking-wider transition-all duration-300 text-mainBlack'
                     >Add to Cart</p>
