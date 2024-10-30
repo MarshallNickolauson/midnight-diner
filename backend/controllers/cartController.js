@@ -24,6 +24,8 @@ export const getCart = expressAsyncHandler(async (req, res) => {
 export const updateCart = expressAsyncHandler(async (req, res) => {
     const { menuItemId, action } = req.body;
 
+    console.log("Received request to update cart with:", req.body);
+
     if (!menuItemId || !action) {
         return res.status(400).json({ message: 'Menu item ID and action are required' });
     }

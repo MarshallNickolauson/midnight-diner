@@ -6,6 +6,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import { addItemToCart, clearCart, clearSpecificItemFromCart, removeItemFromCart } from '../features/cart/cartSlice';
 import { useCreateOrderMutation } from '../features/order/orderApiSlice';
+import { useUpdateCartMutation } from '../features/cart/cartApiSlice';
 
 const CartPage = () => {
     const navigate = useNavigate();
@@ -14,8 +15,7 @@ const CartPage = () => {
     const { userInfo } = useSelector((state) => state.auth);
     const menuItems = useSelector((state) => state.cart.menuItems);
 
-    console.log(menuItems);
-
+    const [updateCart] = useUpdateCartMutation();
     const [placeOrder, { isLoading }] = useCreateOrderMutation();
 
     const fullImageUrl = `http://localhost:5000/assets/`;
@@ -27,14 +27,21 @@ const CartPage = () => {
 
     const addItem = (item) => {
         dispatch(addItemToCart(item));
+        if (userInfo) {
+            updateCart({ menuItemId: item._id, action: 'add' });
+        }
     }
 
     const removeItem = (item) => {
         dispatch(removeItemFromCart(item));
+        if (userInfo) {
+            updateCart({ menuItemId: item._id, action: 'remove' });
+        }
     }
 
     const deleteMenuItem = (item) => {
         dispatch(clearSpecificItemFromCart(item));
+        // Make api call
     }
 
     const handlePlaceOrder = async () => {
@@ -44,6 +51,8 @@ const CartPage = () => {
         }));
 
         try {
+            // Make api call for user
+
             await placeOrder({
                 name: 'John',
                 email: 'John@gmail.com',

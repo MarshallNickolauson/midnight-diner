@@ -9,7 +9,7 @@ export const cartApiSlice = apiSlice.injectEndpoints({
                 url: CART_URL,
                 method: 'PUT',
                 body: { menuItemId, action },
-                invalidatesTags: ['Cart'],
+                credentials: 'include',
             }),
         }),
     }),
