@@ -6,8 +6,6 @@ import MenuItem from '../models/menuItemModel.js';
 // @route   GET /api/cart
 // @access  Private
 export const getCart = expressAsyncHandler(async (req, res) => {
-    console.log(`User ID: ${req.user._id}`);
-
     let cart = await Cart.findOne({ user: req.user._id });
 
     if (!cart) {
@@ -23,8 +21,6 @@ export const getCart = expressAsyncHandler(async (req, res) => {
 // @access  Private
 export const updateCart = expressAsyncHandler(async (req, res) => {
     const { menuItemId, action } = req.body;
-
-    console.log("Received request to update cart with:", req.body);
 
     if (!menuItemId || !action) {
         return res.status(400).json({ message: 'Menu item ID and action are required' });
@@ -94,8 +90,6 @@ export const updateCart = expressAsyncHandler(async (req, res) => {
 // @access  Private
 export const deleteCartItem = expressAsyncHandler(async (req, res) => {
     const { menuItemId } = req.params;
-
-    console.log(`Received request to delete item from cart: ${menuItemId}`);
 
     if (!menuItemId) {
         return res.status(400).json({ message: 'Menu item ID is required' });
