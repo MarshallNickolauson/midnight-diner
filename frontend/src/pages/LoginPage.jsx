@@ -35,26 +35,19 @@ const LoginPage = () => {
 
             dispatch(getUserCart());
 
-            // When logging in, it doesn't yet fetch the cart pertaining to the user and repopulate the state and local storage
-
-            // const { data, error } = useGetUserCartQuery();
-            // console.log(data);
-            // console.log(error);
-
             navigate('/');
         } catch (err) {
             console.log(err?.data?.message || err.error);
         }
-
     };
 
     return (
-        <div className="flex justify-center items-center bg-mainDarkGray py-20">
-            <div className="bg-mainBlack p-8 shadow-lg border-2 border-mainWhite w-[360px] rounded-lg">
-                <h1 className="text-mainWhite text-3xl mb-6 text-center font-semibold">Login</h1>
+        <div className="flex justify-center items-center bg-mainWhite py-20">
+            <div className="bg-white p-8 shadow-lg border-2 border-mainDarkGray w-[360px] rounded-lg">
+                <h1 className="text-mainDarkGray text-3xl mb-6 text-center font-semibold">Login</h1>
                 <form onSubmit={handleLogin} className="space-y-6">
                     <div className="space-y-3">
-                        <label htmlFor="email" className="block text-mainWhite text-sm">
+                        <label htmlFor="email" className="block text-mainDarkGray text-sm">
                             Email
                         </label>
                         <input
@@ -62,13 +55,13 @@ const LoginPage = () => {
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
+                            className="w-full px-4 py-2 border border-mainDarkGray focus:outline-none focus:border-blue-500 bg-white text-mainDarkGray rounded transition duration-200"
                             required
                             placeholder="Enter your email"
                         />
                     </div>
                     <div className="space-y-3">
-                        <label htmlFor="password" className="block text-mainWhite text-sm">
+                        <label htmlFor="password" className="block text-mainDarkGray text-sm">
                             Password
                         </label>
                         <input
@@ -76,18 +69,18 @@ const LoginPage = () => {
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
+                            className="w-full px-4 py-2 border border-mainDarkGray focus:outline-none focus:border-blue-500 bg-white text-mainDarkGray rounded transition duration-200"
                             required
                             placeholder="Enter your password"
                         />
                     </div>
-                    <div onClick={() => navigate('/register')} className="text-mainYellow text-sm cursor-pointer text-center hover:underline">
+                    <div onClick={() => navigate('/register')} className="text-blue-500 text-sm cursor-pointer text-center hover:underline">
                         <p>Need an account? Sign up to order faster!</p>
                     </div>
                     <div className="flex justify-center mt-6">
                         <button
                             type="submit"
-                            className="bg-mainYellow w-full border-2 border-transparent hover:border-mainWhite text-mainBlack font-semibold py-2 rounded transition duration-200 hover:bg-mainBlack hover:text-mainYellow"
+                            className="bg-mainYellow w-full border border-mainDarkGray hover:border-mainDarkGray text-mainDarkGray font-semibold py-2 rounded transition duration-200 hover:bg-mainDarkGray hover:text-darkYellow"
                         >
                             Log In
                         </button>

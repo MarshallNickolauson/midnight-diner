@@ -42,7 +42,7 @@ const BookingPage = () => {
         try {
             await createBooking(bookingData).unwrap();
             setDate('');
-            setTime('')
+            setTime('');
             setPartySize('');
             setSpecialRequests('');
 
@@ -68,8 +68,8 @@ const BookingPage = () => {
                 const suffix = displayHour >= 12 ? 'PM' : 'AM';
                 const formattedHour = displayHour > 12 ? displayHour - 12 : displayHour;
 
-                const timeString = `${formattedHour.toString().padStart(2, '0')}:${'00'} ${suffix}`;
-                const timeString30 = `${formattedHour.toString().padStart(2, '0')}:${'30'} ${suffix}`;
+                const timeString = `${formattedHour.toString().padStart(2, '0')}:00 ${suffix}`;
+                const timeString30 = `${formattedHour.toString().padStart(2, '0')}:30 ${suffix}`;
 
                 const optionTime = new Date(date);
                 optionTime.setHours(hour > 24 ? hour - 24 : hour, 0);
@@ -93,92 +93,54 @@ const BookingPage = () => {
     }, [date]);
 
     return (
-        <div className="flex justify-center items-start py-10 min-h-screen bg-mainDarkGray">
-            <div className="bg-mainBlack p-8 shadow-lg border-2 border-mainWhite w-[360px] rounded-lg">
-                <h1 className="text-mainWhite text-3xl mb-6 text-center font-semibold">Book a Reservation</h1>
+        <div className="flex justify-center items-start py-10 min-h-screen bg-mainWhite">
+            <div className="bg-white p-8 shadow-lg border-2 border-mainDarkGray w-[360px] rounded-lg">
+                <h1 className="text-mainDarkGray text-[1.8rem] mb-6 text-center font-semibold">Book a Reservation</h1>
                 <form onSubmit={handleBookingSubmit} className="space-y-6">
 
                     <div className="justify-center text-center">
                         <p
                             onClick={() => navigate('/booking/search')}
-                            className="inline-block text-mainYellow text-sm cursor-pointer hover:underline"
-                        >Have a Reservation?</p>
+                            className="inline-block text-blue-500 text-md cursor-pointer hover:underline"
+                        >
+                            Have a Reservation?
+                        </p>
                     </div>
 
-                    {/* Name Field */}
-                    <div className="space-y-3">
-                        <label htmlFor="name" className="block text-mainWhite text-sm">
-                            Name
-                        </label>
-                        <input
-                            type="text"
-                            id="name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
-                            required
-                            placeholder="Your full name"
-                        />
-                    </div>
-
-                    {/* Email Field */}
-                    <div className="space-y-3">
-                        <label htmlFor="email" className="block text-mainWhite text-sm">
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
-                            required
-                            placeholder="Your email"
-                        />
-                    </div>
-
-                    {/* Phone Field */}
-                    <div className="space-y-3">
-                        <label htmlFor="phone" className="block text-mainWhite text-sm">
-                            Phone
-                        </label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
-                            required
-                            placeholder="Your phone number"
-                        />
-                    </div>
-
-                    {/* Date Field */}
-                    <div className="space-y-3">
-                        <label htmlFor="date" className="block text-mainWhite text-sm">
-                            Date
-                        </label>
-                        <input
-                            type="date"
-                            id="date"
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
-                            required
-                            min={getTodayDate()}
-                        />
-                    </div>
+                    {[
+                        { id: 'name', label: 'Name', type: 'text', value: name, onChange: setName, placeholder: 'Your full name' },
+                        { id: 'email', label: 'Email', type: 'email', value: email, onChange: setEmail, placeholder: 'Your email' },
+                        { id: 'phone', label: 'Phone', type: 'tel', value: phone, onChange: setPhone, placeholder: 'Your phone number' },
+                        { id: 'date', label: 'Date', type: 'date', value: date, onChange: setDate, placeholder: '', min: getTodayDate() },
+                        { id: 'partySize', label: 'Party Size', type: 'number', value: partySize, onChange: setPartySize, placeholder: 'Number of people', min: '1' },
+                    ].map((field, index) => (
+                        <div key={index} className="space-y-3">
+                            <label htmlFor={field.id} className="block text-mainDarkGray text-sm">
+                                {field.label}
+                            </label>
+                            <input
+                                type={field.type}
+                                id={field.id}
+                                value={field.value}
+                                onChange={(e) => field.onChange(e.target.value)}
+                                className="w-full px-4 py-2 border border-mainDarkGray focus:outline-none focus:border-blue-500 bg-white text-mainDarkGray rounded transition duration-200"
+                                required
+                                placeholder={field.placeholder}
+                                min={field.min}
+                            />
+                        </div>
+                    ))}
 
                     {/* Time Field */}
                     <div className="space-y-3">
-                        <label htmlFor="time" className="block text-mainWhite text-sm">
+                        <label htmlFor="time" className="block text-mainDarkGray text-sm">
                             Time
                         </label>
                         <select
                             id="time"
                             value={time}
                             onChange={(e) => setTime(e.target.value)}
-                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
+                            className="w-full px-4 py-2 border border-mainDarkGray focus:outline-none focus:border-blue-500 bg-white text-mainDarkGray rounded transition duration-200"
                             required
                         >
                             <option value="" disabled>Select a time</option>
@@ -190,33 +152,16 @@ const BookingPage = () => {
                         </select>
                     </div>
 
-                    {/* Party Size Field */}
-                    <div className="space-y-3">
-                        <label htmlFor="partySize" className="block text-mainWhite text-sm">
-                            Party Size
-                        </label>
-                        <input
-                            type="number"
-                            id="partySize"
-                            value={partySize}
-                            onChange={(e) => setPartySize(e.target.value)}
-                            className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
-                            required
-                            placeholder="Number of people"
-                            min="1"
-                        />
-                    </div>
-
                     {/* Special Requests Field */}
                     <div className="space-y-3">
-                        <label htmlFor="specialRequests" className="block text-mainWhite text-sm">
+                        <label htmlFor="specialRequests" className="block text-mainDarkGray text-sm">
                             Special Requests
                         </label>
                         <textarea
                             id="specialRequests"
                             value={specialRequests}
                             onChange={(e) => setSpecialRequests(e.target.value)}
-                            className="w-full h-32 resize-none px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
+                            className="w-full h-32 resize-none px-4 py-2 border border-mainDarkGray focus:outline-none focus:border-blue-500 bg-white text-mainDarkGray rounded transition duration-200"
                             placeholder="Any additional requests"
                         />
                     </div>
@@ -225,7 +170,7 @@ const BookingPage = () => {
                     <div className="flex justify-center mt-8">
                         <button
                             type="submit"
-                            className="bg-mainYellow w-full border-2 border-transparent hover:border-mainWhite text-mainBlack font-semibold py-2 rounded transition duration-200 hover:bg-mainBlack hover:text-mainYellow"
+                            className="bg-mainYellow w-full border border-mainDarkGray hover:border-mainDarkGray text-mainDarkGray font-semibold py-2 rounded transition duration-200 hover:bg-mainDarkGray hover:text-darkYellow"
                         >
                             Book Now
                         </button>

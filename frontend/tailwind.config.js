@@ -10,6 +10,7 @@ export default {
         mainBlack: '#1E1B1A',
         mainDarkGray: '#353332',
         mainYellow: '#FFD241',
+        darkYellow: '#E5B800',
         mainWhite: '#E8E6E5',
         mainRed: '#E74C3C',
       },

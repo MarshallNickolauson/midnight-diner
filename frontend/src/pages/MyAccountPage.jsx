@@ -35,7 +35,7 @@ const MyAccountPage = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      console.log('Passwords dont match');
+      console.log('Passwords don\'t match');
     } else {
       try {
         const res = await updateProfile({
@@ -52,7 +52,7 @@ const MyAccountPage = () => {
         console.log(err?.data?.message || err.error);
       }
     }
-  }
+  };
 
   const handleLogout = async () => {
     try {
@@ -65,90 +65,40 @@ const MyAccountPage = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
-    <div className="flex justify-center items-start py-10 min-h-screen bg-mainDarkGray">
-      <div className="bg-mainBlack p-8 shadow-lg border-2 border-mainWhite w-[360px] rounded-lg">
-        <h1 className="text-mainWhite text-3xl mb-6 text-center font-semibold">My Account</h1>
+    <div className="flex justify-center items-start py-10 min-h-screen bg-mainWhite">
+      <div className="bg-white p-8 shadow-lg border-2 border-mainDarkGray w-[360px] rounded-lg">
+        <h1 className="text-mainDarkGray text-[1.8rem] mb-6 text-center font-semibold">My Account</h1>
         <form onSubmit={handleUpdateUser} className="space-y-6">
-          <div className="space-y-3">
-            <label htmlFor="name" className="block text-mainWhite text-sm">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
-              required
-              placeholder="Your name for orders"
-            />
-          </div>
-
-          <div className="space-y-3">
-            <label htmlFor="email" className="block text-mainWhite text-sm">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
-              required
-              placeholder="Your email"
-            />
-          </div>
-
-          <div className="space-y-3">
-            <label htmlFor="phone" className="block text-mainWhite text-sm">
-              Phone
-            </label>
-            <input
-              type="phone"
-              id="phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
-              required
-              placeholder="Your phone #"
-            />
-          </div>
-
-          <div className="space-y-3">
-            <label htmlFor="password" className="block text-mainWhite text-sm">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
-              placeholder="Update password"
-            />
-          </div>
-
-          <div className="space-y-3">
-            <label htmlFor="confirmPassword" className="block text-mainWhite text-sm">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-mainWhite focus:outline-none focus:ring-2 focus:ring-mainYellow bg-mainDarkGray text-mainWhite rounded transition duration-150"
-              placeholder="Confirm password"
-            />
-          </div>
+          {[
+            { id: 'name', label: 'Name', type: 'text', value: name, onChange: setName, placeholder: 'Your full name' },
+            { id: 'email', label: 'Email', type: 'email', value: email, onChange: setEmail, placeholder: 'Your email' },
+            { id: 'phone', label: 'Phone', type: 'tel', value: phone, onChange: setPhone, placeholder: 'Your phone number' },
+            { id: 'password', label: 'Password', type: 'password', value: password, onChange: setPassword, placeholder: 'Update password' },
+            { id: 'confirmPassword', label: 'Confirm Password', type: 'password', value: confirmPassword, onChange: setConfirmPassword, placeholder: 'Confirm password' }
+          ].map((field, index) => (
+            <div key={index} className="space-y-3">
+              <label htmlFor={field.id} className="block text-mainDarkGray text-sm">
+                {field.label}
+              </label>
+              <input
+                type={field.type}
+                id={field.id}
+                value={field.value}
+                onChange={(e) => field.onChange(e.target.value)}
+                className="w-full px-4 py-2 border border-mainDarkGray focus:outline-none focus:border-blue-500 bg-white text-mainDarkGray rounded transition duration-200"
+                required
+                placeholder={field.placeholder}
+              />
+            </div>
+          ))}
 
           <div className="flex justify-center mt-6">
             <button
               type="submit"
-              className="bg-mainYellow w-full border-2 border-transparent hover:border-mainWhite text-mainBlack font-semibold py-2 rounded transition duration-200 hover:bg-mainBlack hover:text-mainYellow"
+              className="bg-mainYellow w-full border border-mainDarkGray hover:border-mainDarkGray text-mainDarkGray font-semibold py-2 rounded transition duration-200 hover:bg-mainDarkGray hover:text-darkYellow"
             >
               Update Profile
             </button>
@@ -158,7 +108,7 @@ const MyAccountPage = () => {
             <button
               onClick={handleLogout}
               type="button"
-              className="bg-mainBlack w-full border-2 border-mainYellow text-mainYellow font-semibold py-2 rounded transition duration-200 hover:bg-mainYellow hover:text-mainBlack"
+              className="bg-mainDarkGray w-full border border-transparent text-mainYellow font-semibold py-2 rounded transition duration-200 hover:bg-mainYellow hover:text-mainDarkGray hover:border hover:border-mainDarkGray"
             >
               Logout
             </button>

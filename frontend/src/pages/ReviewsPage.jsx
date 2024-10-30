@@ -13,7 +13,7 @@ const ReviewsPage = () => {
     const navigate = useNavigate();
 
     const { data: reviews = [], isLoading, isError } = useGetReviewsQuery();
-    
+
     const handleOpenReviewModal = () => {
         if (userInfo) {
             setReviewModalOpen(true);
@@ -29,13 +29,15 @@ const ReviewsPage = () => {
     return (
         <div className='bg-mainWhite py-3'>
             <div className='flex flex-col mx-auto justify-center text-center'>
-                <h1 className='text-[3rem] text-mainBlack font-bold'>Customer Reviews</h1>
+                <h1 className='text-[3rem] text-mainBlack font-bold'>REVIEWS FROM <span className='text-mainRed'>REAL PEOPLE</span></h1>
                 <h2 className='text-[1.5rem]'>Your feedback matters to us!</h2>
                 <div>
                     <button
                         type="button"
                         onClick={handleOpenReviewModal}
-                        className="mt-5 bg-mainYellow w-[180px] hover:bg-yellow-500 hover:text-mainYellow cursor-pointer border-2 border-mainYellow transition-all duration-300 ease-in-out group py-3 shadow-gray-300 shadow-md"
+                        className="mt-5 bg-mainYellow w-[180px] border border-mainDarkGray hover:border-mainDarkGray text-mainDarkGray font-semibold py-2 rounded transition duration-200 hover:bg-yellow-500"
+                        // className="bg-mainYellow w-full border border-mainDarkGray hover:border-mainDarkGray text-mainDarkGray font-semibold py-2 rounded transition duration-200 hover:bg-mainDarkGray hover:text-darkYellow"
+
                     >
                         <h1 className="text-mainBlack text-lg">Leave a Review</h1>
                     </button>

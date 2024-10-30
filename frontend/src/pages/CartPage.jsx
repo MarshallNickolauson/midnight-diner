@@ -150,7 +150,7 @@ const CartPage = () => {
                                         value={orderDetails.name}
                                         onChange={handleInputChange}
                                         placeholder="Name"
-                                        className="w-full p-2 border border-gray-300 rounded"
+                                        className="w-full px-4 py-2 border border-mainDarkGray focus:outline-none focus:border-blue-500 bg-white text-mainDarkGray rounded transition duration-200"
                                     />
                                     <input
                                         type="email"
@@ -158,7 +158,7 @@ const CartPage = () => {
                                         value={orderDetails.email}
                                         onChange={handleInputChange}
                                         placeholder="Email"
-                                        className="w-full p-2 border border-gray-300 rounded"
+                                        className="w-full px-4 py-2 border border-mainDarkGray focus:outline-none focus:border-blue-500 bg-white text-mainDarkGray rounded transition duration-200"
                                     />
                                     <input
                                         type="tel"
@@ -166,7 +166,7 @@ const CartPage = () => {
                                         value={orderDetails.phone}
                                         onChange={handleInputChange}
                                         placeholder="Phone"
-                                        className="w-full p-2 border border-gray-300 rounded"
+                                        className="w-full px-4 py-2 border border-mainDarkGray focus:outline-none focus:border-blue-500 bg-white text-mainDarkGray rounded transition duration-200"
                                     />
                                     <button
                                         onClick={handlePlaceOrder}
