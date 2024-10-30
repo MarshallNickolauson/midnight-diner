@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useCreateBookingMutation } from '../features/booking/bookingApiSlice';
 
 const BookingPage = () => {
     const [name, setName] = useState('');
@@ -16,6 +17,8 @@ const BookingPage = () => {
 
     const { userInfo } = useSelector((state) => state.auth);
 
+    const [createBooking, { isLoading }] = useCreateBookingMutation();
+
     useEffect(() => {
         if (userInfo) {
             setName(userInfo.name);
@@ -24,7 +27,7 @@ const BookingPage = () => {
         }
     }, [userInfo]);
 
-    const handleBookingSubmit = (e) => {
+    const handleBookingSubmit = async (e) => {
         e.preventDefault();
 
         const bookingData = {
@@ -36,9 +39,21 @@ const BookingPage = () => {
             specialRequests,
         };
 
-        console.log('Booking data:', bookingData);
+        try {
+            await createBooking(bookingData).unwrap();
+            setDate('');
+            setTime('')
+            setPartySize('');
+            setSpecialRequests('');
 
-        // Submit booking data to the server here, e.g., via an API call.
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 10);
+
+            // Add confirmation page at booking/success
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const getTodayDate = () => {
@@ -86,7 +101,7 @@ const BookingPage = () => {
             <div className="bg-mainBlack p-8 shadow-lg border-2 border-mainWhite w-[360px] rounded-lg">
                 <h1 className="text-mainWhite text-3xl mb-6 text-center font-semibold">Book a Reservation</h1>
                 <form onSubmit={handleBookingSubmit} className="space-y-6">
-                    
+
                     <div className="justify-center text-center">
                         <p
                             onClick={() => navigate('/booking/search')}

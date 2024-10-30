@@ -2,25 +2,26 @@ import expressAsyncHandler from "express-async-handler";
 import Booking from "../models/bookingModel.js";
 
 // @desc    Get all reservations
-// @route   GET api/booking
+// @route   GET api/booking/:email
 // @access  Public
 export const getAllBookings = expressAsyncHandler(async (req, res) => {
-    const bookings = await Booking.find({});
-    res.json(bookings);
+    if (!req.params.email) return res.status(400).json({ message: 'No email was sent through request params /api/booking/:email' });
+    const bookings = await Booking.find({ email: req.params.email });
+    res.status(200).json(bookings);
 });
 
-// @desc    Get single reservation
-// @route   GET api/booking/:id
-// @access  Public
-export const getBookingById = expressAsyncHandler(async (req, res) => {
-    const booking = await Booking.findById(req.params.id);
-    if (booking) {
-        res.json(booking);
-    } else {
-        res.status(404);
-        throw new Error('Booking not found');
-    }
-});
+// // @desc    Get single reservation - UNNEEDED
+// // @route   GET api/booking/:id
+// // @access  Public
+// export const getBookingById = expressAsyncHandler(async (req, res) => {
+//     const booking = await Booking.findById(req.params.id);
+//     if (booking) {
+//         res.json(booking);
+//     } else {
+//         res.status(404);
+//         throw new Error('Booking not found');
+//     }
+// });
 
 // @desc    Create reservation
 // @route   POST api/booking
