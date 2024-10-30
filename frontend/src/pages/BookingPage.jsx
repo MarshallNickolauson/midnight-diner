@@ -46,11 +46,7 @@ const BookingPage = () => {
             setPartySize('');
             setSpecialRequests('');
 
-            setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 10);
-
-            // Add confirmation page at booking/success
+            navigate('/booking/success');
         } catch (error) {
             console.log(error);
         }

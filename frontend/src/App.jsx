@@ -12,6 +12,7 @@ import AboutPage from './pages/AboutPage';
 import BookingPage from './pages/BookingPage';
 import BookingSearchPage from './pages/BookingSearchPage';
 import ReviewsPage from './pages/ReviewsPage';
+import BookingSuccessPage from './pages/BookingSuccessPage';
 
 function App() {
 
@@ -27,7 +28,7 @@ function App() {
         <Route path='/about' element={<AboutPage />} />
         <Route path='/booking' element={<BookingPage />} />
         <Route path='/booking/search' element={<BookingSearchPage />} />
-        <Route path='/booking/search' element={<BookingSearchPage />} />
+        <Route path='/booking/success' element={<BookingSuccessPage />} />
         <Route path='/reviews' element={<ReviewsPage />} />
         <Route path='' element={<PrivateRoute />}>
           <Route path='/account' element={<MyAccountPage />} />
