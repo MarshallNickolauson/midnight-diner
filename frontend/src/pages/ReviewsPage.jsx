@@ -3,19 +3,20 @@ import ReviewFormModal from '../components/ReviewFormModal';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useGetReviewsQuery } from '../features/review/reviewApiSlice';
+import ReviewCard from '../components/ReviewCard';
 
 const ReviewsPage = () => {
     const [isReviewModalOpen, setReviewModalOpen] = useState(false);
-    
+
     const { userInfo } = useSelector((state) => state.auth);
-    
+
     const navigate = useNavigate();
 
     const { data: reviews = [], isLoading } = useGetReviewsQuery();
 
     useEffect(() => {
         if (reviews.length > 0) {
-            
+            console.log(reviews);
         }
     }, [reviews]);
 
@@ -47,9 +48,20 @@ const ReviewsPage = () => {
                 </div>
             </div>
 
-            <div className='flex flex-col items-center mt-5'>
-                {/* Replace with actual loading logic */}
-                <h3 className="text-lg text-mainBlack mt-5">Reviews will go here</h3>
+            <div className="review-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-8 px-10">
+                {isLoading ? (
+                    <p>Loading reviews...</p>
+                ) : (
+                    reviews.map((review) => (
+                        <ReviewCard
+                            key={review.id}
+                            name={review.name}
+                            rating={review.rating}
+                            comment={review.comment}
+                            updatedAt={review.updatedAt}
+                        />
+                    ))
+                )}
             </div>
 
             <ReviewFormModal
