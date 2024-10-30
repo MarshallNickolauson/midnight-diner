@@ -10,6 +10,7 @@ import MenuPage from './pages/MenuPage';
 import CartPage from './pages/CartPage';
 import AboutPage from './pages/AboutPage';
 import BookingPage from './pages/BookingPage';
+import BookingSearchPage from './pages/BookingSearchPage';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path='/myBag' element={<CartPage />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path='/booking' element={<BookingPage />} />
+        <Route path='/booking/search' element={<BookingSearchPage />} />
         <Route path='' element={<PrivateRoute />}>
           <Route path='/account' element={<MyAccountPage />} />
         </Route>
