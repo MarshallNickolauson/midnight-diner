@@ -12,9 +12,17 @@ export const cartApiSlice = apiSlice.injectEndpoints({
                 credentials: 'include',
             }),
         }),
+        deleteCartItem: builder.mutation({
+            query: ({ menuItemId }) => ({
+                url: `${CART_URL}/${menuItemId}`,
+                method: 'DELETE',
+                credentials: 'include',
+            })
+        }),
     }),
 });
 
 export const {
     useUpdateCartMutation,
+    useDeleteCartItemMutation,
 } = cartApiSlice;

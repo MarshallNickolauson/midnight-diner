@@ -6,7 +6,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import { addItemToCart, clearCart, clearSpecificItemFromCart, removeItemFromCart } from '../features/cart/cartSlice';
 import { useCreateOrderMutation } from '../features/order/orderApiSlice';
-import { useUpdateCartMutation } from '../features/cart/cartApiSlice';
+import { useDeleteCartItemMutation, useUpdateCartMutation } from '../features/cart/cartApiSlice';
 
 const CartPage = () => {
     const navigate = useNavigate();
@@ -16,6 +16,7 @@ const CartPage = () => {
     const menuItems = useSelector((state) => state.cart.menuItems);
 
     const [updateCart] = useUpdateCartMutation();
+    const [deleteCartItem] = useDeleteCartItemMutation();
     const [placeOrder, { isLoading }] = useCreateOrderMutation();
 
     const fullImageUrl = `http://localhost:5000/assets/`;
@@ -41,7 +42,9 @@ const CartPage = () => {
 
     const deleteMenuItem = (item) => {
         dispatch(clearSpecificItemFromCart(item));
-        // Make api call
+        if (userInfo) {
+            deleteCartItem({ menuItemId: item._id });
+        }        
     }
 
     const handlePlaceOrder = async () => {

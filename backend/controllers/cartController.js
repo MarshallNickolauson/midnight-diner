@@ -88,3 +88,37 @@ export const updateCart = expressAsyncHandler(async (req, res) => {
     await cart.save();
     res.status(200).json(cart);
 });
+
+// @desc    Delete all quantities of a specific item from the cart
+// @route   DELETE /api/cart/item/:menuItemId
+// @access  Private
+export const deleteCartItem = expressAsyncHandler(async (req, res) => {
+    const { menuItemId } = req.params;
+
+    console.log(`Received request to delete item from cart: ${menuItemId}`);
+
+    if (!menuItemId) {
+        return res.status(400).json({ message: 'Menu item ID is required' });
+    }
+
+    let cart = await Cart.findOne({ user: req.user._id });
+    if (!cart) {
+        return res.status(404).json({ message: 'Cart not found' });
+    }
+
+    const existingItemIndex = cart.items.findIndex(item => item.menuItem._id.toString() === menuItemId);
+
+    if (existingItemIndex === -1) {
+        return res.status(404).json({ message: 'Item not found in cart' });
+    }
+
+    cart.items.splice(existingItemIndex, 1);
+
+    cart.totalPrice = cart.items.reduce((total, item) => {
+        const price = item.menuItem.salePrice > 0 ? item.menuItem.salePrice : item.menuItem.price;
+        return total + price * item.quantity;
+    }, 0);
+
+    await cart.save();
+    res.status(200).json(cart);
+});

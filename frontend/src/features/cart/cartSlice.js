@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
+import { cartApiSlice } from "./cartApiSlice";
 
 const initialState = {
     menuItems: localStorage.getItem('midnightDinerCustomerCart')
@@ -33,7 +34,7 @@ const cartSlice = createSlice({
         removeItemFromCart: (state, action) => {
             const menuItem = action.payload;
             const existingItemIndex = state.menuItems.findIndex(item => item._id === menuItem._id);
-            
+
             if (existingItemIndex > -1) {
                 if (state.menuItems[existingItemIndex].quantity > 1) {
                     state.menuItems[existingItemIndex].quantity--;
@@ -84,12 +85,34 @@ const cartSlice = createSlice({
                     quantity: cartItem.quantity
                 }));
 
-                localStorage.setItem('midnightDinerCustomerCart', JSON.stringify(action.payload.items));
+                localStorage.setItem('midnightDinerCustomerCart', JSON.stringify(state.menuItems));
             })
             .addCase(getUserCart.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
-            });
+            })
+            .addMatcher(
+                cartApiSlice.endpoints.deleteCartItem.matchFulfilled,
+                (state, action) => {
+                    state.menuItems = action.payload.items.map(cartItem => ({
+                        _id: cartItem.menuItem._id,
+                        name: cartItem.menuItem.name,
+                        description: cartItem.menuItem.description,
+                        price: cartItem.menuItem.price,
+                        salePrice: cartItem.menuItem.salePrice,
+                        category: cartItem.menuItem.category,
+                        ingredients: cartItem.menuItem.ingredients,
+                        imageUrl: cartItem.menuItem.imageUrl,
+                        availability: cartItem.menuItem.availability,
+                        prepTime: cartItem.menuItem.prepTime,
+                        featured: cartItem.menuItem.featured,
+                        updatedAt: cartItem.menuItem.updatedAt,
+                        quantity: cartItem.quantity
+                    }));
+                    localStorage.setItem('midnightDinerCustomerCart', JSON.stringify(state.menuItems));
+                }
+            )
+
     }
 });
 
