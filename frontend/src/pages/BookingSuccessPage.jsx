@@ -1,22 +1,31 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const BookingSuccessPage = () => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const scrollTimeout = setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 10);
+
+        return () => clearTimeout(scrollTimeout);
+    }, []);
 
     const handleGoHome = () => {
         navigate('/');
     };
 
     return (
-        <div className="flex justify-center items-start py-10 pb-52 bg-mainDarkGray">
-            <div className="bg-mainBlack p-8 shadow-lg border-2 border-mainWhite w-[360px] rounded-lg text-center">
-                <h1 className="text-mainWhite text-3xl mb-6 font-semibold">Booking Confirmed!</h1>
-                <p className="text-mainWhite mb-6">
+        <div className="flex justify-center items-start py-10 min-h-screen bg-mainWhite">
+            <div className="bg-white p-8 shadow-lg border-2 border-mainDarkGray w-[360px] rounded-lg text-center">
+                <h1 className="text-mainDarkGray text-[1.8rem] mb-6 font-semibold">Booking Confirmed!</h1>
+                <p className="text-mainDarkGray mb-6">
                     Your reservation has been successfully placed. You’ll receive a confirmation email and text shortly.
                 </p>
                 <button
                     onClick={handleGoHome}
-                    className="bg-mainYellow border-2 border-transparent hover:border-mainWhite text-mainBlack font-semibold py-2 px-6 rounded transition duration-200 hover:bg-mainBlack hover:text-mainYellow"
+                    className="bg-mainYellow border border-mainDarkGray text-mainDarkGray font-semibold py-2 px-6 rounded transition duration-200 hover:bg-mainDarkGray hover:text-darkYellow"
                 >
                     Great!
                 </button>

@@ -111,8 +111,8 @@ const BookingPage = () => {
                         { id: 'name', label: 'Name', type: 'text', value: name, onChange: setName, placeholder: 'Your full name' },
                         { id: 'email', label: 'Email', type: 'email', value: email, onChange: setEmail, placeholder: 'Your email' },
                         { id: 'phone', label: 'Phone', type: 'tel', value: phone, onChange: setPhone, placeholder: 'Your phone number' },
-                        { id: 'date', label: 'Date', type: 'date', value: date, onChange: setDate, placeholder: '', min: getTodayDate() },
                         { id: 'partySize', label: 'Party Size', type: 'number', value: partySize, onChange: setPartySize, placeholder: 'Number of people', min: '1' },
+                        { id: 'date', label: 'Date', type: 'date', value: date, onChange: setDate, placeholder: '', min: getTodayDate() },
                     ].map((field, index) => (
                         <div key={index} className="space-y-3">
                             <label htmlFor={field.id} className="block text-mainDarkGray text-sm">
