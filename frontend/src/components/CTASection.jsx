@@ -1,4 +1,3 @@
-import React from 'react'
 import BlackButtonHollow from './BlackButtonHollow'
 
 const CTASection = () => {

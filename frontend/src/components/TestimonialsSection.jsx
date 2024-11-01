@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import TestimonialCard from './TestimonialCard';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';

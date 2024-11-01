@@ -25,19 +25,15 @@ function Footer() {
   return (
     <footer className="bg-veryDarkBlue">
       <div className="container flex flex-col justify-between px-6 py-10 mx-auto space-y-8 md:flex-row md:space-y-0">
-        
-        {/* Social Media & Logo */}
         <div className="flex flex-col items-center md:items-start md:w-1/3 space-y-6">
-          {/* Logo - hidden on smaller screens */}
           <div className="hidden md:block mb-6">
-            <img 
-              src={logo} 
-              className="w-3/4 max-w-xs lg:max-w-md xl:max-w-lg" 
-              alt="Logo" 
+            <img
+              src={logo}
+              className="w-3/4 max-w-xs lg:max-w-md xl:max-w-lg"
+              alt="Logo"
             />
           </div>
-          
-          {/* Social Icons */}
+
           <div className="flex space-x-4">
             {footerLinks.map((link) => (
               <Link key={link} to="/">
@@ -45,14 +41,12 @@ function Footer() {
               </Link>
             ))}
           </div>
-          
-          {/* Copyright Text - visible only on smaller screens */}
+
           <div className="text-center text-white mt-6 md:hidden">
             Copyright &copy; 2024, All Rights Reserved
           </div>
         </div>
-        
-        {/* Links Section */}
+
         <div className="flex flex-wrap justify-center space-x-8 md:space-x-16 md:w-1/3 text-mainWhite">
           <div className="flex flex-col space-y-3">
             <Link className="hover:underline" to="/">Home</Link>
@@ -66,8 +60,7 @@ function Footer() {
             <Link className="hover:underline" to="/">Privacy Policy</Link>
           </div>
         </div>
-        
-        {/* Subscription Form */}
+
         <div className="hidden md:flex flex-col items-center md:items-end md:w-1/3">
           <form onSubmit={handleSubmit} className="w-full max-w-sm">
             <h1 className="text-mainWhite pb-2 text-center md:text-left">Updates to your inbox:</h1>
@@ -89,8 +82,7 @@ function Footer() {
               </button>
             </div>
           </form>
-          
-          {/* Copyright Text - hidden on smaller screens */}
+
           <div className="hidden text-mainWhite md:block mt-4">
             Copyright &copy; 2024, All Rights Reserved
           </div>

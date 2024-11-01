@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 const MenuItemCardModal = ({ item, isOpen, onClose }) => {
     if (!isOpen || !item) return null;

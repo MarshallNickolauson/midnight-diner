@@ -1,6 +1,3 @@
-// ReviewModal.js
-import React from 'react';
-
 const ReviewModal = ({ isOpen, onClose, name, rating, comment, formattedDate }) => {
     if (!isOpen) return null;
 

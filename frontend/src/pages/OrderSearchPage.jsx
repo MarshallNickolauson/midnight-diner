@@ -41,7 +41,6 @@ const OrderSearchPage = () => {
                     >Back to My Bag</p>
                 </div>
                 <form onSubmit={handleSearchSubmit} className="space-y-6">
-                    {/* Search Bar */}
                     <div className="space-y-3">
                         <label htmlFor="search" className="block text-mainDarkGray text-sm">
                             Email
@@ -57,7 +56,6 @@ const OrderSearchPage = () => {
                         />
                     </div>
 
-                    {/* Search Button */}
                     <div className="flex justify-center mt-6">
                         <button
                             type="submit"

@@ -38,7 +38,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-    useLoginMutation, // GET will be "useLoginQuery" for something like the profile (delete me)
+    useLoginMutation,
     useLogoutMutation,
     useRegisterMutation,
     useUpdateMutation,

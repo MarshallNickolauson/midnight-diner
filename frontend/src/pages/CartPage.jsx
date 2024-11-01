@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import BlackButtonHollow from '../components/BlackButtonHollow';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -25,7 +25,7 @@ const CartPage = () => {
     const [updateCart] = useUpdateCartMutation();
     const [deleteCartItem] = useDeleteCartItemMutation();
     const [placeOrder, { isLoading }] = useCreateOrderMutation();
-    const [showOrderForm, setShowOrderForm] = useState(false);  // State to control form visibility
+    const [showOrderForm, setShowOrderForm] = useState(false);
 
     const [orderDetails, setOrderDetails] = useState({
         name: userInfo?.name || '',

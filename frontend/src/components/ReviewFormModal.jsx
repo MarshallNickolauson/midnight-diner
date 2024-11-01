@@ -16,14 +16,10 @@ const ReviewFormModal = ({ isOpen, onClose }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle submission logic here, e.g., API call to save the review
         console.log({ rating, comment });
 
         try {
-            const res = await createReview({ rating, comment }).unwrap();
-
-            // for res add it to a state list of reviews.
-
+            await createReview({ rating, comment }).unwrap();
             setRating(1);
             setComment('');
         } catch (error) {
@@ -31,10 +27,6 @@ const ReviewFormModal = ({ isOpen, onClose }) => {
         }
 
         onClose();
-
-        // setTimeout(() => {
-        //     onClose();
-        // }, 10);
     };
 
     const handleOutsideClick = (e) => {
@@ -53,7 +45,6 @@ const ReviewFormModal = ({ isOpen, onClose }) => {
                 <h2 className="text-2xl font-bold text-center text-mainBlack">Leave a Review</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Rating Field */}
                     <div className="flex items-center space-x-2">
                         <label htmlFor="rating" className="w-1/3 text-gray-700">Stars:</label>
                         <select
@@ -68,7 +59,6 @@ const ReviewFormModal = ({ isOpen, onClose }) => {
                         </select>
                     </div>
 
-                    {/* Comment Field */}
                     <div className="flex items-center space-x-2">
                         <label htmlFor="comment" className="w-1/3 text-gray-700">Comment:</label>
                         <textarea
@@ -82,7 +72,6 @@ const ReviewFormModal = ({ isOpen, onClose }) => {
                     </div>
 
                     <div className="flex justify-end space-x-2">
-                        {/* Replace with actual loading logic */}
                         <button
                             type="button"
                             onClick={onClose}

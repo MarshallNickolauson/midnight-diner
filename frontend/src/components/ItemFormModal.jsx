@@ -1,289 +1,156 @@
 import { useEffect, useState } from "react";
 import { useAddMenuItemMutation, useDeleteMenuItemMutation, useUpdateMenuItemMutation } from "../features/menu/menuApiSlice";
-import { ClipLoader } from 'react-spinners';
+import { ClipLoader } from "react-spinners";
 
 const ItemFormModal = ({ isOpen, onClose, item = null }) => {
-    const [addMenuItem, { isLoading: isAdding, isSuccess: isAddSuccess }] = useAddMenuItemMutation();
-    const [updateMenuItem, { isLoading: isUpdating, isSuccess: isUpdateSuccess }] = useUpdateMenuItemMutation();
-    const [deleteMenuItem, { isLoading: isDeleting, isSuccess: isDeleteSuccess }] = useDeleteMenuItemMutation();
+  const [addMenuItem, { isLoading: isAdding }] = useAddMenuItemMutation();
+  const [updateMenuItem, { isLoading: isUpdating }] = useUpdateMenuItemMutation();
+  const [deleteMenuItem, { isLoading: isDeleting }] = useDeleteMenuItemMutation();
 
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
-    const [salePrice, setSalePrice] = useState('');
-    const [category, setCategory] = useState('');
-    const [ingredients, setIngredients] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
-    const [availability, setAvailability] = useState(true);
-    const [prepTime, setPrepTime] = useState('');
-    const [featured, setFeatured] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    price: "",
+    salePrice: "",
+    category: "",
+    ingredients: "",
+    imageUrl: "",
+    availability: true,
+    prepTime: "",
+    featured: false,
+  });
 
-    useEffect(() => {
-        if (item) {
-            setName(item.name || '');
-            setDescription(item.description || '');
-            setPrice(item.price || '');
-            setSalePrice(item.salePrice || '');
-            setCategory(item.category || '');
-            setIngredients(item.ingredients || '');
-            setImageUrl(item.imageUrl || '');
-            setAvailability(item.availability || false);
-            setPrepTime(item.prepTime || '');
-            setFeatured(item.featured || false);
-        } else {
-            setName('');
-            setDescription('');
-            setPrice('');
-            setSalePrice('');
-            setCategory('');
-            setIngredients('');
-            setImageUrl('');
-            setAvailability(true);
-            setPrepTime('');
-            setFeatured(false);
-        }
-    }, [item, isOpen]);
-
-    const handleSubmit = async (e) => {
-            e.preventDefault();
-
-            const formData = {
-                name,
-                description,
-                price,
-                salePrice,
-                category,
-                ingredients,
-                imageUrl,
-                availability,
-                prepTime,
-                featured,
-            };
-
-            try {
-                if (!item) {
-                    await addMenuItem(formData).unwrap();
-                } else {
-                    await updateMenuItem({ _id: item._id, ...formData }).unwrap();
-                }
-            } catch (error) {
-                console.error(error);
-            }
-
-            onClose();
-        };
-
-    const handleDelete = async () => {
-        try {
-            await deleteMenuItem({ _id: item._id }).unwrap();
-        } catch (error) {
-            console.log(error);
-        }
-        onClose();
+  useEffect(() => {
+    if (item) {
+      setFormData({ ...formData, ...item });
+    } else {
+      setFormData({
+        name: "",
+        description: "",
+        price: "",
+        salePrice: "",
+        category: "",
+        ingredients: "",
+        imageUrl: "",
+        availability: true,
+        prepTime: "",
+        featured: false,
+      });
     }
+  }, [item, isOpen]);
 
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (e.key === 'Escape') {
-                onClose();
-            }
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [onClose]);
+  const handleChange = (e) => {
+    const { id, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: type === "checkbox" ? checked : value,
+    }));
+  };
 
-    const handleOutsideClick = (e) => {
-        if (e.target.classList.contains('modal-overlay')) {
-            onClose();
-        }
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (!item) {
+        await addMenuItem(formData).unwrap();
+      } else {
+        await updateMenuItem({ _id: item._id, ...formData }).unwrap();
+      }
+      onClose();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    if (!isOpen) return null;
+  const handleDelete = async () => {
+    try {
+      await deleteMenuItem({ _id: item._id }).unwrap();
+      onClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    return (
-        <div
-            onClick={handleOutsideClick}
-            className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 modal-overlay">
-            <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 space-y-6 max-h-[85vh] overflow-y-auto">
-                <h2 className="text-2xl font-bold text-center text-mainBlack">
-                    {item ? 'Edit Menu Item' : 'Add New Menu Item'}
-                </h2>
+  const handleOutsideClick = (e) => {
+    if (e.target.classList.contains("modal-overlay")) {
+      onClose();
+    }
+  };
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+  if (!isOpen) return null;
 
-                    {/* Name Field */}
-                    <div className="flex items-center space-x-2">
-                        <label htmlFor="name" className="w-1/3 text-gray-700">Name:</label>
-                        <input
-                            type="text"
-                            id="name"
-                            required
-                            placeholder="Name"
-                            onChange={(e) => setName(e.target.value)}
-                            value={name}
-                            className="w-2/3 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
+  const fields = [
+    { id: "name", label: "Name", type: "text", placeholder: "Name", required: true },
+    { id: "description", label: "Description", type: "text", placeholder: "Description", required: true },
+    { id: "price", label: "Price", type: "number", placeholder: "Price", min: "0", step: "0.01", required: true },
+    { id: "salePrice", label: "Sale Price", type: "number", placeholder: "Sale Price", min: "0", step: "0.01" },
+    { id: "category", label: "Category", type: "text", placeholder: "Category", required: true },
+    { id: "ingredients", label: "Ingredients", type: "text", placeholder: "Ingredients" },
+    { id: "imageUrl", label: "Image URL", type: "text", placeholder: "Image URL" },
+    { id: "prepTime", label: "Prep Time (min)", type: "number", placeholder: "Whole Number", min: "0", required: true },
+  ];
 
-                    {/* Description Field */}
-                    <div className="flex items-center space-x-2">
-                        <label htmlFor="description" className="w-1/3 text-gray-700">Description:</label>
-                        <input
-                            type="text"
-                            id="description"
-                            required
-                            placeholder="Description"
-                            onChange={(e) => setDescription(e.target.value)}
-                            value={description}
-                            className="w-2/3 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
+  return (
+    <div onClick={handleOutsideClick} className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 modal-overlay">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 space-y-6 max-h-[85vh] overflow-y-auto">
+        <h2 className="text-2xl font-bold text-center text-mainBlack">
+          {item ? "Edit Menu Item" : "Add New Menu Item"}
+        </h2>
 
-                    {/* Price Field */}
-                    <div className="flex items-center space-x-2">
-                        <label htmlFor="price" className="w-1/3 text-gray-700">Price:</label>
-                        <input
-                            type="number"
-                            id="price"
-                            required
-                            placeholder="Price"
-                            min="0"
-                            step="0.01"
-                            onChange={(e) => setPrice(e.target.value)}
-                            value={price}
-                            className="w-2/3 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-
-                    {/* Sale Price Field */}
-                    <div className="flex items-center space-x-2">
-                        <label htmlFor="salePrice" className="w-1/3 text-gray-700">Sale Price:</label>
-                        <input
-                            type="number"
-                            id="salePrice"
-                            placeholder="Sale Price (not required)"
-                            min="0"
-                            step="0.01"
-                            onChange={(e) => setSalePrice(e.target.value)}
-                            value={salePrice}
-                            className="w-2/3 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-
-                    {/* Category Field */}
-                    <div className="flex items-center space-x-2">
-                        <label htmlFor="category" className="w-1/3 text-gray-700">Category:</label>
-                        <input
-                            type="text"
-                            id="category"
-                            required
-                            placeholder="Category"
-                            onChange={(e) => setCategory(e.target.value)}
-                            value={category}
-                            className="w-2/3 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-
-                    {/* Ingredients Field */}
-                    <div className="flex items-center space-x-2">
-                        <label htmlFor="ingredients" className="w-1/3 text-gray-700">Ingredients:</label>
-                        <input
-                            type="text"
-                            id="ingredients"
-                            placeholder="Ingredients"
-                            onChange={(e) => setIngredients(e.target.value)}
-                            value={ingredients}
-                            className="w-2/3 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-
-                    {/* Image URL Field */}
-                    <div className="flex items-center space-x-2">
-                        <label htmlFor="imageUrl" className="w-1/3 text-gray-700">Image URL:</label>
-                        <input
-                            type="text"
-                            id="imageUrl"
-                            placeholder="image url"
-                            onChange={(e) => setImageUrl(e.target.value)}
-                            value={imageUrl}
-                            className="w-2/3 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-
-                    {/* Prep Time Field */}
-                    <div className="flex items-center space-x-2">
-                        <label htmlFor="prepTime" className="w-1/3 text-gray-700">Prep Time (min):</label>
-                        <input
-                            type="number"
-                            id="prepTime"
-                            required
-                            placeholder="Whole Number"
-                            min="0"
-                            onChange={(e) => setPrepTime(e.target.value)}
-                            value={prepTime}
-                            className="w-2/3 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-
-                    {/* Availability Checkbox */}
-                    <div className="flex items-center space-x-2">
-                        <label htmlFor="availability" className="w-1/3 text-gray-700">Available:</label>
-                        <input
-                            type="checkbox"
-                            id="availability"
-                            checked={availability}
-                            onChange={(e) => setAvailability(e.target.checked)}
-                            className="h-5 w-5"
-                        />
-                    </div>
-
-                    {/* Featured Checkbox */}
-                    <div className="flex items-center space-x-2">
-                        <label htmlFor="featured" className="w-1/3 text-gray-700">Featured:</label>
-                        <input
-                            type="checkbox"
-                            id="featured"
-                            checked={featured}
-                            onChange={(e) => setFeatured(e.target.checked)}
-                            className="h-5 w-5"
-                        />
-                    </div>
-
-                    <div className="flex justify-end space-x-2">
-
-                        {(isAdding || isUpdating || isDeleting) && (
-                            <ClipLoader color="#36d7b7" loading={isAdding || isUpdating || isDeleting} size={40} />
-                        )}
-
-                        <button
-                            type="button"
-                            onClick={onClose}
-                            className="px-4 py-2 bg-gray-300 text-mainBlack rounded hover:bg-gray-400 w-24"
-                        >
-                            Cancel
-                        </button>
-                        {item && (
-                            <button
-                                type="button"
-                                onClick={handleDelete}
-                                className="px-4 py-2 bg-red-500 text-mainBlack rounded hover:bg-red-600 w-24"
-                            >
-                                Delete
-                            </button>
-                        )}
-                        <button
-                            type="submit"
-                            className="px-4 py-2 bg-mainYellow text-mainBlack rounded hover:bg-yellow-500 w-24"
-                        >
-                            {item ? 'Save' : 'Submit'}
-                        </button>
-                    </div>
-                </form>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {fields.map(({ id, label, type, ...rest }) => (
+            <div key={id} className="flex items-center space-x-2">
+              <label htmlFor={id} className="w-1/3 text-gray-700">{label}:</label>
+              <input
+                id={id}
+                type={type}
+                value={formData[id]}
+                onChange={handleChange}
+                className="w-2/3 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                {...rest}
+              />
             </div>
-        </div>
-    );
+          ))}
+
+          {/* Checkboxes */}
+          <div className="flex items-center space-x-2">
+            <label htmlFor="availability" className="w-1/3 text-gray-700">Available:</label>
+            <input
+              type="checkbox"
+              id="availability"
+              checked={formData.availability}
+              onChange={handleChange}
+              className="h-5 w-5"
+            />
+          </div>
+          <div className="flex items-center space-x-2">
+            <label htmlFor="featured" className="w-1/3 text-gray-700">Featured:</label>
+            <input
+              type="checkbox"
+              id="featured"
+              checked={formData.featured}
+              onChange={handleChange}
+              className="h-5 w-5"
+            />
+          </div>
+
+          <div className="flex justify-end space-x-2">
+            {(isAdding || isUpdating || isDeleting) && <ClipLoader color="#36d7b7" size={40} />}
+            <button type="button" onClick={onClose} className="px-4 py-2 bg-gray-300 text-mainBlack rounded hover:bg-gray-400 w-24">
+              Cancel
+            </button>
+            {item && (
+              <button type="button" onClick={handleDelete} className="px-4 py-2 bg-red-500 text-mainBlack rounded hover:bg-red-600 w-24">
+                Delete
+              </button>
+            )}
+            <button type="submit" className="px-4 py-2 bg-mainYellow text-mainBlack rounded hover:bg-yellow-500 w-24">
+              {item ? "Save" : "Submit"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default ItemFormModal;
