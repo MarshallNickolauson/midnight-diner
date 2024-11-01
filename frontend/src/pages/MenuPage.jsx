@@ -43,17 +43,7 @@ const MenuPage = () => {
         <div className='bg-mainWhite py-3'>
             <div className={`flex flex-col justify-center text-center ${isItemFormModalOpen ? 'pointer-events-none' : ''}`}>                
                 <h1 className='text-[3rem] text-mainBlack font-bold'>COMFORT FOOD YOU <span className='text-mainRed'>LOVE</span></h1>
-                <h1 className='text-[1.5rem]'>Wholesome flavors that feel like home.</h1>
-
-                <button
-                    type="button"
-                    onClick={() => setItemFormModalOpen(true)}
-                    className="absolute right-5 top-[110px] bg-mainYellow w-32 hover:bg-yellow-500 hover:text-mainYellow cursor-pointer border-2 border-mainYellow transition-all duration-300 ease-in-out group py-3 shadow-gray-300 shadow-md"
-                >
-                    <h1 className="text-mainBlack text-lg">
-                        Add Item
-                    </h1>
-                </button>
+                <h1 className='text-[1.5rem]'>Wholesome flavors that feel like home - <span onClick={() => setItemFormModalOpen(true)} className='underline cursor-pointer'>Add Item</span></h1>
             </div>
             
             <div className='flex flex-col space-y-2'>

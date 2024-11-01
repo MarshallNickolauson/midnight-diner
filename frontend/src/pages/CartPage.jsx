@@ -94,39 +94,73 @@ const CartPage = () => {
                 <div className='flex justify-center mt-5'>
                     <BlackButtonHollow title='View Menu' navigateTo='/menu' width='160' />
                 </div>
-                <div className="flex flex-col items-center mt-5">
+
+                <div className="flex flex-wrap justify-center gap-4 mt-5">
                     {menuItems.length > 0 ? (
                         menuItems.map((item) => (
-                            <div key={item.id} className="flex flex-col md:flex-row bg-white shadow-gray-400 shadow-md rounded-lg p-4 m-2 w-3/4">
-                                <img src={`${fullImageUrl}${item.imageUrl}`} alt={item.name} className="w-[145px] h-[145px] object-cover rounded-md md:mr-4 shadow-mainBlack shadow-md" />
-                                <div className="flex flex-col justify-between space-y-3 w-full">
-                                    <div className='flex flex-col justify-between h-full text-left'>
-                                        <div className='flex flex-row justify-between'>
-                                            <h2 className="text-xl font-bold text-mainBlack tracking-wide">{item.name}</h2>
-                                            <FaTrashAlt size={18} className='cursor-pointer' color='#DA4569' onClick={() => deleteMenuItem(item)} />
+                            <div
+                                key={item.id}
+                                className="flex flex-col md:flex-row bg-white shadow-gray-400 shadow-md rounded-lg p-4 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3"
+                            >
+                                <img
+                                    src={`${fullImageUrl}${item.imageUrl}`}
+                                    alt={item.name}
+                                    className="hidden md:block w-[145px] h-[145px] object-cover rounded-md shadow-mainBlack shadow-md mb-4 md:mb-0 md:mr-4"
+                                />
+                                <div className="flex flex-col justify-between w-full">
+                                    <div className="flex flex-col justify-between h-full text-left space-y-2">
+                                        <div className="flex flex-row justify-between">
+                                            <h2 className="text-lg md:text-xl font-bold text-mainBlack tracking-wide">
+                                                {item.name}
+                                            </h2>
+                                            <FaTrashAlt
+                                                size={18}
+                                                className="cursor-pointer"
+                                                color="#DA4569"
+                                                onClick={() => deleteMenuItem(item)}
+                                            />
                                         </div>
-                                        <p className="text-gray-600 line-clamp-1 text-left">{item.description}</p>
+                                        <p className="text-gray-600 text-sm md:text-base line-clamp-1">
+                                            {item.description}
+                                        </p>
                                         <div>
-                                            <p onClick={() => console.log('Read more button')} className='inline-block text-blue-500 cursor-pointer hover:underline'>Read More</p>
+                                            <p
+                                                onClick={() => console.log('Read more button')}
+                                                className="inline-block text-blue-500 text-sm md:text-base cursor-pointer hover:underline"
+                                            >
+                                                Read More
+                                            </p>
                                         </div>
                                         <div className="flex justify-between items-center">
                                             <span className="text-lg font-semibold">
                                                 {item.salePrice > 0 ? (
                                                     <>
-                                                        <span className="text-mainRed">${(item.salePrice * item.quantity).toFixed(2)}</span>
-                                                        <span className="line-through text-gray-500 pl-2">${(item.price * item.quantity).toFixed(2)}</span>
+                                                        <span className="text-mainRed">
+                                                            ${(item.salePrice * item.quantity).toFixed(2)}
+                                                        </span>
+                                                        <span className="line-through text-gray-500 pl-2">
+                                                            ${(item.price * item.quantity).toFixed(2)}
+                                                        </span>
                                                     </>
                                                 ) : (
-                                                    <span className="text-mainRed">${(item.price * item.quantity).toFixed(2)}</span>
+                                                    <span className="text-mainRed">
+                                                        ${(item.price * item.quantity).toFixed(2)}
+                                                    </span>
                                                 )}
                                             </span>
-                                            <div className='flex flex-row space-x-3'>
-                                                <div className='inline-block' onClick={() => removeItem(item)}>
-                                                    <FaMinus size={18} className='mt-[6px] cursor-pointer' />
+                                            <div className="flex flex-row space-x-3 items-center">
+                                                <div onClick={() => removeItem(item)}>
+                                                    <FaMinus
+                                                        size={18}
+                                                        className="cursor-pointer hover:text-mainRed transition duration-200"
+                                                    />
                                                 </div>
                                                 <p className="text-mainDarkGray text-lg">Qty: {item.quantity}</p>
-                                                <div className='inline-block' onClick={() => addItem(item)}>
-                                                    <FaPlus size={18} className='mt-[6px] cursor-pointer' />
+                                                <div onClick={() => addItem(item)}>
+                                                    <FaPlus
+                                                        size={18}
+                                                        className="cursor-pointer hover:text-mainRed transition duration-200"
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
@@ -135,9 +169,11 @@ const CartPage = () => {
                             </div>
                         ))
                     ) : (
-                        <h1 className='text-[1.2rem]'>Items will appear here!</h1>
+                        <h1 className="text-[1.2rem]">Items will appear here!</h1>
                     )}
                 </div>
+
+
                 {menuItems.length > 0 && (
                     <div className="flex flex-col items-center mt-5">
                         <h2 className="text-2xl font-bold text-mainBlack">Total: ${totalPrice}</h2>

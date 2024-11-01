@@ -9,7 +9,9 @@ const MyAccountPage = () => {
   const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 10)
   }, [location]);
 
   const [name, setName] = useState('');
@@ -17,6 +19,9 @@ const MyAccountPage = () => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [updatedMessage, setUpdatedMessage] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,7 +40,7 @@ const MyAccountPage = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      console.log('Passwords don\'t match');
+      setPasswordsMatch(false);
     } else {
       try {
         const res = await updateProfile({
@@ -48,6 +53,13 @@ const MyAccountPage = () => {
         dispatch(setCredentials({ ...res }));
         setPassword('');
         setConfirmPassword('');
+        setPasswordsMatch(true);
+        setUpdatedMessage(true);
+
+        setTimeout(() => {
+          window.scroll({ behavior: 'smooth', top: '0' });
+        }, 10)
+
       } catch (err) {
         console.log(err?.data?.message || err.error);
       }
@@ -71,6 +83,13 @@ const MyAccountPage = () => {
     <div className="flex justify-center items-start py-10 min-h-screen bg-mainWhite">
       <div className="bg-white p-8 shadow-lg border-2 border-mainDarkGray w-[360px] rounded-lg">
         <h1 className="text-mainDarkGray text-[1.8rem] mb-6 text-center font-semibold">My Account</h1>
+
+        {updatedMessage && (
+          <div className="text-green-500 text-sm mb-4 text-center">
+            Profile Updated!
+          </div>
+        )}
+
         <form onSubmit={handleUpdateUser} className="space-y-6">
           {[
             { id: 'name', label: 'Name', type: 'text', value: name, onChange: setName, placeholder: 'Your full name' },
@@ -94,6 +113,12 @@ const MyAccountPage = () => {
               />
             </div>
           ))}
+
+          {!passwordsMatch && (
+            <div className="text-red-500 text-sm mb-4 text-center">
+              Passwords must match
+            </div>
+          )}
 
           <div className="flex justify-center mt-6">
             <button

@@ -9,7 +9,9 @@ const LoginPage = () => {
     const location = useLocation();
 
     useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 10)
     }, [location]);
 
     const [email, setEmail] = useState('');
@@ -18,13 +20,20 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [login, { isLoading }] = useLoginMutation();
+    const [login, { isLoading, isError }] = useLoginMutation();
 
     const { userInfo } = useSelector((state) => state.auth);
 
     useEffect(() => {
         if (userInfo) navigate('/');
     }, [navigate, userInfo]);
+
+    useEffect(() => {
+        if (isError) {
+            setEmail('');
+            setPassword('');
+        }
+    }, [isError]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -45,6 +54,11 @@ const LoginPage = () => {
         <div className="flex justify-center items-center bg-mainWhite py-20">
             <div className="bg-white p-8 shadow-lg border-2 border-mainDarkGray w-[360px] rounded-lg">
                 <h1 className="text-mainDarkGray text-3xl mb-6 text-center font-semibold">Login</h1>
+                {isError && (
+                    <div className="text-red-500 text-sm mb-4 text-center">
+                        Email or password not found
+                    </div>
+                )}
                 <form onSubmit={handleLogin} className="space-y-6">
                     <div className="space-y-3">
                         <label htmlFor="email" className="block text-mainDarkGray text-sm">
