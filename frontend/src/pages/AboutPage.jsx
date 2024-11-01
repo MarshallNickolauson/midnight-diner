@@ -1,8 +1,16 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import BlackButtonHollow from '../components/BlackButtonHollow'
 
 const AboutPage = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 10)
+    }, [location]);
+
     return (
         <div className='bg-mainWhite py-3 pb-10'>
             <div className='text-center space-y-4'>

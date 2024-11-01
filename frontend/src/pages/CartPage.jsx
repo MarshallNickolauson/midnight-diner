@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import BlackButtonHollow from '../components/BlackButtonHollow';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FaTrashAlt } from "react-icons/fa";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import { addItemToCart, clearCart, clearSpecificItemFromCart, removeItemFromCart } from '../features/cart/cartSlice';
@@ -9,6 +9,14 @@ import { useCreateOrderMutation } from '../features/order/orderApiSlice';
 import { useDeleteCartItemMutation, useUpdateCartMutation } from '../features/cart/cartApiSlice';
 
 const CartPage = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 10)
+    }, [location]);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { userInfo } = useSelector((state) => state.auth);

@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import { useGetBookingsMutation } from '../features/booking/bookingApiSlice';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const BookingSearchPage = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 10)
+    }, [location]);
+
     const [email, setEmail] = useState('');
     const [searched, setSearched] = useState(false);
     const [bookings, setBookings] = useState([]);

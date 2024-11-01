@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const BookingSuccessPage = () => {
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const scrollTimeout = setTimeout(() => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 10);
+    const location = useLocation();
 
-        return () => clearTimeout(scrollTimeout);
-    }, []);
+    useEffect(() => {
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 10)
+    }, [location]);
 
     const handleGoHome = () => {
         navigate('/');

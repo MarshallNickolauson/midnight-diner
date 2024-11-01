@@ -4,8 +4,17 @@ import MenuItemCarousel from '../components/MenuItemCarousel';
 import ItemFormModal from '../components/ItemFormModal';
 import MenuItemCardModal from '../components/MenuItemCardModal';
 import { ClipLoader } from 'react-spinners';
+import { useLocation } from 'react-router-dom';
 
 const MenuPage = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 10)
+    }, [location]);
+
     const [isItemFormModalOpen, setItemFormModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [editItem, setEditItem] = useState(null);
@@ -41,11 +50,11 @@ const MenuPage = () => {
 
     return (
         <div className='bg-mainWhite py-3'>
-            <div className={`flex flex-col justify-center text-center ${isItemFormModalOpen ? 'pointer-events-none' : ''}`}>                
+            <div className={`flex flex-col justify-center text-center ${isItemFormModalOpen ? 'pointer-events-none' : ''}`}>
                 <h1 className='text-[3rem] text-mainBlack font-bold'>COMFORT FOOD YOU <span className='text-mainRed'>LOVE</span></h1>
                 <h1 className='text-[1.5rem]'>Wholesome flavors that feel like home - <span onClick={() => setItemFormModalOpen(true)} className='underline cursor-pointer'>Add Item</span></h1>
             </div>
-            
+
             <div className='flex flex-col space-y-2'>
                 {isLoading ? (
                     <div className="flex items-center justify-center h-screen">
@@ -64,11 +73,11 @@ const MenuPage = () => {
                 )}
             </div>
 
-            <ItemFormModal 
-                isOpen={isItemFormModalOpen} 
-                onClose={handleCloseModal} 
-                key={editItem ? editItem._id : 'new'} 
-                item={editItem} 
+            <ItemFormModal
+                isOpen={isItemFormModalOpen}
+                onClose={handleCloseModal}
+                key={editItem ? editItem._id : 'new'}
+                item={editItem}
             />
 
             {selectedItem && (

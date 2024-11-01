@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
 import ReviewFormModal from '../components/ReviewFormModal';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useGetReviewsQuery } from '../features/review/reviewApiSlice';
 import ReviewCard from '../components/ReviewCard';
 
 const ReviewsPage = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 10)
+    }, [location]);
+
     const [isReviewModalOpen, setReviewModalOpen] = useState(false);
 
     const { userInfo } = useSelector((state) => state.auth);
@@ -36,8 +44,6 @@ const ReviewsPage = () => {
                         type="button"
                         onClick={handleOpenReviewModal}
                         className="mt-5 bg-mainYellow w-[180px] border border-mainDarkGray hover:border-mainDarkGray text-mainDarkGray font-semibold py-2 rounded transition duration-200 hover:bg-yellow-500"
-                        // className="bg-mainYellow w-full border border-mainDarkGray hover:border-mainDarkGray text-mainDarkGray font-semibold py-2 rounded transition duration-200 hover:bg-mainDarkGray hover:text-darkYellow"
-
                     >
                         <h1 className="text-mainBlack text-lg">Leave a Review</h1>
                     </button>

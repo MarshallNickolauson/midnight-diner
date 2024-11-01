@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom"
 import AboutSection from "../components/AboutSection"
 import ContactSection from "../components/ContactSection"
 import CTASection from "../components/CTASection"
@@ -7,6 +8,14 @@ import MoodSection from "../components/MoodSection"
 import TestimonialsSection from "../components/TestimonialsSection"
 
 const HomePage = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 10)
+  }, [location]);
+
   return (
     <>
       <HeroSection />
