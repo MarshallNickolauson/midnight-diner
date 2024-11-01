@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGetMenuItemsQuery } from '../features/menu/menuApiSlice';
 import MenuItemCarousel from '../components/MenuItemCarousel';
 import ItemFormModal from '../components/ItemFormModal';
