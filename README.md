@@ -63,7 +63,7 @@ Before you begin, ensure you have the following installed on your machine:
 
 4. **Install MongoDB:**
 
-   Ensure you have MongoDB installed on your local machine as well as MongoDB Compass. When both are installed, run the local MongoDB Server from a terminal.
+   Ensure you have MongoDB installed on your local machine as well as MongoDB Compass. When both are installed, run the local MongoDB Server from a terminal. Use Compass to make a "midnightDiner" database under your "localdb".
 
 5. **Install MongoDB:**
 
