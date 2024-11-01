@@ -1,9 +1,15 @@
 import { apiSlice } from "../../api/apiSlice";
 
-const ORDER_URL = '/api/orders';
+const ORDER_URL = 'http://localhost:5000/api/orders';
 
 export const orderApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
+        getOrders: builder.mutation({
+            query: (data) => ({
+                url: `${ORDER_URL}/${data.email}`,
+                method: 'GET'
+            }),
+        }),
         createOrder: builder.mutation({
             query: (data) => ({
                 url: ORDER_URL,
@@ -14,6 +20,7 @@ export const orderApiSlice = apiSlice.injectEndpoints({
     }),
 });
 
-export const { 
+export const {
+    useGetOrdersMutation,
     useCreateOrderMutation,
 } = orderApiSlice;

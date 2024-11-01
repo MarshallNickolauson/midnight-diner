@@ -14,6 +14,7 @@ import BookingSearchPage from './pages/BookingSearchPage';
 import ReviewsPage from './pages/ReviewsPage';
 import BookingSuccessPage from './pages/BookingSuccessPage';
 import OrderSuccessPage from './pages/OrderSuccessPage';
+import OrderSearchPage from './pages/OrderSearchPage';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/menu' element={<MenuPage />} />
         <Route path='/myBag' element={<CartPage />} />
+        <Route path='/order/search' element={<OrderSearchPage />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path='/booking' element={<BookingPage />} />
         <Route path='/booking/search' element={<BookingSearchPage />} />

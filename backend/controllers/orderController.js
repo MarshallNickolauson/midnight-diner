@@ -6,7 +6,8 @@ import Cart from '../models/cartModel.js';
 // @route   GET /api/orders
 // @access  Public/Private
 export const getOrders = expressAsyncHandler(async (req, res) => {
-    const orders = await Order.find({ email: req.user.email });
+    if (!req.params.email) return res.status(400).json({ message: 'No email was sent through request params /api/booking/:email' });
+    const orders = await Order.find({ email: req.params.email });
     res.status(200).json(orders);
 });
 

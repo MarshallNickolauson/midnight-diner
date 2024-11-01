@@ -92,13 +92,20 @@ const CartPage = () => {
             <div className='text-center'>
                 <h1 className='text-[3rem] text-mainBlack font-bold'>YOUR <span className='text-mainRed'>BAG</span></h1>
                 <h1 className='text-[1.2rem]'>Here you'll see what you've added to your takeout bag.</h1>
-                {!userInfo && (
+                <div className='flex flex-col'>
                     <h1
-                        onClick={() => navigate('/login')}
+                        onClick={() => navigate('/order/search')}
                         className='text-[1rem] mt-5 cursor-pointer inline-block text-blue-500 hover:underline'>
-                        For the best experience, please sign in.
+                        Search for an Order
                     </h1>
-                )}
+                    {!userInfo && (
+                        <h1
+                            onClick={() => navigate('/login')}
+                            className='text-[1rem] mt-5 cursor-pointer inline-block text-blue-500 hover:underline'>
+                            For the best experience, please sign in.
+                        </h1>
+                    )}
+                </div>
                 <div className='flex justify-center mt-5'>
                     <BlackButtonHollow title='View Menu' navigateTo='/menu' width='160' />
                 </div>
