@@ -68,14 +68,14 @@ const OrderSearchPage = () => {
 
                 <div className="mt-8 text-mainDarkGray">
                     {orders.length > 0 ? (
-                        orders.map((booking) => (
-                            <div key={booking._id} className="border border-mainDarkGray p-4 rounded mb-4">
-                                <h2 className="text-lg"><strong>Name:</strong> {booking.name}</h2>
-                                <p><strong>Party Size:</strong> {booking.partySize}</p>
-                                <p><strong>Date:</strong> {new Date(booking.dateTime).toLocaleDateString()}</p>
-                                <p><strong>Time:</strong> {new Date(booking.dateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                                <p><strong>Special Requests:</strong> {booking.specialRequests}</p>
-                                <p><strong>Status:</strong> {booking.status}</p>
+                        orders.map((order) => (
+                            <div key={order._id} className="border border-mainDarkGray p-4 rounded mb-4">
+                                <h2 className="text-lg"><strong>Name:</strong> {order.name}</h2>
+                                <p><strong>Name:</strong> {order.name}</p>
+                                <p><strong>Email:</strong> {order.email}</p>
+                                <p><strong>Phone:</strong> {order.phone}</p>
+                                <p><strong>Total:</strong> {order.totalPrice}</p>
+                                <p><strong>Status:</strong> {order.status}</p>
                             </div>
                         ))
                     ) : (

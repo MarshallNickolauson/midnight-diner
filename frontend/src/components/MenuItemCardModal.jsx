@@ -1,7 +1,14 @@
 import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useUpdateCartMutation } from '../features/cart/cartApiSlice';
+import { addItemToCart } from '../features/cart/cartSlice';
 
 const MenuItemCardModal = ({ item, isOpen, onClose }) => {
     if (!isOpen || !item) return null;
+
+    const dispatch = useDispatch();
+    const { userInfo } = useSelector((state) => state.auth);
+    const [updateCart, { isLoading }] = useUpdateCartMutation();
 
     const fullImageUrl = `http://localhost:5000/assets/${item.imageUrl}`;
 
@@ -24,8 +31,10 @@ const MenuItemCardModal = ({ item, isOpen, onClose }) => {
     }
 
     const addToOrder = () => {
-        console.log(`Update state to add ${item.name} to order`);
-        console.log('If logged in, also send it to the database, else, just the app state and maybe a local storage variable');
+        dispatch(addItemToCart(item));
+        if (userInfo) {
+            updateCart({ menuItemId: item._id, action: 'add' });
+        }
     }
 
     return (
