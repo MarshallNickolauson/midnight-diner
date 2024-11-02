@@ -115,7 +115,7 @@ const CartPage = () => {
                         menuItems.map((item) => (
                             <div
                                 key={item.id}
-                                className="flex flex-col md:flex-row bg-white shadow-gray-400 shadow-md rounded-lg p-4 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3"
+                                className="flex flex-col md:flex-row bg-white shadow-gray-400 shadow-md rounded-lg p-4 w-2/3"
                             >
                                 <img
                                     src={`${fullImageUrl}${item.imageUrl}`}
