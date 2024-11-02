@@ -18,7 +18,7 @@ const MoodSection = () => {
                     <div className='flex flex-col items-end text-mainWhite space-y-8'>
                         <h1 className='font-bold tracking-wider text-3xl'>Dine-In</h1>
                         <p className='text-lg'>For a cozy night out.</p>
-                        <YellowButtonFilled text='Reserve a Table' navigateTo='/reservations' width='200' />
+                        <YellowButtonFilled text='Reserve a Table' navigateTo='/booking' width='200' />
                     </div>
                 </div>
 
@@ -28,7 +28,7 @@ const MoodSection = () => {
                     <div className='flex flex-col items-start text-mainWhite space-y-8'>
                         <h1 className='font-bold tracking-wider text-3xl'>Takeout</h1>
                         <p className='text-lg'>For your favorites to-go.</p>
-                        <YellowButtonFilled text='Order Now' navigateTo='/order' width='200' />
+                        <YellowButtonFilled text='Order Now' navigateTo='/menu' width='200' />
                     </div>
                     <img className="w-64 h-64 object-cover rounded-lg" src={takeoutMeal} alt="Takeout Image" />
                 </div>
