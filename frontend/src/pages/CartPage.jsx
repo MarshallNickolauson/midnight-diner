@@ -93,11 +93,13 @@ const CartPage = () => {
                 <h1 className='text-[3rem] text-mainBlack font-bold'>YOUR <span className='text-mainRed'>BAG</span></h1>
                 <h1 className='text-[1.2rem]'>Here you'll see what you've added to your takeout bag.</h1>
                 <div className='flex flex-col'>
-                    <h1
-                        onClick={() => navigate('/order/search')}
-                        className='text-[1rem] mt-5 cursor-pointer inline-block text-blue-500 hover:underline'>
-                        Search for an Order
-                    </h1>
+                    <div>
+                        <h1
+                            onClick={() => navigate('/order/search')}
+                            className='text-[1rem] mt-5 cursor-pointer inline-block text-blue-500 hover:underline'>
+                            Search for an Order
+                        </h1>
+                    </div>
                     {!userInfo && (
                         <h1
                             onClick={() => navigate('/login')}
