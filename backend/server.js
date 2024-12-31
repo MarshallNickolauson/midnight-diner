@@ -6,8 +6,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
-
-dotenv.config();
+dotenv.config({ path: '../.env' });
 const port = process.env.BACKEND_PORT || 5000;
 
 import userRoutes from './routes/userRoutes.js';
@@ -25,11 +24,13 @@ const __dirname = dirname(__filename);
 const app = express();
 
 if (process.env.NODE_ENV === 'development') {
-    app.use(cors({
-        origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-        credentials: true,  
-    }));
+    app.use(
+        cors({
+            origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+            credentials: true,
+        })
+    );
 }
 
 app.use(express.json());
