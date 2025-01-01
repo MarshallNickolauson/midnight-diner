@@ -7,8 +7,8 @@ import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 dotenv.config({ path: '../.env' });
+import multer from 'multer';
 const port = process.env.BACKEND_PORT || 5000;
-
 import userRoutes from './routes/userRoutes.js';
 import menuRoutes from './routes/menuItemRoutes.js';
 import cartRoutes from './routes/cartRoutes.js';
@@ -52,6 +52,27 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/booking', bookingRoutes);
+
+// Multer image uploading
+const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, '/data');
+    },
+    filename: (req, file, callback) => {
+        callback(null, Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({ storage });
+
+app.post('/upload', upload.single('image'), (req, res) => {
+    if (!req.file) return res.status(400).send('No file uploaded.');
+
+    res.send({
+        message: 'Image uploaded successfully!',
+        file: req.file
+    });
+});
 
 app.use(errorHandler);
 
