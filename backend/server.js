@@ -23,15 +23,22 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
-if (process.env.NODE_ENV === 'development') {
-    app.use(
-        cors({
-            origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-            credentials: true,
-        })
-    );
-}
+app.use(
+    cors({
+        origin: (origin, callback) => {
+
+            const allowedOrigins = ['http://localhost:3000', 'http://frontend:3000'];
+
+            if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+                callback(null, true);
+            } else {
+                callback(new Error('CORS policy does not allow access from this origin'), false);
+            }
+        },
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        credentials: true,
+    })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
