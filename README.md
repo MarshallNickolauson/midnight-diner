@@ -17,7 +17,7 @@ Before you begin, ensure you have the following installed on your machine:
    First, clone the repository to your local machine using the following command:
    
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/MarshallNickolauson/midnight-diner.git
    ```
 
 2. **Run Docker Compose:**
