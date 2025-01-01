@@ -8,6 +8,7 @@ services:
       - .env
     depends_on:
       - mongodb
+      - image-storage
     volumes:
       - ./backend:/app
     networks:
@@ -39,9 +40,20 @@ services:
       - mongo-data:/data/db
     networks:
       - app-network
+  
+  image-storage:
+    build:
+      context: ./image-storage
+    ports:
+      - "8080:80"
+    volumes:
+      - image-data:/data
+    networks:
+      - app-network
 
 volumes:
   mongo-data:
+  image-data:
 
 networks:
   app-network:
