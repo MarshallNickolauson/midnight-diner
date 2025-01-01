@@ -8,10 +8,7 @@ Welcome to the Midnight Diner project! This full-stack MERN (MongoDB, Express, R
 
 Before you begin, ensure you have the following installed on your machine:
 
-- **Node.js** (version 14 or later)
-- **npm** (comes with Node.js)
-- **MongoDB** (local server)
-- **MongoDB Compass** (optional, for a GUI interface)
+- **Docker Desktop**
 
 ## Getting Started
 
@@ -23,57 +20,15 @@ Before you begin, ensure you have the following installed on your machine:
    git clone <repository-url>
    ```
 
-2. **Install Dependencies:**
+2. **Run Docker Compose:**
 
    Navigate to the root directory of the project and run:
 
    ```bash
-   npm install
+   docker-compose up --build
    ```
-
-   Next, navigate to the frontend directory:
-
-   ```bash
-   cd frontend
-   ```
-
-   Then, install the frontend dependencies:
-
-   ```bash
-   npm install
-   ```
-
-   Now, navigate back to the root directory:
    
-   ```bash
-   cd ..
-   ```
-
-3. **Configure Environment Variables:**
-
-   Create a .env file in the root directory of the project and add the following environment variables
-
-   ```bash
-   NODE_ENV=development
-   BACKEND_PORT=5000
-   MONGO_URI=mongodb://localhost:27017/midnightDiner
-   JWT_SECRET=test123
-   VITE_BACKEND_URL=http://localhost:5000
-   ```
-
-4. **Install MongoDB:**
-
-   Ensure you have MongoDB installed on your local machine as well as MongoDB Compass. When both are installed, run the local MongoDB Server from a terminal. Use Compass to make a "midnightDiner" database under your "localdb".
-
-5. **Install MongoDB:**
-
-   After ensuring that your MongoDB server is running, navigate back to the root directory of your project and run:
-
-   ```bash
-   npm run dev
-   ```
-
-6. **Open Your Browser:**
+3. **Open Your Browser:**
    
    Open your browser and go to:
 
@@ -82,3 +37,8 @@ Before you begin, ensure you have the following installed on your machine:
    ```
 
    You should see the Midnight Diner application up and running!
+
+
+
+   **You can interact with it completely and everything you do will be saved to the Docker Desktop volume.**
+   **So when you restart, all your changes will persist :)**
