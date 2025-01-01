@@ -15,23 +15,48 @@ Before you begin, ensure you have the following installed on your machine:
 1. **Clone the Repository:**
 
    First, clone the repository to your local machine using the following command:
-
+   
    ```bash
    git clone <repository-url>
    ```
 
 2. **Run Docker Compose:**
 
-   Navigate to the root directory of the project and run:
-
+   In the root directory of the project run:
+   
    ```bash
    docker-compose up --build
    ```
-   
-3. **Open Your Browser:**
-   
-   Open your browser and go to:
 
+2a. **Run Menu Items Seeder:**
+
+   If you're starting the app for the first time, you can populate the menu with items.
+   
+   In the root directory of the project run:
+   
+   ```bash
+   docker-compose exec seeder node /app/menuSeeder.js
+   ```
+
+2b. **Starting and Stopping App:**
+   
+   In the root directory of the project,
+   stop the app containers with:
+   
+   ```bash
+   docker-compose down
+   ```
+   
+   and start the app containers with:
+   
+   ```bash
+   docker-compose up
+   ```
+
+3. **Open Your Browser:**
+
+   Open your browser and go to:
+   
    ```bash
    http://localhost:3000
    ```
