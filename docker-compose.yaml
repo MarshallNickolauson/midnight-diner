@@ -6,15 +6,14 @@ services:
       - "5000:5000"
     env_file:
       - .env
-    depends_on:
-      - mongodb
-      - image-storage
     volumes:
       - ./backend:/app
       - image-data:/data
     networks:
       - app-network
-  
+    entrypoint: /app/wait-for-mongo.sh
+    command: ["sh", "-c", "node menuSeeder.js & node server.js"]
+
   frontend:
     build:
       context: ./frontend

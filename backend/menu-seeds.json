@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Classic Midnight Burger",
+        "description": "A juicy beef patty with lettuce, tomato, and Midnight sauce on a toasted bun. Topped with crisp lettuce and ripe tomatoes, this burger offers a fresh crunch in every bite. The unique Midnight sauce adds a rich, savory flavor that elevates the entire experience. Served on a toasted bun, this burger is designed to satisfy your cravings and leave you wanting more. Whether you're enjoying a late-night snack or a hearty meal, the Classic Midnight Burger is the perfect choice to delight your taste buds.",
+        "price": 11.99,
+        "salePrice": 6.99,
+        "category": "Burgers",
+        "ingredients": "beef patty, lettuce, tomato, Midnight sauce, bun",
+        "availability": true,
+        "prepTime": 15,
+        "featured": true,
+        "image_file": "classic-midnight-burger.jpg"
+    }
+]

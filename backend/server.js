@@ -54,6 +54,10 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/booking', bookingRoutes);
 
+app.get('/', async (req, res) => {
+    res.send('Works');
+});
+
 // Multer image uploading
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
