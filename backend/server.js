@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 dotenv.config({ path: '../.env' });
 import multer from 'multer';
+import fs from 'fs';
 const port = process.env.BACKEND_PORT || 5000;
 import userRoutes from './routes/userRoutes.js';
 import menuRoutes from './routes/menuItemRoutes.js';
@@ -71,6 +72,22 @@ app.post('/upload', upload.single('image'), (req, res) => {
     res.send({
         message: 'Image uploaded successfully!',
         file: req.file
+    });
+});
+
+app.delete('/upload/:filename', (req, res) => {
+    const { filename } = req.params;
+    const filePath = path.join('/data', filename);
+
+    fs.unlink(filePath, (err) => {
+        if (err) {
+            console.error(`Error deleting file: ${err.message}`);
+            console.error(`Stack Trace: ${err.stack}`);
+
+            return res.status(500).json({ message: 'Failed to delete the file.', error: err.message });
+        }
+
+        res.json({ message: 'File deleted successfully!' });
     });
 });
 

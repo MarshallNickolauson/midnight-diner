@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { useAddMenuItemMutation, useDeleteMenuItemMutation, useUpdateMenuItemMutation } from "../features/menu/menuApiSlice";
+import { useAddMenuItemMutation, useUpdateMenuItemMutation, useDeleteMenuItemMutation } from "../features/menu/menuApiSlice";
+import { useDeleteImageMutation, useUploadImageMutation } from '../features/image/imageApi';
 import { ClipLoader } from "react-spinners";
 
 const ItemFormModal = ({ isOpen, onClose, item = null }) => {
   const [addMenuItem, { isLoading: isAdding }] = useAddMenuItemMutation();
   const [updateMenuItem, { isLoading: isUpdating }] = useUpdateMenuItemMutation();
   const [deleteMenuItem, { isLoading: isDeleting }] = useDeleteMenuItemMutation();
+  const [uploadImage, { isLoading: isUploading }] = useUploadImageMutation();
+  const [deleteImage, { isLoading: isImageDeleting }] = useDeleteImageMutation();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -14,10 +17,10 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
     salePrice: "",
     category: "",
     ingredients: "",
-    imageUrl: "",
     availability: true,
     prepTime: "",
     featured: false,
+    imageFile: null,
   });
 
   useEffect(() => {
@@ -31,10 +34,10 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
         salePrice: "",
         category: "",
         ingredients: "",
-        imageUrl: "",
         availability: true,
         prepTime: "",
         featured: false,
+        imageFile: null,
       });
     }
   }, [item, isOpen]);
@@ -47,14 +50,47 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
     }));
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prevData) => ({
+        ...prevData,
+        imageFile: file,
+      }));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.name || !formData.description || !formData.price || !formData.category || !formData.prepTime) {
+      alert("Please fill in all the required fields.");
+      return;
+    }
+
     try {
-      if (!item) {
-        await addMenuItem(formData).unwrap();
-      } else {
-        await updateMenuItem({ _id: item._id, ...formData }).unwrap();
+      let imageUrl = formData.imageFile;
+
+      if (formData.imageFile) {
+        const formDataForImage = new FormData();
+        formDataForImage.append("image", formData.imageFile);
+  
+        const uploadedImage = await uploadImage(formDataForImage).unwrap();
+        imageUrl = uploadedImage.file.path;
       }
+
+      const menuItemData = {
+        ...formData,
+        imageUrl,
+      };
+
+      if (!item) {
+        await addMenuItem(menuItemData).unwrap();
+      } else {
+        const updateData = { _id: item._id, ...menuItemData };
+        await updateMenuItem(updateData).unwrap();
+      }
+
       onClose();
     } catch (error) {
       console.error(error);
@@ -64,6 +100,9 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
   const handleDelete = async () => {
     try {
       await deleteMenuItem({ _id: item._id }).unwrap();
+      if (item.imageUrl) {
+        await deleteImage(String(item.imageUrl).replace('/data/', '')).unwrap();
+      }
       onClose();
     } catch (error) {
       console.log(error);
@@ -85,7 +124,6 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
     { id: "salePrice", label: "Sale Price", type: "number", placeholder: "Sale Price", min: "0", step: "0.01" },
     { id: "category", label: "Category", type: "text", placeholder: "Category", required: true },
     { id: "ingredients", label: "Ingredients", type: "text", placeholder: "Ingredients" },
-    { id: "imageUrl", label: "Image URL", type: "text", placeholder: "Image URL" },
     { id: "prepTime", label: "Prep Time (min)", type: "number", placeholder: "Whole Number", min: "0", required: true },
   ];
 
@@ -111,6 +149,25 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
             </div>
           ))}
 
+          {/* File Input for Image Upload */}
+          <div className="flex items-center space-x-2">
+            <label htmlFor="imageFile" className="w-1/3 text-gray-700">Upload Image:</label>
+            <input
+              id="imageFile"
+              type="file"
+              onChange={handleImageChange}
+              accept="image/*"
+              className="w-2/3 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Image Preview */}
+          {formData.imageFile && (
+            <div className="mt-4">
+              <img src={URL.createObjectURL(formData.imageFile)} alt="Preview" className="w-32 h-32 object-cover" />
+            </div>
+          )}
+
           {/* Checkboxes */}
           <div className="flex items-center space-x-2">
             <label htmlFor="availability" className="w-1/3 text-gray-700">Available:</label>
@@ -134,7 +191,7 @@ const ItemFormModal = ({ isOpen, onClose, item = null }) => {
           </div>
 
           <div className="flex justify-end space-x-2">
-            {(isAdding || isUpdating || isDeleting) && <ClipLoader color="#36d7b7" size={40} />}
+            {(isAdding || isUpdating || isDeleting || isUploading) && <ClipLoader color="#36d7b7" size={40} />}
             <button type="button" onClick={onClose} className="px-4 py-2 bg-gray-300 text-mainBlack rounded hover:bg-gray-400 w-24">
               Cancel
             </button>

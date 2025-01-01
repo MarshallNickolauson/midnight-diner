@@ -10,7 +10,7 @@ const MenuItemCardModal = ({ item, isOpen, onClose }) => {
     const { userInfo } = useSelector((state) => state.auth);
     const [updateCart, { isLoading }] = useUpdateCartMutation();
 
-    const fullImageUrl = `http://localhost:5000/assets/${item.imageUrl}`;
+    const fullImageUrl = `http://localhost:8080/images/${String(item.imageUrl).replace('/data', '')}`;
 
     useEffect(() => {
         const handleKeyDown = (e) => {

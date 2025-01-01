@@ -24,7 +24,7 @@ const MenuItemCard = ({ menuItem, onReadMore, onEdit }) => {
         imageUrl,
     } = menuItem;
 
-    const fullImageUrl = `http://localhost:5000/assets/${imageUrl}`;
+    const fullImageUrl = `http://localhost:8080/images/${String(imageUrl).replace('/data', '')}`;
 
     const addToOrder = () => {
         setIsScaling(true);

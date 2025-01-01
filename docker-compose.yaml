@@ -24,6 +24,8 @@ services:
       - .env
     depends_on:
       - backend
+    environment:
+      - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./frontend:/app
     networks:
