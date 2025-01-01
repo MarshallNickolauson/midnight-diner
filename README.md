@@ -35,7 +35,7 @@ Before you begin, ensure you have the following installed on your machine:
    In the root directory of the project run:
    
    ```bash
-   docker-compose exec seeder node /app/menuSeeder.js
+   docker-compose exec seeder node /app/seeder.js
    ```
 
 2b. **Starting and Stopping App:**
