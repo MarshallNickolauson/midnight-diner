@@ -12,7 +12,7 @@ services:
     networks:
       - app-network
     entrypoint: /app/wait-for-mongo.sh
-    command: ["sh", "-c", "node menuSeeder.js & node server.js"]
+    command: ["sh", "-c", "node server.js"]
 
   frontend:
     build:
