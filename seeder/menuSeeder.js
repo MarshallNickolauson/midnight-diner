@@ -8,7 +8,7 @@ dotenv.config({ path: '../.env' });
 import colors from 'colors';
 import FormData from 'form-data';
 
-import MenuItem from './models/menuItemModel.js';
+import MenuItem from './menuItemModel.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

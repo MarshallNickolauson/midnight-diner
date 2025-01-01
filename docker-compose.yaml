@@ -53,6 +53,15 @@ services:
     networks:
       - app-network
 
+  seeder:
+    build:
+      context: ./seeder
+    env_file:
+      - .env
+    entrypoint: ["sh", "-c", "tail -f /dev/null"]
+    networks:
+      - app-network
+
 volumes:
   mongo-data:
   image-data:
