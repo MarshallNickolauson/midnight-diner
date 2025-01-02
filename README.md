@@ -63,7 +63,15 @@ Before you begin, ensure you have the following installed on your machine:
 
    You should see the Midnight Diner application up and running!
 
+4. **Admin/Customer Accounts:**
 
+   If you ran the seeder command, you can log into the site as as admin with:
+   ```
+   email: 'admin@email.com'
+   password: 'password'
+   ```
+
+   You can also create a new customer account by following the UI links.
 
    **You can interact with it completely and everything you do will be saved to the Docker Desktop volume.**
    **So when you restart, all your changes will persist :)**
