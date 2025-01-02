@@ -8,7 +8,7 @@ Welcome to the Midnight Diner project! This full-stack MERN (MongoDB, Express, R
 
 Before you begin, ensure you have the following installed on your machine:
 
-- **Docker Desktop**
+- **Docker Desktop**  ``` https://www.docker.com/products/docker-desktop/ ```
 
 ## Getting Started
 
