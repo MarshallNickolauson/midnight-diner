@@ -48,7 +48,9 @@ const MenuItemCard = ({ menuItem, onReadMore, onEdit }) => {
                         <p className="text-mainDarkGray line-clamp-2 min-h-[6vh]">{description}</p>
                         <div className='flex justify-between'>
                             <p onClick={() => onReadMore(menuItem)} className='inline-block text-blue-500 cursor-pointer hover:underline'>Read More</p>
-                            <p onClick={() => onEdit(menuItem)} className='inline-block text-blue-500 cursor-pointer hover:underline'>Edit</p>
+                            {userInfo?.isAdmin && (
+                                <p onClick={() => onEdit(menuItem)} className='inline-block text-blue-500 cursor-pointer hover:underline'>Edit</p>
+                            )}
                         </div>
                         <div className='flex flex-row justify-between'>
                             {salePrice > 0 ? (

@@ -19,6 +19,7 @@ export const loginUser = expressAsyncHandler(async (req, res) => {
             email: user.email,
             phone: user.phone,
             cart: user.cart,
+            isAdmin: user.isAdmin,
         });
     } else {
         res.status(401);

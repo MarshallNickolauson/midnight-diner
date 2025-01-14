@@ -5,9 +5,12 @@ import ItemFormModal from '../components/ItemFormModal';
 import MenuItemCardModal from '../components/MenuItemCardModal';
 import { ClipLoader } from 'react-spinners';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const MenuPage = () => {
     const location = useLocation();
+
+    const { userInfo } = useSelector((state) => state.auth);
 
     useEffect(() => {
         setTimeout(() => {
@@ -52,7 +55,11 @@ const MenuPage = () => {
         <div className='bg-mainWhite py-3'>
             <div className={`flex flex-col justify-center text-center ${isItemFormModalOpen ? 'pointer-events-none' : ''}`}>
                 <h1 className='text-[3rem] text-mainBlack font-bold'>COMFORT FOOD YOU <span className='text-mainRed'>LOVE</span></h1>
-                <h1 className='text-[1.5rem]'>Wholesome flavors that feel like home - <span onClick={() => setItemFormModalOpen(true)} className='underline cursor-pointer'>Add Item</span></h1>
+                <h1 className='text-[1.5rem]'>Wholesome flavors that feel like home.
+                    {userInfo?.isAdmin && (
+                        <span onClick={() => setItemFormModalOpen(true)} className='underline cursor-pointer'> Add Item</span>
+                    )}
+                </h1>
             </div>
 
             <div className='flex flex-col space-y-2'>
